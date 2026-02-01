@@ -23,7 +23,7 @@ export default function Cta() {
             <ButtonLink href="#early-access">
               Subscribe to the newsletter <span>&rarr;</span>
             </ButtonLink>
-            <OutlinedButtonLink href="#whitepaper" transparent>
+            <OutlinedButtonLink href="#whitepaper" $transparent>
               Features <span>&rarr;</span>
             </OutlinedButtonLink>
           </ButtonGroup>
@@ -62,21 +62,21 @@ const Stack = styled.div`
   }
 `;
 
-const ButtonLink = styled(NextLink)<{ transparent?: boolean }>`
+const ButtonLink = styled(NextLink)<{ $transparent?: boolean }>`
   border: none;
   background: none;
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  background: ${(p) => (p.transparent ? 'transparent' : 'rgb(var(--primary))')};
+  background: ${(p) => (p.$transparent ? 'transparent' : 'rgb(var(--primary))')};
   padding: 1.75rem 2.25rem;
   font-size: 1.2rem;
-  color: ${(p) => (p.transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
+  color: ${(p) => (p.$transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
   text-transform: uppercase;
   font-family: var(--font);
   font-weight: bold;
   border-radius: 0.4rem;
-  border: ${(p) => (p.transparent ? 'none' : '2px solid rgb(var(--primary))')};
+  border: ${(p) => (p.$transparent ? 'none' : '2px solid rgb(var(--primary))')};
   transition: transform 0.3s;
   backface-visibility: hidden;
   will-change: transform;

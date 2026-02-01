@@ -26,7 +26,7 @@ export default function WaveCta() {
             <Button onClick={() => setIsModalOpened(true)}>
               Subscribe to the newsletter <span>&rarr;</span>
             </Button>
-            <OutlinedButtonLink href="/features" transparent>
+            <OutlinedButtonLink href="/features" $transparent>
               Features <span>&rarr;</span>
             </OutlinedButtonLink>
           </CustomButtonGroup>
@@ -51,21 +51,21 @@ const Title = styled(SectionTitle)`
   margin-bottom: 4rem;
 `;
 
-const ButtonLink = styled(NextLink)<{ transparent?: boolean }>`
+const ButtonLink = styled(NextLink)<{ $transparent?: boolean }>`
   border: none;
   background: none;
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  background: ${(p) => (p.transparent ? 'transparent' : 'rgb(var(--primary))')};
+  background: ${(p) => (p.$transparent ? 'transparent' : 'rgb(var(--primary))')};
   padding: 1.75rem 2.25rem;
   font-size: 1.2rem;
-  color: ${(p) => (p.transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
+  color: ${(p) => (p.$transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
   text-transform: uppercase;
   font-family: var(--font);
   font-weight: bold;
   border-radius: 0.4rem;
-  border: ${(p) => (p.transparent ? 'none' : '2px solid rgb(var(--primary))')};
+  border: ${(p) => (p.$transparent ? 'none' : '2px solid rgb(var(--primary))')};
   transition: transform 0.3s;
   backface-visibility: hidden;
   will-change: transform;

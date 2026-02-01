@@ -67,7 +67,7 @@ export default function Features() {
     <Container>
       <CustomAutofitGrid>
         {FEATURES.map((singleFeature, idx) => (
-          <BasicCard key={singleFeature.title} {...singleFeature} />
+          <BasicCard key={singleFeature.imageUrl} {...singleFeature} />
         ))}
       </CustomAutofitGrid>
     </Container>

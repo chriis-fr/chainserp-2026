@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <HeroWrapper>
       <Contents>
-        <CustomOverTitle>the coolest, saas product you have ever seen</CustomOverTitle>
+        <CustomOverTitle>Unified operating system for modern businesses</CustomOverTitle>
         <Heading>Make your life easier with our SaaS</Heading>
         <Description>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, tempora qui. Explicabo voluptate iure ipsum molestias
@@ -24,7 +24,7 @@ export default function Hero() {
           <Button onClick={() => setIsModalOpened(true)}>
             Subscribe to the newsletter <span>&rarr;</span>
           </Button>
-          <ButtonLink href="#whitepaper" transparent>
+          <ButtonLink href="#whitepaper" $transparent>
             Features <span>&rarr;</span>
           </ButtonLink>
         </CustomButtonGroup>
@@ -36,21 +36,21 @@ export default function Hero() {
   );
 }
 
-const ButtonLink = styled(NextLink)<{ transparent?: boolean }>`
+const ButtonLink = styled(NextLink)<{ $transparent?: boolean }>`
   border: none;
   background: none;
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  background: ${(p) => (p.transparent ? 'transparent' : 'rgb(var(--primary))')};
+  background: ${(p) => (p.$transparent ? 'transparent' : 'rgb(var(--primary))')};
   padding: 1.75rem 2.25rem;
   font-size: 1.2rem;
-  color: ${(p) => (p.transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
+  color: ${(p) => (p.$transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
   text-transform: uppercase;
   font-family: var(--font);
   font-weight: bold;
   border-radius: 0.4rem;
-  border: ${(p) => (p.transparent ? 'none' : '2px solid rgb(var(--primary))')};
+  border: ${(p) => (p.$transparent ? 'none' : '2px solid rgb(var(--primary))')};
   transition: transform 0.3s;
   backface-visibility: hidden;
   will-change: transform;
