@@ -1,3 +1,4 @@
+import 'styles/globals.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';

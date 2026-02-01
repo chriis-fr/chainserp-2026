@@ -26,7 +26,7 @@ export default function Logo({
   return (
     <Wrapper className={className}>
       <Image
-        src="/chainsnobg.PNG"
+        src="/chainsnobgnologo.PNG"
         alt="Chains ERP"
         width={width}
         height={height}

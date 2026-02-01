@@ -69,6 +69,10 @@ export default function Navbar({ items }: NavbarProps) {
       <Content>
         <LogoLink href="/">
           <Logo />
+          <TitleBlock className='flex flex-col md:flex-row md:items-center gap-0 md:gap-1 pt-5 md:pt-0 text-xl md:text-xl lg:text-2xl xl:text-3xl leading-tight'>
+            <span className='font-bold text-2xl md:text-2xl lg:text-3xl xl:text-4xl text-black'>Chains-</span>
+            <span>ERP & Global Finance</span>
+          </TitleBlock>
         </LogoLink>
         <NavItemList>
           {items.map((singleItem) => (
@@ -129,6 +133,10 @@ const LogoLink = styled(NextLink)`
   margin-right: auto;
   text-decoration: none;
   color: rgb(var(--logoColor));
+`;
+
+const TitleBlock = styled.div`
+  color: rgb(var(--text), 0.75);
 `;
 
 const NavItemWrapper = styled.li<Partial<SingleNavItem>>`
