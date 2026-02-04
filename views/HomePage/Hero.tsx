@@ -15,7 +15,7 @@ export default function Hero() {
     <HeroWrapper>
       <Contents>
         <CustomOverTitle>Unified operating system for modern businesses</CustomOverTitle>
-        <Heading>Make your life easier with our SaaS</Heading>
+        <Heading>Streamline your business with the next-gen ERP</Heading>
         <Description>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, tempora qui. Explicabo voluptate iure ipsum molestias
           repudiandae perspiciatis nostrum praesentium, unde pariatur tempora magni rem. Necessitatibus facilis obcaecati ratione.
