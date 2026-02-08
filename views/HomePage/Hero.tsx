@@ -22,7 +22,7 @@ export default function Hero() {
         </Description>
         <CustomButtonGroup>
           <Button onClick={() => setIsModalOpened(true)}>
-            Subscribe to the newsletter <span>&rarr;</span>
+            want a demo? <span>&rarr;</span>
           </Button>
           <ButtonLink href="#whitepaper" $transparent>
             Features <span>&rarr;</span>
