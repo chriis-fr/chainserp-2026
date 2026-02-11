@@ -16,9 +16,7 @@ export default function Hero() {
       <Contents>
         <CustomOverTitle>Unified operating system for modern businesses</CustomOverTitle>
         <Heading>One System. Every stage of growth.</Heading>
-        <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, tempora qui. Explicabo voluptate iure ipsum molestias
-          repudiandae perspiciatis nostrum praesentium, unde pariatur tempora magni rem. Necessitatibus facilis obcaecati ratione.
+        <Description><span className='font-bold'>Chains</span> is a unified <span className='font-bold'>ERP</span> and <span className='font-bold'>Global Finance</span> platform that grows with you — from a single invoice to multi-entity, universal operations — without scattered tools or workarounds.
         </Description>
         <CustomButtonGroup>
           <Button onClick={() => setIsModalOpened(true)}>
