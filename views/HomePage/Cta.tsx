@@ -13,11 +13,10 @@ export default function Cta() {
     <CtaWrapper>
       <Container>
         <Stack>
-          <OverTitle>Lorem ipsum dolor sit amet</OverTitle>
-          <SectionTitle>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus delectus?</SectionTitle>
+          <OverTitle>Individual → Team → Company → Global Enterprise</OverTitle>
+          <SectionTitle>Finance, operations, and leadership see the same truth — in real time.</SectionTitle>
           <Description>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda beatae accusamus deleniti nihil quas tempora numquam, vitae
-            culpa.
+          Chains replaces invoicing tools, accounting software, payment processors, reporting dashboards, and internal spreadsheets — with a single, unified system.
           </Description>
           <ButtonGroup>
             <ButtonLink href="#early-access">

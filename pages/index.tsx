@@ -29,22 +29,26 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
           {/* <Partners /> */}
           <BasicSection imageUrl="/demo-illustration-1.svg" title="Chains adapts to you." overTitle="The evolving software for modern businesses">
             <p>
-              We built Chains because modern businesses are broken by tools that don't communicate with each other. {' '}
+            With scattered tools, Invoicing lives in one place. Accounting in another. Payments somewhere else. Reporting is manual. Growth means rebuilding everything.<span className='italic text-lg'> ~ that shouldn&apos;t be the case</span>
+               {' '}
               <br />
               <br />
               {/* <Link href="/help-center">Possimus ullam velit rem itaque consectetur, in distinctio?</Link>  */}
-              Invoicing lives in one place. Accounting in another. Payments somewhere else. Reporting is manual. Growth means rebuilding everything.
+              <span className='font-bold'>Chains</span> exists to replace fragmentation with a single, evolving system.
             </p>
           </BasicSection>
-          <BasicSection imageUrl="/demo-illustration-2.svg" title="Lorem ipsum dolor sit." overTitle="lorem ipsum" reversed>
+          <BasicSection imageUrl="/demo-illustration-2.svg" title="Designed to evolve." overTitle="Software should grow with you" reversed>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, quidem error incidunt a doloremque voluptatem porro inventore{' '}
-              <strong>voluptate quo deleniti animi laboriosam</strong>. Possimus ullam velit rem itaque consectetur, in distinctio?
+            Chains is designed to evolve — horizontally across teams, and vertically across scale.{' '}
+            <br />
+
+            <strong>One platform for every stage </strong>.
+            <br />
             </p>
             <ul>
-              <li>Professional point 1</li>
-              <li>Professional remark 2</li>
-              <li>Professional feature 3</li>
+              <li>You don't start as an Enterprise.</li>
+              <li>You don't stay as a single entity.</li>
+              <li>And you shouldn’t have to replace your software every time you grow.</li>
             </ul>
           </BasicSection>
         </WhiteBackgroundContainer>

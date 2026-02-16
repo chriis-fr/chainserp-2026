@@ -7,13 +7,15 @@ import Container from 'components/Container';
 import { media } from 'utils/media';
 
 const PARTNER_LOGOS = [
-  'logoipsum-logo-1.svg',
-  'logoipsum-logo-2.svg',
-  'logoipsum-logo-3.svg',
-  'logoipsum-logo-4.svg',
-  'logoipsum-logo-5.svg',
-  'logoipsum-logo-6.svg',
-  'logoipsum-logo-7.svg',
+  // 'logoipsum-logo-1.svg',
+  // 'logoipsum-logo-2.svg',
+  // 'logoipsum-logo-3.svg',
+  // 'logoipsum-logo-4.svg',
+  // 'logoipsum-logo-5.svg',
+  // 'logoipsum-logo-6.svg',
+  // 'logoipsum-logo-7.svg',
+  'mijinitech.png',
+  'young-toon-studios.jpg'
 ];
 
 export default function Partners() {
@@ -36,7 +38,7 @@ export default function Partners() {
       >
         {PARTNER_LOGOS.map((logo) => (
           <SwiperSlide key={logo}>
-            <NextImage src={'/partners/' + logo} alt={normalizePartnerLogoName(logo)} width={128} height={128} />
+            <NextImage src={'/partners/' + logo} alt={normalizePartnerLogoName(logo)} width={80} height={80} />
           </SwiperSlide>
         ))}
       </Swiper>
