@@ -29,11 +29,11 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
           {/* <Partners /> */}
           <BasicSection imageUrl="/demo-illustration-1.svg" title="Chains adapts to you." overTitle="The evolving software for modern businesses">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, quidem error incidunt a doloremque voluptatem porro inventore
-              voluptate quo deleniti animi laboriosam.{' '}
-              <Link href="/help-center">Possimus ullam velit rem itaque consectetur, in distinctio?</Link> Lorem ipsum, dolor sit amet
-              consecteadipisicing elit. Soluta repellendus quia quos obcaecati nihil. Laudantium non accusantium, voluptate eum nesciunt
-              at suscipit quis est soluta?
+              We built Chains because modern businesses are broken by tools that don't communicate with each other. {' '}
+              <br />
+              <br />
+              {/* <Link href="/help-center">Possimus ullam velit rem itaque consectetur, in distinctio?</Link>  */}
+              Invoicing lives in one place. Accounting in another. Payments somewhere else. Reporting is manual. Growth means rebuilding everything.
             </p>
           </BasicSection>
           <BasicSection imageUrl="/demo-illustration-2.svg" title="Lorem ipsum dolor sit." overTitle="lorem ipsum" reversed>
