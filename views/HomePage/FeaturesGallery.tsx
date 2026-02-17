@@ -10,26 +10,26 @@ import { media } from 'utils/media';
 
 const TABS = [
   {
-    title: 'Find relevant media contacts - multiline title',
+    title: 'Universal Invoicing- built into your business.',
     description:
-      '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quidem ipsam ratione dicta quis cupiditate consequuntur laborum ducimus iusto velit.</p>',
-    imageUrl: '/demo-illustration-3.png',
+      '<p>Chains is the only ERP that lets you invoice your customers directly from your business. No more scattered tools. No more manual data entry. No more lost invoices.</p>' + '<p>That’s why it works globally, instantly, and accurately.</p>',
+    imageUrl: '/image.png',
     baseColor: '249,82,120',
     secondColor: '221,9,57',
   },
   {
-    title: 'Another amazing feature',
+    title: 'Integrate with tools you already use.',
     description:
-      '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quidem ipsam ratione dicta quis cupiditate consequuntur laborum ducimus iusto velit.</p>',
-    imageUrl: '/demo-illustration-4.png',
+      '<p>Chains integrates with your existing tools, so you can use them together seamlessly. No more switching between tools. No more manual data entry. No more lost invoices.</p>',
+    imageUrl: '/integration.png',
     baseColor: '57,148,224',
     secondColor: '99,172,232',
   },
   {
-    title: 'And yet... another truly fascinating feature',
+    title: 'Know where every dollar is - Instantly',
     description:
-      '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quidem ipsam ratione dicta quis cupiditate consequuntur laborum ducimus iusto velit.</p>',
-    imageUrl: '/demo-illustration-5.png',
+      '<p>Chains connects invoices, bills, and payments into one real-time view of your business finances. Faster closes. Cleaner books. Zero blind spots.</p>',
+    imageUrl: '/dashboard.png',
     baseColor: '88,193,132',
     secondColor: '124,207,158',
   },
@@ -76,8 +76,8 @@ export default function FeaturesGallery() {
   return (
     <FeaturesGalleryWrapper>
       <Content>
-        <OverTitle>features</OverTitle>
-        <SectionTitle>What are you signing in for?</SectionTitle>
+        <OverTitle>ERP Features</OverTitle>
+        <SectionTitle>What are you signing up for?</SectionTitle>
       </Content>
       <GalleryWrapper>
         <TabsContainer>{tabsMarkup}</TabsContainer>

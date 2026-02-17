@@ -19,10 +19,10 @@ export default function Cta() {
           Chains replaces invoicing tools, accounting software, payment processors, reporting dashboards, and internal spreadsheets — with a single, unified system.
           </Description>
           <ButtonGroup>
-            <ButtonLink href="#early-access">
-              Subscribe to the newsletter <span>&rarr;</span>
+            <ButtonLink href="https://global.chains-erp.com/auth">
+              Get started with us <span>&rarr;</span>
             </ButtonLink>
-            <OutlinedButtonLink href="#whitepaper" $transparent>
+            <OutlinedButtonLink href="/" $transparent>
               Features <span>&rarr;</span>
             </OutlinedButtonLink>
           </ButtonGroup>
