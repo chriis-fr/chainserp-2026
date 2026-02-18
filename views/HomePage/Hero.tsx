@@ -19,8 +19,8 @@ export default function Hero() {
           <HeroCtaLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
             Book a call <span>&rarr;</span>
           </HeroCtaLink>
-          <ButtonLink href="#whitepaper" $transparent>
-            Features <span>&rarr;</span>
+          <ButtonLink href="https://linkedin.com/company/chainserp" $transparent>
+            More <span>&rarr;</span>
           </ButtonLink>
         </CustomButtonGroup>
       </Contents>
