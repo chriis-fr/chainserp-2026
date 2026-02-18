@@ -33,6 +33,8 @@ export default class MyDocument extends Document {
       <Html lang="en" data-scroll-behavior="smooth">
         <Head>
           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="theme-color" content="#1c398e" />
         </Head>
         <body className="next-light-theme">
           <Main />

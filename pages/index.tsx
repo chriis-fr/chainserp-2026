@@ -1,9 +1,8 @@
 import { InferGetStaticPropsType } from 'next';
-import Head from 'next/head';
 import styled from 'styled-components';
 import BasicSection from 'components/BasicSection';
 import Link from 'components/Link';
-import { EnvVars } from 'env';
+import SEO from 'components/SEO';
 import { getAllPosts } from 'utils/postsFetcher';
 import Cta from 'views/HomePage/Cta';
 import Features from 'views/HomePage/Features';
@@ -16,13 +15,7 @@ import Testimonials from 'views/HomePage/Testimonials';
 export default function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Head>
-        <title>{EnvVars.SITE_NAME}</title>
-        <meta
-          name="description"
-          content="Tempor nostrud velit fugiat nostrud duis incididunt Lorem deserunt est tempor aute dolor ad elit."
-        />
-      </Head>
+      <SEO url="/" />
       <HomepageWrapper>
         <WhiteBackgroundContainer>
           <Hero />

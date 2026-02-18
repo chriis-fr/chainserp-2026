@@ -1,9 +1,9 @@
-import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
-import { EnvVars } from 'env';
 import { media } from 'utils/media';
 import Container from './Container';
+import SEO from './SEO';
 import SectionTitle from './SectionTitle';
 
 export interface PageProps {
@@ -12,12 +12,10 @@ export interface PageProps {
 }
 
 export default function Page({ title, description, children }: PropsWithChildren<PageProps>) {
+  const router = useRouter();
   return (
     <>
-      <Head>
-        <title>Chains- ERP & Global Finance</title>
-        <meta name="description" content={description} />
-      </Head>
+      <SEO title={title} description={description} url={router.asPath} />
       <Wrapper>
         <HeaderContainer>
           <Container>

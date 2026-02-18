@@ -14,7 +14,10 @@ import Footer from 'components/Footer';
 import { GlobalStyle } from 'components/GlobalStyles';
 import Navbar from 'components/Navbar';
 import NavigationDrawer from 'components/NavigationDrawer';
+import SEO from 'components/SEO';
+import StructuredData from 'components/StructuredData';
 import WaveCta from 'components/WaveCta';
+import { EnvVars } from 'env';
 import { NavItems } from 'types';
 
 const navItems: NavItems = [
@@ -27,10 +30,25 @@ const navItems: NavItems = [
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <SEO />
+      <StructuredData
+        type="Organization"
+        data={{
+          name: 'Chains ERP',
+          url: EnvVars.URL,
+          logo: `${EnvVars.URL}/chains.PNG`,
+          sameAs: ['https://twitter.com/chains_erp'],
+          contactPoint: {
+            contactType: 'Customer Service',
+            email: 'support@chains-erp.com',
+          },
+        }}
+      />
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="icon" type="image/png" href="/chains.PNG" />
+        <link rel="apple-touch-icon" href="/chains.PNG" />
         {/* <link rel="alternate" type="application/rss+xml" href={EnvVars.URL + 'rss'} title="RSS 2.0" /> */}
         {/* <script
           dangerouslySetInnerHTML={{
