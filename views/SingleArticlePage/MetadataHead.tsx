@@ -13,9 +13,7 @@ export default function MetadataHead(props: MetadataHeadProps) {
 
   return (
     <Head>
-      <title>
-        {title} | {EnvVars.SITE_NAME}
-      </title>
+      <title>Chains- ERP & Global Finance</title>
       <meta name="description" content={description} />
       <meta name="author" content={author} />
     </Head>

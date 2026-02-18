@@ -52,6 +52,7 @@ export default function Testimonials() {
                   alt={`${singleTestimonial.author.name}'s company logo`}
                   width={200}
                   height={40}
+                  style={{ width: 'auto', height: 'auto' }}
                 />
                 <Content>“{singleTestimonial.content}”</Content>
                 <AuthorContainer>

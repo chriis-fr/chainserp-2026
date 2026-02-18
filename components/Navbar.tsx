@@ -1,13 +1,12 @@
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
+import { EnvVars } from 'env';
 import { ScrollPositionEffectProps, useScrollPosition } from 'hooks/useScrollPosition';
 import { NavItems, SingleNavItem } from 'types';
 import { media } from 'utils/media';
-import Button from './Button';
 import Container from './Container';
 import Drawer from './Drawer';
 import { HamburgerIcon } from './HamburgerIcon';
@@ -19,46 +18,65 @@ type NavbarProps = { items: NavItems };
 type ScrollingDirections = 'up' | 'down' | 'none';
 type NavbarContainerProps = { hidden: boolean; transparent: boolean };
 
+const SCROLL_HIDE_THRESHOLD = 80; // px to scroll down before hiding navbar
+const SCROLL_SHOW_THRESHOLD = 80; // px to scroll up before showing navbar (hysteresis)
+
 export default function Navbar({ items }: NavbarProps) {
   const router = useRouter();
   const { toggle } = Drawer.useDrawer();
   const [scrollingDirection, setScrollingDirection] = useState<ScrollingDirections>('none');
-
-  let lastScrollY = useRef(0);
+  const lastScrollY = useRef(0);
   const lastRoute = useRef('');
-  const stepSize = useRef(50);
+  const thresholdScrollY = useRef(0);
+  const isHiddenRef = useRef(false); // avoid stale closure in scroll callback
+  const ticking = useRef(false);
 
-  useScrollPosition(scrollPositionCallback, [router.asPath], undefined, undefined, 50);
+  useScrollPosition(scrollPositionCallback, [router.asPath], undefined, undefined, 150);
 
   function scrollPositionCallback({ currPos }: ScrollPositionEffectProps) {
+    if (ticking.current) return;
+
     const routerPath = router.asPath;
     const hasRouteChanged = routerPath !== lastRoute.current;
 
     if (hasRouteChanged) {
       lastRoute.current = routerPath;
       setScrollingDirection('none');
+      isHiddenRef.current = false;
+      lastScrollY.current = currPos.y;
+      thresholdScrollY.current = currPos.y;
       return;
     }
 
     const currentScrollY = currPos.y;
-    const isScrollingUp = currentScrollY > lastScrollY.current;
-    const scrollDifference = Math.abs(lastScrollY.current - currentScrollY);
-    const hasScrolledWholeStep = scrollDifference >= stepSize.current;
-    const isInNonCollapsibleArea = lastScrollY.current > -50;
+    const isInNonCollapsibleArea = currentScrollY > -50;
 
     if (isInNonCollapsibleArea) {
       setScrollingDirection('none');
+      isHiddenRef.current = false;
       lastScrollY.current = currentScrollY;
+      thresholdScrollY.current = Math.min(thresholdScrollY.current, currentScrollY);
       return;
     }
 
-    if (!hasScrolledWholeStep) {
-      lastScrollY.current = currentScrollY;
-      return;
-    }
+    ticking.current = true;
+    requestAnimationFrame(() => {
+      const scrolledDownEnough = thresholdScrollY.current - currentScrollY >= SCROLL_HIDE_THRESHOLD;
+      const scrolledUpEnough = currentScrollY - thresholdScrollY.current >= SCROLL_SHOW_THRESHOLD;
 
-    setScrollingDirection(isScrollingUp ? 'up' : 'down');
-    lastScrollY.current = currentScrollY;
+      if (!isHiddenRef.current && scrolledDownEnough) {
+        setScrollingDirection('down');
+        isHiddenRef.current = true;
+        thresholdScrollY.current = currentScrollY;
+      } else if (isHiddenRef.current && scrolledUpEnough) {
+        setScrollingDirection('up');
+        isHiddenRef.current = false;
+        thresholdScrollY.current = currentScrollY;
+      }
+
+      lastScrollY.current = currentScrollY;
+      ticking.current = false;
+    });
   }
 
   const isNavbarHidden = scrollingDirection === 'down';
@@ -75,7 +93,7 @@ export default function Navbar({ items }: NavbarProps) {
           </TitleBlock>
         </LogoLink>
         <NavItemList>
-          {items.map((singleItem) => (
+          {items.filter((item) => !item.outlined).map((singleItem) => (
             <NavItem key={singleItem.href} {...singleItem} />
           ))}
         </NavItemList>
@@ -91,14 +109,12 @@ export default function Navbar({ items }: NavbarProps) {
 }
 
 function NavItem({ href, title, outlined }: SingleNavItem) {
-  const { setIsModalOpened } = useNewsletterModalContext();
-
-  function showNewsletterModal() {
-    setIsModalOpened(true);
-  }
-
   if (outlined) {
-    return <CustomButton onClick={showNewsletterModal}>{title}</CustomButton>;
+    return (
+      <CustomButtonLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+        {title}
+      </CustomButtonLink>
+    );
   }
 
   return (
@@ -108,9 +124,21 @@ function NavItem({ href, title, outlined }: SingleNavItem) {
   );
 }
 
-const CustomButton = styled(Button)`
+const CustomButtonLink = styled.a`
+  display: inline-block;
   padding: 0.75rem 1.5rem;
   line-height: 1.8;
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  background: rgb(var(--primary));
+  color: rgb(var(--textSecondary));
+  border-radius: 0.4rem;
+  font-weight: bold;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const NavItemList = styled.div`
@@ -173,15 +201,13 @@ const NavbarContainer = styled.div<NavbarContainerProps>`
   width: 100%;
   height: 8rem;
   z-index: var(--z-navbar);
-
   background-color: rgb(var(--navbarBackground));
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
-  visibility: ${(p) => (p.hidden ? 'hidden' : 'visible')};
-  transform: ${(p) => (p.hidden ? `translateY(-8rem) translateZ(0) scale(1)` : 'translateY(0) translateZ(0) scale(1)')};
-
-  transition-property: transform, visibility, height, box-shadow, background-color;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
+  transform: ${(p) => (p.hidden ? 'translateY(-100%)' : 'translateY(0)')};
+  opacity: ${(p) => (p.hidden ? '0' : '1')};
+  pointer-events: ${(p) => (p.hidden ? 'none' : 'auto')};
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 `;
 
 const Content = styled(Container)`

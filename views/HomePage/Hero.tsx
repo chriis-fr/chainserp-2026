@@ -1,16 +1,13 @@
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import Button from 'components/Button';
 import ButtonGroup from 'components/ButtonGroup';
 import Container from 'components/Container';
 import HeroIllustration from 'components/HeroIllustation';
 import OverTitle from 'components/OverTitle';
-import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
+import { EnvVars } from 'env';
 import { media } from 'utils/media';
 
 export default function Hero() {
-  const { setIsModalOpened } = useNewsletterModalContext();
-
   return (
     <HeroWrapper>
       <Contents>
@@ -19,9 +16,9 @@ export default function Hero() {
         <Description><span className='font-bold'>Chains</span> is a unified <span className='font-bold'>ERP</span> and <span className='font-bold'>Global Finance</span> platform that grows with you — from a single invoice to multi-entity, universal operations — without scattered tools or workarounds.
         </Description>
         <CustomButtonGroup>
-          <Button onClick={() => setIsModalOpened(true)}>
-            want a demo? <span>&rarr;</span>
-          </Button>
+          <HeroCtaLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+            Book a call <span>&rarr;</span>
+          </HeroCtaLink>
           <ButtonLink href="#whitepaper" $transparent>
             Features <span>&rarr;</span>
           </ButtonLink>
@@ -33,6 +30,34 @@ export default function Hero() {
     </HeroWrapper>
   );
 }
+
+const HeroCtaLink = styled.a`
+  border: none;
+  background: rgb(var(--primary));
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  padding: 1.75rem 2.25rem;
+  font-size: 1.2rem;
+  color: rgb(var(--textSecondary));
+  text-transform: uppercase;
+  font-family: var(--font);
+  font-weight: bold;
+  border-radius: 0.4rem;
+  border: 2px solid rgb(var(--primary));
+  transition: transform 0.3s;
+  backface-visibility: hidden;
+  will-change: transform;
+  cursor: pointer;
+
+  span {
+    margin-left: 2rem;
+  }
+
+  &:hover {
+    transform: scale(1.025);
+  }
+`;
 
 const ButtonLink = styled(NextLink)<{ $transparent?: boolean }>`
   border: none;

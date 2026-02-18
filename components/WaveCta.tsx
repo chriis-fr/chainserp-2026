@@ -1,15 +1,12 @@
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import Button from 'components/Button';
 import ButtonGroup from 'components/ButtonGroup';
 import Container from 'components/Container';
 import SectionTitle from 'components/SectionTitle';
-import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
+import { EnvVars } from 'env';
 import { media } from 'utils/media';
 
 export default function WaveCta() {
-  const { setIsModalOpened } = useNewsletterModalContext();
-
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -21,11 +18,18 @@ export default function WaveCta() {
       </svg>
       <CtaWrapper>
         <Container>
-          <Title>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus delectus?</Title>
+          <Title>Why Teams Choose Chains ERP</Title>
+          <BenefitsList>
+            <li>Saves hours every week</li>
+            <li>Reduces financial errors</li>
+            <li>Improves visibility and accuracy</li>
+            <li>Replaces multiple tools with one system</li>
+          </BenefitsList>
+          <Tagline>Software that works for the business — not the other way around.</Tagline>
           <CustomButtonGroup>
-            <Button onClick={() => setIsModalOpened(true)}>
-              Subscribe to the newsletter <span>&rarr;</span>
-            </Button>
+            <CtaButtonLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              Book a call <span>&rarr;</span>
+            </CtaButtonLink>
             <OutlinedButtonLink href="/features" $transparent>
               Features <span>&rarr;</span>
             </OutlinedButtonLink>
@@ -48,7 +52,87 @@ const CtaWrapper = styled.div`
 
 const Title = styled(SectionTitle)`
   color: rgb(var(--textSecondary));
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  text-align: center;
+`;
+
+const BenefitsList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 3rem;
+  max-width: 60rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 3rem;
+
+  li {
+    color: rgb(var(--textSecondary));
+    font-size: 1.8rem;
+    line-height: 1.6;
+    padding-left: 2rem;
+    position: relative;
+    opacity: 0.9;
+
+    &::before {
+      position: absolute;
+      content: '✓';
+      left: 0;
+      top: 0;
+      color: rgb(var(--primary));
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+  }
+
+  ${media('<=tablet')} {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    font-size: 1.6rem;
+  }
+`;
+
+const Tagline = styled.p`
+  color: rgb(var(--textSecondary));
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 auto 4rem;
+  max-width: 70rem;
+  font-style: italic;
+  opacity: 0.85;
+  line-height: 1.5;
+
+  ${media('<=tablet')} {
+    font-size: 1.7rem;
+    margin-bottom: 3rem;
+  }
+`;
+
+const CtaButtonLink = styled.a`
+  border: none;
+  background: rgb(var(--primary));
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  padding: 1.75rem 2.25rem;
+  font-size: 1.2rem;
+  color: rgb(var(--textSecondary));
+  text-transform: uppercase;
+  font-family: var(--font);
+  font-weight: bold;
+  border-radius: 0.4rem;
+  border: 2px solid rgb(var(--primary));
+  transition: transform 0.3s;
+  backface-visibility: hidden;
+  will-change: transform;
+  cursor: pointer;
+
+  span {
+    margin-left: 2rem;
+  }
+
+  &:hover {
+    transform: scale(1.025);
+  }
 `;
 
 const ButtonLink = styled(NextLink)<{ $transparent?: boolean }>`

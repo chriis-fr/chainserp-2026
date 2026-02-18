@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import playIcon from '../public/play-icon.svg';
+// Next.js may expose SVG import as object (e.g. { src }); ensure we use a string URL
+const playIconSrc = typeof playIcon === 'string' ? playIcon : (playIcon as { src?: string }).src ?? '/play-icon.svg';
 
 interface YoutubeVideoProps {
   title?: string;
@@ -47,7 +49,7 @@ export default function YoutubeVideo(props: YoutubeVideoProps) {
   </style>
   <a style="color: rgb(var(--primary))" href=https://www.youtube.com/embed/${videoHash}?autoplay=1>
     <img class="thumbnail" src="https://img.youtube.com/vi/${videoHash}/hqdefault.jpg" alt='${title || ''}'>
-    <img class="play" src="${playIcon}" alt="Play the video">
+    <img class="play" src="${playIconSrc}" alt="Play video">
   </a>`;
   return (
     <VideoContainer>
@@ -67,10 +69,10 @@ export default function YoutubeVideo(props: YoutubeVideoProps) {
   );
 }
 
-function extractVideoHashFromUrl(url: string) {
+function extractVideoHashFromUrl(url: string): string {
   const videoHashQueryParamKey = 'v';
   const searchParams = new URL(url).search;
-  return new URLSearchParams(searchParams).getAll(videoHashQueryParamKey);
+  return new URLSearchParams(searchParams).get(videoHashQueryParamKey) ?? '';
 }
 
 export const VideoContainer = styled.div`
@@ -79,6 +81,7 @@ export const VideoContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 
   &:before {
     display: block;

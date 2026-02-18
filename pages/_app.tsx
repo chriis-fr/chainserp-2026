@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
+import 'utils/suppressWarnings';
 
 import { AppProps } from 'next/dist/shared/lib/router/router';
 import Head from 'next/head';
@@ -13,16 +14,14 @@ import Footer from 'components/Footer';
 import { GlobalStyle } from 'components/GlobalStyles';
 import Navbar from 'components/Navbar';
 import NavigationDrawer from 'components/NavigationDrawer';
-import NewsletterModal from 'components/NewsletterModal';
 import WaveCta from 'components/WaveCta';
-import { NewsletterModalContextProvider, useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { NavItems } from 'types';
 
 const navItems: NavItems = [
   { title: 'Explore Global Finance', href: 'https://global.chains-erp.com' },
   { title: 'Pricing', href: '/pricing' },
   { title: 'Contact', href: '/contact' },
-  // { title: 'Sign up', href: '/sign-up', outlined: true },
+  { title: 'Book a call', href: 'https://calendly.com/caspianodhis/30min', outlined: true },
 ];
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -46,7 +45,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
 
       <Providers>
-        <Modals />
         <Navbar items={navItems} />
         <Component {...pageProps} />
         <WaveCta />
@@ -57,19 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 function Providers<T>({ children }: PropsWithChildren<T>) {
-  return (
-    <NewsletterModalContextProvider>
-      <NavigationDrawer items={navItems}>{children}</NavigationDrawer>
-    </NewsletterModalContextProvider>
-  );
-}
-
-function Modals() {
-  const { isModalOpened, setIsModalOpened } = useNewsletterModalContext();
-  if (!isModalOpened) {
-    return null;
-  }
-  return <NewsletterModal onClose={() => setIsModalOpened(false)} />;
+  return <NavigationDrawer items={navItems}>{children}</NavigationDrawer>;
 }
 
 export default MyApp;

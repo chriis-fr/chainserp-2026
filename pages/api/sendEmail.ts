@@ -1,30 +1,35 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const sgMail = require('@sendgrid/mail');
+import { sendEmail } from 'utils/email';
 
 export default async function SendEmail(req: NextApiRequest, res: NextApiResponse) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
 
   const { subject, description, email, name } = req.body;
   const referer = req.headers.referer;
 
-  const content = {
-    to: ['contact@bstefanski.com'],
-    from: 'contact@bstefanski.com',
-    subject: subject,
-    text: description,
-    html: `<div>
-    <h1>Name: ${name}</h1>
-    <h1>E-mail: ${email}</h1>
-    <p>${description}</p>
-    <p>Sent from: ${referer || 'Not specified or hidden'}`,
-  };
+  // Get recipient email from env or use default
+  const recipientEmail = process.env.CONTACT_EMAIL || process.env.SMTP_USER || 'contact@example.com';
+  const senderEmail = process.env.SMTP_FROM || process.env.SMTP_USER || 'noreply@example.com';
 
   try {
-    await sgMail.send(content);
+    await sendEmail({
+      to: recipientEmail,
+      from: senderEmail,
+      subject: subject || 'Email from contact form',
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${description}\n\nSent from: ${referer || 'Not specified or hidden'}`,
+      html: `<div>
+        <h1>Name: ${name}</h1>
+        <h2>E-mail: ${email}</h2>
+        <p>${description.replace(/\n/g, '<br>')}</p>
+        <p><small>Sent from: ${referer || 'Not specified or hidden'}</small></p>
+      </div>`,
+    });
+
     res.status(204).end();
   } catch (error) {
-    console.log('ERROR', error);
-    res.status(400).send({ message: error });
+    console.error('Email sending error:', error);
+    res.status(500).json({ message: 'Failed to send email' });
   }
 }

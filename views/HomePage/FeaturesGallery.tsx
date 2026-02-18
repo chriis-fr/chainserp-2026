@@ -132,12 +132,15 @@ const ImageContainer = styled.div<{ isActive: boolean }>`
   border-radius: 0.8rem;
   flex: ${(p) => (p.isActive ? '2' : '0')};
   box-shadow: var(--shadow-md);
+  min-height: 0;
+  width: ${(p) => (p.isActive ? 'auto' : '0')};
 
   &:before {
     display: block;
     content: '';
     width: 100%;
     padding-top: calc((9 / 16) * 100%);
+    visibility: ${(p) => (p.isActive ? 'visible' : 'hidden')};
   }
 
   & > div {
@@ -146,10 +149,15 @@ const ImageContainer = styled.div<{ isActive: boolean }>`
     right: 0;
     bottom: 0;
     left: 0;
+    display: ${(p) => (p.isActive ? 'block' : 'none')};
   }
 
   ${media('<=desktop')} {
     width: ${(p) => (p.isActive ? '100%' : '0')};
+    
+    &:before {
+      visibility: ${(p) => (p.isActive ? 'visible' : 'hidden')};
+    }
   }
 `;
 
