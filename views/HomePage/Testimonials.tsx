@@ -10,30 +10,30 @@ import { media } from 'utils/media';
 
 const TESTIMONIALS = [
   {
-    companyLogoUrl: '/testimonials/company-logo-1.svg',
-    content: `Really good. I am so pleased with this product. I didn't even need training.`,
+    companyLogoUrl: '/testimonials/metastic.png',
+    content: `Very convenient & easy to use. I love how straightforward it is & no hiccups on the usage.`,
     author: {
-      name: 'Clyde Edwards',
-      title: 'Very Serious Man',
-      avatarUrl: '/testimonials/author-photo-1.jpeg',
+      name: 'Ashley',
+      title: 'Finance Manager- Metastic Digital',
+      avatarUrl: '/testimonials/avatar.jpg',
     },
   },
   {
-    companyLogoUrl: '/testimonials/company-logo-2.svg',
-    content: `It's really wonderful. I use saas product often. Thank You! Saas product has really helped our business.`,
+    companyLogoUrl: '/partners/young-toon-studios.jpg',
+    content: `Saved the whole team time to process our payroll on time & no more errors as compared to manual working`,
     author: {
-      name: 'Jimmy Hunter',
-      title: 'Sigma Male University Graduate',
-      avatarUrl: '/testimonials/author-photo-2.jpeg',
+      name: 'Damaris',
+      title: 'Finance Manager- Young Toon Studios',
+      avatarUrl: '/testimonials/avatar.jpg',
     },
   },
   {
     companyLogoUrl: '/testimonials/company-logo-3.svg',
-    content: `Since I invested in saas product I made over 100,000 dollars profits. It really saves me time and effort. saas product is exactly what our business has been lacking.`,
+    content: `Kept my records clean & professional. Took my business up a notch with professional invoicing.`,
     author: {
-      name: 'Marjorie Morgan',
-      title: 'Chief Chad Officer',
-      avatarUrl: '/testimonials/author-photo-3.jpeg',
+      name: 'Marion',
+      title: 'SME owner',
+      avatarUrl: '/testimonials/avatar.jpg',
     },
   },
 ];
@@ -47,13 +47,15 @@ export default function Testimonials() {
           {TESTIMONIALS.map((singleTestimonial, idx) => (
             <SwiperSlide key={idx}>
               <TestimonialCard>
-                <NextImage
-                  src={singleTestimonial.companyLogoUrl}
-                  alt={`${singleTestimonial.author.name}'s company logo`}
-                  width={200}
-                  height={40}
-                  style={{ width: 'auto', height: 'auto' }}
-                />
+                <CompanyLogoWrap>
+                  <NextImage
+                    src={singleTestimonial.companyLogoUrl}
+                    alt={`${singleTestimonial.author.name}'s company logo`}
+                    width={200}
+                    height={80}
+                    style={{ width: 'auto', height: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                  />
+                </CompanyLogoWrap>
                 <Content>“{singleTestimonial.content}”</Content>
                 <AuthorContainer>
                   <AuthorImageContainer>
@@ -94,6 +96,21 @@ const TestimonialsWrapper = styled(Container)`
   .swiper-button-next {
     color: rgb(var(--textSecondary));
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23currentColor'%2F%3E%3C%2Fsvg%3E");
+  }
+`;
+
+const CompanyLogoWrap = styled.div`
+  max-width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
   }
 `;
 

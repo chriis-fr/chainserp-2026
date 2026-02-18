@@ -30,7 +30,9 @@ export default function PricingCard({ title, description, benefits, isOutlined, 
           </CustomRichText>
         )}
       </PriceContainer>
-      <CustomButton>Get started</CustomButton>
+      <CustomButton href="https://global.chains-erp.com/auth" target="_blank" rel="noopener noreferrer">
+        Get started
+      </CustomButton>
     </Wrapper>
   );
 }

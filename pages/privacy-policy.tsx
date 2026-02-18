@@ -1,114 +1,157 @@
 import styled from 'styled-components';
 import Page from 'components/Page';
 import RichText from 'components/RichText';
+import { EnvVars } from 'env';
 
-export default function ContactPage() {
+export default function PrivacyPolicyPage() {
   return (
-    <Page title="Privacy policy">
+    <Page title="Privacy Policy">
       <PrivacyPolicyContainer>
         <RichText>
           <p>
-            Deserunt culpa consequat non nostrud esse cillum pariatur velit consequat. Est fugiat voluptate deserunt sint culpa sint.
-            Laboris irure veniam quis ea voluptate. Nulla ad proident ex excepteur. Sunt sint ex laborum dolor quis magna aliquip qui amet
-            nulla. Laboris proident aute exercitation irure esse id eu occaecat ad ipsum est. Dolor cillum Lorem occaecat enim veniam
-            ullamco cupidatat qui dolore exercitation Lorem eu quis magna. Esse cillum aliqua et laborum eu dolore consectetur. Exercitation
-            id non quis ex qui in dolore est est proident. Laborum nisi commodo fugiat nulla et magna veniam aliquip. Aliqua duis non
-            nostrud ea velit incididunt. Laboris nostrud incididunt laborum enim eu dolor. Culpa anim sit sit ea. Labore laborum et aute ex
-            est est excepteur labore voluptate deserunt. Amet ea laboris ea culpa dolor laborum consequat aliquip reprehenderit voluptate
-            non laboris ipsum. Quis excepteur pariatur est enim duis consectetur nulla cupidatat ipsum dolor nisi ipsum. Dolore dolor
-            nostrud aute dolore. Excepteur reprehenderit aliquip amet pariatur excepteur. Aliqua commodo nulla dolor ex nisi duis
-            reprehenderit sint aliqua in minim. Lorem amet quis non veniam ut reprehenderit aliquip mollit do ullamco pariatur.
+            This Privacy Policy explains how <strong>{EnvVars.SITE_NAME}</strong> collects,
+            uses, stores, and protects your information when you access or use our platform, services, websites, and applications.
           </p>
+
+          <p>
+            We build software for finance teams, businesses, and enterprises worldwide. Privacy, security, and data integrity are
+            foundational to how our system is designed and operated.
+          </p>
+
           <br />
-          <strong>
-            Reprehenderit aliquip minim commodo magna occaecat dolore labore mollit mollit do esse deserunt. Aliquip eu reprehenderit aute{' '}
-          </strong>
+
+          <strong>1. Information We Collect</strong>
           <ul>
             <li>
-              Ipsum cillum amet aliqua laboris ut excepteur enim laborum veniam officia officia esse. Anim et voluptate qui quis cillum
-              labore ipsum incididunt consequat est ea exercitation et commodo. Consequat consequat amet officia sit non id occaecat
-              occaecat duis irure.
+              <strong>Account Information:</strong> Name, email address, company details, and role-based identifiers.
             </li>
-            <li>Nostrud dolor pariatur dolore Lorem in aliqua sunt aliqua excepteur laboris exercitation proident officia.</li>
-            <li>Ut et voluptate consequat elit amet minim.</li>
-            <li>Reprehenderit et consequat ea minim est proident eu incididunt non laboris proident culpa consequat sint.</li>
+            <li>
+              <strong>Business Data:</strong> Invoices, accounting records, payroll data, expenses, transactions, and operational metadata.
+            </li>
+            <li>
+              <strong>Usage Data:</strong> Log data, device information, access timestamps, and feature interactions.
+            </li>
+            <li>
+              <strong>Payment Data:</strong> Transaction references and payment status (we do not store raw card or sensitive payment credentials).
+            </li>
           </ul>
 
+          <br />
+
+          <strong>2. How We Use Your Information</strong>
+          <ul>
+            <li>To provide, operate, and improve the ERP and global finance services.</li>
+            <li>To process invoices, payments, payrolls, and financial workflows.</li>
+            <li>To generate reports, analytics, and AI-assisted insights.</li>
+            <li>To maintain platform security, auditability, and compliance.</li>
+            <li>To communicate product updates, service notifications, and support responses.</li>
+          </ul>
+
+          <br />
+
+          <strong>3. Data Ownership & Control</strong>
+          <p>
+            You retain full ownership of your business and financial data. We act solely as a data processor and do not sell, rent,
+            or monetize customer data.
+          </p>
+
+          <p>
+            Access to data within your organization is governed by role-based permissions, audit trails, and approval workflows.
+          </p>
+
+          <br />
+
+          <strong>4. Security & Compliance</strong>
+          <ul>
+            <li>Enterprise-grade encryption for data in transit and at rest.</li>
+            <li>Role-based access control and activity logging.</li>
+            <li>Continuous monitoring and anomaly detection.</li>
+            <li>Secure infrastructure designed for global financial operations.</li>
+          </ul>
+
+          <br />
+
+          <strong>5. International Use</strong>
+          <p>
+            Chains ERP is built for global businesses. Your data may be processed in multiple regions depending on operational
+            requirements, always in accordance with applicable data protection laws.
+          </p>
+
+          <br />
+
+          <strong>6. Third-Party Integrations</strong>
+          <p>
+            When you connect external services (such as payment providers, accounting tools, or integrations),
+            data shared is limited strictly to what is required for the integration to function.
+          </p>
+
+          <br />
+
+          <strong>7. Data Retention</strong>
+          <p>
+            We retain data only for as long as necessary to provide the service, meet legal obligations,
+            resolve disputes, and enforce agreements.
+          </p>
+
+          <br />
+
+          <strong>8. Your Rights</strong>
+          <ul>
+            <li>Access and review your data.</li>
+            <li>Request corrections or updates.</li>
+            <li>Request export or deletion of data, subject to legal and regulatory requirements.</li>
+          </ul>
+
+          <br />
+
+          <strong>9. Changes to This Policy</strong>
+          <p>
+            We may update this Privacy Policy to reflect product improvements, legal requirements, or operational changes.
+            Updates will be communicated through the platform.
+          </p>
+
+          <br />
+
+          <strong>10. Contact</strong>
+          <p>
+            For privacy-related questions or requests, contact us through the platform or our official communication channels.
+          </p>
+
           <table>
-            <tr>
-              <th>Column 1</th>
-              <th>Column 2</th>
-              <th>Column 3</th>
-              <th>Column 4</th>
-            </tr>
-            <tr>
-              <td>Dolor do culpa excepteur proident anim duis deserunt nulla dolor et tempor.</td>
-              <td>Eu enim qui ea nostrud minim.</td>
-              <td>Proident officia velit ut in est culpa non adipisicing excepteur exercitation aliqua.</td>
-              <td>Duis proident adipisicing magna aute sint adipisicing sit deserunt minim eu.</td>
-            </tr>
-            <tr>
-              <td>Nisi cillum culpa adipisicing cillum.</td>
-              <td>Proident nulla cillum aute occaecat mollit labore.</td>
-              <td>Non ex eiusmod tempor cupidatat consequat anim et veniam nisi sint fugiat pariatur irure.</td>
-              <td>Consectetur nisi culpa non ex ipsum deserunt magna est est magna.</td>
-            </tr>
-            <tr>
-              <td>Officia laboris anim voluptate incididunt mollit mollit.</td>
-              <td>Adipisicing est consectetur id esse nostrud culpa non exercitation cupidatat pariatur dolore amet.</td>
-              <td>Dolor ex est ad ut adipisicing irure nulla esse aliqua nisi ipsum id aliqua.</td>
-              <td>Proident anim consequat enim sit sint pariatur.</td>
-            </tr>
-            <tr>
-              <td>Sint anim sint deserunt in elit ad Lorem dolore tempor.</td>
-              <td>Consequat nostrud irure anim do ex dolor amet ea dolore incididunt esse et cupidatat.</td>
-              <td>Eu nostrud occaecat incididunt deserunt Lorem ad Lorem elit.</td>
-              <td>Id ullamco in ad adipisicing magna elit ea minim sunt esse adipisicing.</td>
-            </tr>
-            <tr>
-              <td>Ea adipisicing ut nulla aute dolore quis in reprehenderit qui ipsum Lorem magna.</td>
-              <td>Irure ex dolore consequat mollit Lorem nostrud velit irure.</td>
-              <td>Dolore minim ad esse occaecat.</td>
-              <td>Qui id tempor ut culpa.</td>
-            </tr>
-            <tr>
-              <td>Ea ut esse non dolor do cupidatat.</td>
-              <td>Deserunt pariatur minim nisi elit ipsum officia irure id culpa ipsum.</td>
-              <td>Ea cillum voluptate consectetur et reprehenderit mollit ut excepteur exercitation do fugiat duis qui.</td>
-              <td>Id laborum officia aliqua ut nulla mollit.</td>
-            </tr>
-            <tr>
-              <td>Laborum et et sint ad incididunt amet aliqua commodo esse proident.</td>
-              <td>Velit aute proident aliqua consequat minim laborum reprehenderit reprehenderit eiusmod amet in aute.</td>
-              <td>Adipisicing adipisicing consequat incididunt officia in eu minim non cupidatat nulla nostrud sint.</td>
-              <td>Excepteur minim ea ex commodo nisi aute nostrud cupidatat consectetur.</td>
-            </tr>
-            <tr>
-              <td>Anim elit aliquip elit mollit pariatur consectetur commodo.</td>
-              <td>Consequat cupidatat sit sit quis labore culpa in duis duis amet elit.</td>
-              <td>Laborum Lorem pariatur id adipisicing minim.</td>
-              <td>Deserunt Lorem do id ea aliquip sunt.</td>
-            </tr>
-            <tr>
-              <td>Laborum aute laborum elit adipisicing velit commodo occaecat amet laborum.</td>
-              <td>Dolor voluptate duis elit id.</td>
-              <td>Excepteur sunt duis id officia id reprehenderit enim exercitation dolor.</td>
-              <td>Et excepteur duis adipisicing laboris labore adipisicing id dolor adipisicing exercitation eu nisi.</td>
-            </tr>
-            <tr>
-              <td>Esse consequat commodo irure elit nostrud esse ut magna commodo ipsum.</td>
-              <td>Exercitation exercitation ipsum qui aute ad commodo exercitation aliquip nisi aute Lorem in nulla.</td>
-              <td>Sint cillum esse quis mollit fugiat incididunt officia adipisicing do sint eu.</td>
-              <td>Consectetur aute ad aliquip eu Lorem proident irure aliqua aliqua officia reprehenderit reprehenderit amet.</td>
-            </tr>
-            <tr>
-              <td>Est Lorem exercitation eiusmod sit et.</td>
-              <td>Quis aliqua irure dolor do reprehenderit non id excepteur voluptate eiusmod veniam nostrud et elit.</td>
-              <td>Minim id sit officia consectetur irure id deserunt excepteur eu.</td>
-              <td>
-                Reprehenderit pariatur reprehenderit voluptate cillum minim tempor elit sint eiusmod ullamco id incididunt officia dolore.
-              </td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Purpose</th>
+                <th>Retention</th>
+                <th>Access Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Account Information</td>
+                <td>User authentication and access</td>
+                <td>Account lifetime</td>
+                <td>Role-based</td>
+              </tr>
+              <tr>
+                <td>Financial Records</td>
+                <td>Accounting, invoicing, compliance</td>
+                <td>As required by law</td>
+                <td>Restricted</td>
+              </tr>
+              <tr>
+                <td>Payroll Data</td>
+                <td>Salary processing and reporting</td>
+                <td>As required by regulation</td>
+                <td>HR-restricted</td>
+              </tr>
+              <tr>
+                <td>Usage Logs</td>
+                <td>Security and performance</td>
+                <td>Limited duration</td>
+                <td>Internal only</td>
+              </tr>
+            </tbody>
           </table>
         </RichText>
       </PrivacyPolicyContainer>

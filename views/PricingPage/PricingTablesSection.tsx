@@ -12,26 +12,25 @@ export default function PricingTablesSection() {
         <PricingCard
           title="free"
           description="Give us a try for free"
-          benefits={['1 seat', '1 active project', 'Ulimited viewers', '10 blocks']}
+          benefits={['1 seat', '1 active project', 'Ulimited invoices']}
         >
           $0<span>/month</span>
         </PricingCard>
         <PricingCard
           title="Starter"
           description="Best for individual desginers"
-          benefits={['1 seat', '3 active project', 'Ulimited viewers', '100 blocks', 'CSV Downloader', 'Password protection']}
+          benefits={['5 seats', 'integrations with tools you use', 'Ulimited viewers', 'CSV Downloader', 'Password protection']}
           isOutlined
         >
-          $29<span>/month</span>
+          $39<span>/month</span>
         </PricingCard>
         <PricingCard
           title="Premium"
           description="Get your team together"
           benefits={[
             '10 seat',
-            '10 active project',
+            'multi-entity and multi-currency support',
             'Ulimited viewers',
-            'Unlimited blocks',
             'CSV Downloader',
             'Password protection',
             'Customization',

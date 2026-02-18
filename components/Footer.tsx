@@ -2,165 +2,169 @@ import NextLink from 'next/link';
 import { FacebookIcon, LinkedinIcon, TwitterIcon } from 'react-share';
 import styled from 'styled-components';
 import Container from 'components/Container';
+import Logo from 'components/Logo';
+import { EnvVars } from 'env';
 import { media } from 'utils/media';
 
-type SingleFooterListItem = { title: string; href: string };
-type FooterListItems = SingleFooterListItem[];
-type SingleFooterList = { title: string; items: FooterListItems };
-type FooterItems = SingleFooterList[];
+const FOOTER_LINKS = [
+  { title: 'Features', href: '/features' },
+  { title: 'Pricing', href: '/pricing' },
+  { title: 'Blog', href: '/blog' },
+  { title: 'Contact', href: '/contact' },
+  { title: 'Privacy', href: '/privacy-policy' },
+  { title: 'Cookies', href: '/cookies-policy' },
+];
 
-const footerItems: FooterItems = [
-  {
-    title: 'Company',
-    items: [
-      { title: 'Privacy Policy', href: '/privacy-policy' },
-      { title: 'Cookies Policy', href: '/cookies-policy' },
-    ],
-  },
-  {
-    title: 'Product',
-    items: [
-      { title: 'Features', href: '/features' },
-      { title: 'Something', href: '/something' },
-      { title: 'Something else', href: '/something-else' },
-      { title: 'And something else', href: '/and-something-else' },
-    ],
-  },
-  {
-    title: 'Knowledge',
-    items: [
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact', href: '/contact' },
-      { title: 'FAQ', href: '/faq' },
-      { title: 'Help Center', href: '/help-center' },
-    ],
-  },
-  {
-    title: 'Something',
-    items: [
-      { title: 'Features2', href: '/features2' },
-      { title: 'Something2', href: '/something2' },
-      { title: 'Something else2', href: '/something-else2' },
-      { title: 'And something else2', href: '/and-something-else2' },
-    ],
-  },
+const SOCIAL = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/chainserp', Icon: LinkedinIcon },
+  { label: 'X', href: 'https://x.com/chainserp', Icon: TwitterIcon },
+  { label: 'Facebook', href: 'https://www.facebook.com/chainserp', Icon: FacebookIcon },
 ];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <FooterWrapper>
       <Container>
-        <ListContainer>
-          {footerItems.map((singleItem) => (
-            <FooterList key={singleItem.title} {...singleItem} />
+        <Top>
+          <Brand>
+            <LogoLink href="/">
+              <Logo width={36} height={36} />
+            </LogoLink>
+            <Tagline>{EnvVars.SITE_NAME}</Tagline>
+          </Brand>
+          <Contact>
+            <MailLink href="mailto:hello@chains-erp.com">hello@chains-erp.com</MailLink>
+          </Contact>
+        </Top>
+
+        <Links>
+          {FOOTER_LINKS.map(({ title, href }) => (
+            <NextLink key={href} href={href}>
+              {title}
+            </NextLink>
           ))}
-        </ListContainer>
-        <BottomBar>
-          <ShareBar>
-            <a href="https://www.twitter.com/my-saas-startup" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <TwitterIcon size={50} round={true} />
-            </a>
-            <a href="https://www.facebook.com/my-saas-startup" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FacebookIcon size={50} round={true} />
-            </a>
-            <a href="https://www.linkedin.com/my-saas-startup" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <LinkedinIcon size={50} round={true} />
-            </a>
-          </ShareBar>
-          <Copyright>&copy; Copyright 2021 My Saas Startup</Copyright>
-        </BottomBar>
+        </Links>
+
+        <Divider />
+
+        <Bottom>
+          <Social>
+            {SOCIAL.map(({ label, href, Icon }) => (
+              <SocialLink key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                <Icon size={28} round />
+              </SocialLink>
+            ))}
+          </Social>
+          <Copyright>© {year} {EnvVars.SITE_NAME}</Copyright>
+        </Bottom>
       </Container>
     </FooterWrapper>
   );
 }
 
-function FooterList({ title, items }: SingleFooterList) {
-  return (
-    <ListWrapper>
-      <ListHeader>{title}</ListHeader>
-      {items.map((singleItem) => (
-        <ListItem key={singleItem.href} {...singleItem} />
-      ))}
-    </ListWrapper>
-  );
-}
-
-function ListItem({ title, href }: SingleFooterListItem) {
-  return (
-    <ListItemWrapper>
-      <NextLink href={href}>{title}</NextLink>
-    </ListItemWrapper>
-  );
-}
-
-const FooterWrapper = styled.div`
-  padding-top: 10rem;
-  padding-bottom: 4rem;
+const FooterWrapper = styled.footer`
+  padding: 5rem 0 3rem;
   background: rgb(var(--secondary));
   color: rgb(var(--textSecondary));
 `;
 
-const ListContainer = styled.div`
+const Top = styled.div`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 `;
 
-const ListHeader = styled.p`
-  font-weight: bold;
-  font-size: 2.25rem;
-  margin-bottom: 2.5rem;
-`;
-
-const ListWrapper = styled.div`
+const Brand = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-bottom: 5rem;
-  margin-right: 5rem;
+  align-items: center;
+  gap: 1rem;
+`;
 
-  & > *:not(:first-child) {
-    margin-top: 1rem;
+const LogoLink = styled(NextLink)`
+  display: block;
+  line-height: 0;
+`;
+
+const Tagline = styled.span`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(var(--textSecondary));
+  opacity: 0.95;
+`;
+
+const Contact = styled.div``;
+
+const MailLink = styled.a`
+  font-size: 1.4rem;
+  color: rgba(var(--textSecondary), 0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: rgb(var(--primary));
+  }
+`;
+
+const Links = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  margin-bottom: 2rem;
+
+  a {
+    font-size: 1.35rem;
+    color: rgba(var(--textSecondary), 0.8);
+    text-decoration: none;
+    transition: color 0.2s;
   }
 
-  ${media('<=tablet')} {
-    flex: 0 40%;
-    margin-right: 1.5rem;
+  a:hover {
+    color: rgb(var(--primary));
   }
 
   ${media('<=phone')} {
-    flex: 0 100%;
-    margin-right: 0rem;
+    gap: 1rem 1.5rem;
   }
 `;
 
-const ListItemWrapper = styled.p`
-  font-size: 1.6rem;
-
-  a {
-    text-decoration: none;
-    color: rgba(var(--textSecondary), 0.75);
-  }
+const Divider = styled.hr`
+  border: none;
+  height: 1px;
+  background: rgba(var(--textSecondary), 0.15);
+  margin: 0 0 2rem;
 `;
 
-const ShareBar = styled.div`
-  & > *:not(:first-child) {
-    margin-left: 1rem;
-  }
-`;
-
-const Copyright = styled.p`
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-`;
-
-const BottomBar = styled.div`
-  margin-top: 6rem;
+const Bottom = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+`;
 
-  ${media('<=tablet')} {
-    flex-direction: column;
+const Social = styled.div`
+  display: flex;
+  gap: 0.75rem;
+
+  a {
+    color: rgba(var(--textSecondary), 0.7);
+    transition: color 0.2s, transform 0.2s;
   }
+  a:hover {
+    color: rgb(var(--primary));
+    transform: scale(1.05);
+  }
+`;
+
+const SocialLink = styled.a``;
+
+const Copyright = styled.p`
+  font-size: 1.25rem;
+  color: rgba(var(--textSecondary), 0.6);
+  margin: 0;
 `;

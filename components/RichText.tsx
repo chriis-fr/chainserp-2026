@@ -51,7 +51,7 @@ const RichText = styled.div`
     padding: 1rem;
   }
 
-  tr:nth-child(even) {
+  tbody tr:nth-child(even) {
     background: rgb(var(--textSecondary));
   }
 
