@@ -16,8 +16,8 @@ export default function Hero() {
         <Description><span className='font-bold'>Chains</span> is a unified <span className='font-bold'>ERP</span> and <span className='font-bold'>Global Finance</span> platform that grows with you — from a single invoice to multi-entity, universal operations — without scattered tools or workarounds.
         </Description>
         <CustomButtonGroup>
-          <HeroCtaLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-            Book a call <span>&rarr;</span>
+          <HeroCtaLink href="https://global.chains-erp.com/auth">
+            Get Started <span>&rarr;</span>
           </HeroCtaLink>
           <ButtonLink href="https://linkedin.com/company/chainserp" $transparent>
             More <span>&rarr;</span>

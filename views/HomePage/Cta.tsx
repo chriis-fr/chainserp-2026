@@ -7,6 +7,7 @@ import Container from 'components/Container';
 import OverTitle from 'components/OverTitle';
 import SectionTitle from 'components/SectionTitle';
 import { media } from 'utils/media';
+import { EnvVars } from 'env';
 
 export default function Cta() {
   return (
@@ -19,8 +20,8 @@ export default function Cta() {
           Chains replaces invoicing tools, accounting software, payment processors, reporting dashboards, and internal spreadsheets — with a single, unified system.
           </Description>
           <ButtonGroup>
-            <ButtonLink href="https://global.chains-erp.com/auth">
-              Get started with us <span>&rarr;</span>
+            <ButtonLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              Book a call <span>&rarr;</span>
             </ButtonLink>
             <OutlinedButtonLink href="/" $transparent>
               Features <span>&rarr;</span>
