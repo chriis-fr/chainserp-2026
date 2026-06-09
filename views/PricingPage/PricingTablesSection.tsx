@@ -118,9 +118,9 @@ export default function PricingTablesSection() {
               <ModuleTagline>{mod.tagline}</ModuleTagline>
             </div>
           </ModuleLabel>
-          <TierRow count={mod.tiers.length}>
+          <TierRow $count={mod.tiers.length}>
             {mod.tiers.map((tier) => (
-              <TierCard key={tier.name} highlighted={!!tier.label}>
+              <TierCard key={tier.name} $highlighted={!!tier.label}>
                 {tier.label && <Badge>{tier.label}</Badge>}
                 <TierName>{tier.name}</TierName>
                 <TierPrice>
@@ -131,7 +131,7 @@ export default function PricingTablesSection() {
                     <li key={f}>{f}</li>
                   ))}
                 </FeatureList>
-                <TierButton href={CTA} target="_blank" rel="noopener noreferrer" highlighted={!!tier.label}>
+                <TierButton href={CTA} target="_blank" rel="noopener noreferrer" $highlighted={!!tier.label}>
                   Get started
                 </TierButton>
               </TierCard>
@@ -189,9 +189,9 @@ const ModuleTagline = styled.p`
   margin: 0;
 `;
 
-const TierRow = styled.div<{ count: number }>`
+const TierRow = styled.div<{ $count: number }>`
   display: grid;
-  grid-template-columns: repeat(${(p) => p.count}, 1fr);
+  grid-template-columns: repeat(${(p) => p.$count}, 1fr);
   gap: 1.5rem;
 
   ${media('<=tablet')} {
@@ -203,13 +203,13 @@ const TierRow = styled.div<{ count: number }>`
   }
 `;
 
-const TierCard = styled.div<{ highlighted: boolean }>`
+const TierCard = styled.div<{ $highlighted: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 2rem;
   background: rgb(var(--cardBackground));
-  border: 1px solid ${(p) => (p.highlighted ? 'rgb(var(--primary))' : 'rgba(var(--text), 0.12)')};
+  border: 1px solid ${(p) => (p.$highlighted ? 'rgb(var(--primary))' : 'rgba(var(--text), 0.12)')};
   border-radius: 0.8rem;
 `;
 
@@ -277,12 +277,12 @@ const FeatureList = styled.ul`
   }
 `;
 
-const TierButton = styled(Button)<{ highlighted: boolean }>`
+const TierButton = styled(Button)<{ $highlighted: boolean }>`
   width: 100%;
   font-size: 1.4rem;
   padding: 1rem;
-  background: ${(p) => (p.highlighted ? 'rgb(var(--primary))' : 'transparent')};
-  color: ${(p) => (p.highlighted ? '#fff' : 'rgb(var(--primary))')};
+  background: ${(p) => (p.$highlighted ? 'rgb(var(--primary))' : 'transparent')};
+  color: ${(p) => (p.$highlighted ? '#fff' : 'rgb(var(--primary))')};
   border: 1px solid rgb(var(--primary));
 
   &:hover {

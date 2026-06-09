@@ -10,6 +10,7 @@ import Head from 'next/head';
 import { ColorModeScript } from 'nextjs-color-mode';
 import React, { PropsWithChildren } from 'react';
 
+import { Analytics } from '@vercel/analytics/next';
 import Footer from 'components/Footer';
 import { GlobalStyle } from 'components/GlobalStyles';
 import Navbar from 'components/Navbar';
@@ -62,6 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         /> */}
         {/* <script async src="https://www.google-analytics.com/analytics.js"></script> */}
       </Head>
+      <Analytics />
       <ColorModeScript />
       <GlobalStyle />
 
