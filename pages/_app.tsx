@@ -22,6 +22,8 @@ import { NavItems } from 'types';
 
 const navItems: NavItems = [
   { title: 'Explore Global Finance', href: 'https://global.chains-erp.com' },
+  { title: 'POS', href: '/features#pos' },
+  { title: 'Logistics', href: '/features#logistics' },
   { title: 'Pricing', href: '/pricing' },
   { title: 'Contact', href: '/contact' },
   { title: 'Book a call', href: 'https://calendly.com/caspianodhis/30min', outlined: true },
@@ -47,6 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" href="/chains.PNG" />
         <link rel="apple-touch-icon" href="/chains.PNG" />
         {/* <link rel="alternate" type="application/rss+xml" href={EnvVars.URL + 'rss'} title="RSS 2.0" /> */}

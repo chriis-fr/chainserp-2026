@@ -15,7 +15,31 @@ import Testimonials from 'views/HomePage/Testimonials';
 export default function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <SEO url="/" />
+      <SEO
+        url="/"
+        title="Chains ERP — Global Finance, POS, Payroll & Logistics for Africa"
+        description="Chains ERP is the all-in-one platform for invoicing, payroll, treasury, POS with M-Pesa and crypto, and fleet logistics. Used by businesses across Kenya and Africa. Start free."
+        keywords={[
+          'Chains ERP',
+          'ERP Kenya',
+          'ERP Africa',
+          'POS Kenya',
+          'M-Pesa POS',
+          'restaurant POS Nairobi',
+          'payroll software Kenya',
+          'fleet management Kenya',
+          'logistics software Kenya',
+          'invoice software Africa',
+          'accounting software Kenya',
+          'treasury management',
+          'vendor payables Kenya',
+          'crypto payments Africa',
+          'Bitcoin stablecoin payments',
+          'progressusmavericks.co.ke',
+          'pos.chains-erp.com',
+          'global.chains-erp.com',
+        ]}
+      />
       <HomepageWrapper>
         <WhiteBackgroundContainer>
           <Hero />

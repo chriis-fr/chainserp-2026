@@ -38,9 +38,9 @@ const FEATURES = [
   },
   {
     imageUrl: '/grid-icons/asset-6.svg',
-    title: 'Unified Finance Operations Stack',
+    title: 'POS — every payment, every shift.',
     description:
-      'Invoicing, accounting, payroll, expenses, analytics, and payments live in one connected system.',
+      'Accept M-Pesa, stablecoins, Bitcoin, and multi-currency at your counter. Orders, tips, and deductions auto-sync to payroll.',
   },
   {
     imageUrl: '/grid-icons/asset-7.svg',

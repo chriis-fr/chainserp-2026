@@ -10,9 +10,10 @@ import { media } from 'utils/media';
 
 const TABS = [
   {
-    title: 'Universal Invoicing- built into your business.',
+    title: 'Invoicing, Payroll & Treasury — one connected system.',
     description:
-      '<p>Chains is the only ERP that lets you invoice your customers directly from your business. No more scattered tools. No more manual data entry. No more lost invoices.</p>' + '<p>That’s why it works globally, instantly, and accurately.</p>',
+      '<p>Send invoices globally, run payroll cycles, and manage vendor payables — all from one place.</p>' +
+      '<p>Every transaction posts to your books instantly. Faster closes. Cleaner records. Zero blind spots.</p>',
     imageUrl: '/image.png',
     baseColor: '249,82,120',
     secondColor: '221,9,57',
@@ -20,15 +21,16 @@ const TABS = [
   {
     title: 'Integrate with tools you already use.',
     description:
-      '<p>Chains integrates with your existing tools, so you can use them together seamlessly. No more switching between tools. No more manual data entry. No more lost invoices.</p>',
+      '<p>Chains connects with your existing stack seamlessly. Invoices, bills, and payments flow into one real-time view of your finances — no manual entry, no reconciliation gaps.</p>',
     imageUrl: '/integration.png',
     baseColor: '57,148,224',
     secondColor: '99,172,232',
   },
   {
-    title: 'Know where every dollar is - Instantly',
+    title: 'POS to Payroll — your floor staff, fully managed.',
     description:
-      '<p>Chains connects invoices, bills, and payments into one real-time view of your business finances. Faster closes. Cleaner books. Zero blind spots.</p>',
+      '<p>Every order, tip, and deduction flows from your POS directly into payroll. Run staff wages from sales data with one click.</p>' +
+      '<p>M-Pesa, stablecoins, Bitcoin, multi-currency — every mode captured and reconciled. Waiters get paid. Records stay clean.</p>',
     imageUrl: '/dashboard.png',
     baseColor: '88,193,132',
     secondColor: '124,207,158',

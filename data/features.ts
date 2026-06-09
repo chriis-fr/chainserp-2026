@@ -10,6 +10,138 @@ export interface Feature {
   faqs: Array<{ question: string; answer: string }>;
 }
 
+export interface FeatureGroupItem {
+  title: string;
+  description: string;
+  href: string;
+}
+
+export interface FeatureGroup {
+  id: string;
+  title: string;
+  tagline: string;
+  icon: string;
+  items: FeatureGroupItem[];
+}
+
+export const featureGroups: FeatureGroup[] = [
+  {
+    id: 'pos',
+    title: 'Point of Sale',
+    tagline: 'Run a modern, M-Pesa-connected POS with real-time order flow and staff payroll built in.',
+    icon: '🛒',
+    items: [
+      {
+        title: 'Real-Time Order Tracking',
+        description: 'Orders progress through created → preparing → ready → paid in real time. Assign waiters, monitor tables, and see every sale as it happens.',
+        href: '/features/global-invoicing',
+      },
+      {
+        title: 'M-Pesa Payment Matching',
+        description: 'Automatically match incoming M-Pesa STK and Till payments to open orders by amount and phone number — zero manual reconciliation.',
+        href: '/features/cross-border-payments',
+      },
+      {
+        title: 'POS-Integrated Staff Payroll',
+        description: 'Tips, deductions, and sales per waiter flow directly into payroll. Run staff wages straight from your POS data with one click.',
+        href: '/features/crypto-payroll',
+      },
+    ],
+  },
+  {
+    id: 'payroll',
+    title: 'Payroll',
+    tagline: 'Automate employee salaries, track every payment status, and handle expenses in one workflow.',
+    icon: '💳',
+    items: [
+      {
+        title: 'Salary Runs',
+        description: 'Initiate full payroll runs and track each disbursement through awaiting payment, paid, or failed — with detail modals per employee.',
+        href: '/features/crypto-payroll',
+      },
+      {
+        title: 'Employee Management',
+        description: 'Maintain employee records, job titles, mobile money accounts, and payroll history. Add or update staff without leaving the finance dashboard.',
+        href: '/features/erp-for-finance-teams',
+      },
+      {
+        title: 'Expense Payroll',
+        description: 'Combine recurring salaries with one-off business expenses in a single unified payroll workflow — no spreadsheet juggling.',
+        href: '/features/erp-for-remote-teams',
+      },
+    ],
+  },
+  {
+    id: 'treasury',
+    title: 'Treasury',
+    tagline: 'Control what you owe, enforce approval gates, and never let an unauthorized payment slip through.',
+    icon: '🏦',
+    items: [
+      {
+        title: 'Vendor Payables',
+        description: 'Track every amount owed to vendors with clear status stages — pending, approved, and paid — across multiple suppliers at once.',
+        href: '/features/cross-border-payments',
+      },
+      {
+        title: 'Multi-Level Approvals',
+        description: 'Every payable passes through configurable approval chains before disbursement. Reviewers approve asynchronously from anywhere.',
+        href: '/features/erp-for-enterprises',
+      },
+      {
+        title: 'Finance Controls',
+        description: 'Set spend limits, approval thresholds, and role-based payment controls so the right people authorize the right amounts.',
+        href: '/features/erp-for-finance-teams',
+      },
+    ],
+  },
+  {
+    id: 'invoices-bills',
+    title: 'Invoices & Bills',
+    tagline: 'Send professional invoices, track revenue, and manage incoming bills with full approval traceability.',
+    icon: '🧾',
+    items: [
+      {
+        title: 'Smart Invoicing',
+        description: 'Create and send invoices with auto-generated PDFs, track sent/pending/paid status, and monitor total revenue from a live stats dashboard.',
+        href: '/features/global-invoicing',
+      },
+      {
+        title: 'PDF Invoice Mapping',
+        description: 'Upload existing invoice PDFs and map fields visually to extract billing data automatically — no re-keying, no errors.',
+        href: '/features/global-invoicing',
+      },
+      {
+        title: 'Bills & Approval Workflow',
+        description: 'Log incoming vendor bills and move them through draft → pending approval → approved → paid with a full audit trail at every stage.',
+        href: '/features/erp-for-finance-teams',
+      },
+    ],
+  },
+  {
+    id: 'logistics',
+    title: 'Logistics',
+    tagline: 'Fleet management and end-to-end logistics operations — live at progressusmavericks.co.ke.',
+    icon: '🚚',
+    items: [
+      {
+        title: 'Fleet Management',
+        description: 'Track every vehicle, driver, and trip in real time. Manage maintenance schedules, fuel logs, and fleet utilization from a single dashboard.',
+        href: 'https://progressusmavericks.co.ke',
+      },
+      {
+        title: 'Route & Delivery Tracking',
+        description: 'Plan optimal routes, assign drivers, and monitor deliveries live. Customers get real-time ETAs and proof-of-delivery confirmations.',
+        href: 'https://progressusmavericks.co.ke',
+      },
+      {
+        title: 'Logistics Finance Integration',
+        description: 'Fuel costs, driver payroll, and trip expenses flow directly into Chains ERP — no manual entry, full audit trail across every run.',
+        href: 'https://progressusmavericks.co.ke',
+      },
+    ],
+  },
+];
+
 export const features: Feature[] = [
   {
     slug: 'global-invoicing',
