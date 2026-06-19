@@ -86,14 +86,7 @@ const MODULES = [
     tagline: 'All modules in one plan — invoices, payables, payroll, and controls.',
     tiers: [
       {
-        name: 'Pro',
-        price: '$19',
-        period: '/seat/mo',
-        label: 'Popular',
-        features: ['200 invoices / month', '$75k volume · 0.6% fee', 'Payroll (20 emp)', 'Integrations'],
-      },
-      {
-        name: 'Scale',
+        name: 'Full Suite',
         price: '$125',
         period: '/mo · 5 seats',
         label: 'Best Value',
