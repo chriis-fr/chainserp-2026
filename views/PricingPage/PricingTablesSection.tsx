@@ -21,7 +21,7 @@ const MODULES = [
       },
       {
         name: 'Growth',
-        price: '$9.99',
+        price: '$14',
         period: '/seat/mo',
         label: 'Popular',
         features: ['100 invoices / month', '$25k processing volume', 'Real-time reconciliation', 'API access'],
@@ -86,10 +86,10 @@ const MODULES = [
     tagline: 'All modules in one plan — invoices, payables, payroll, and controls.',
     tiers: [
       {
-        name: 'Growth',
-        price: '$45',
-        period: '/mo · 3 seats',
-        label: null,
+        name: 'Pro',
+        price: '$19',
+        period: '/seat/mo',
+        label: 'Popular',
         features: ['200 invoices / month', '$75k volume · 0.6% fee', 'Payroll (20 emp)', 'Integrations'],
       },
       {
