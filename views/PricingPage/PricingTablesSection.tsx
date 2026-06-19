@@ -13,25 +13,18 @@ const MODULES = [
     tagline: 'Create, send, and track invoices globally with real-time reconciliation.',
     tiers: [
       {
-        name: 'Starter',
-        price: '$0',
-        period: '/mo',
-        label: null,
-        features: ['5 invoices / month', '$2k processing volume', 'Payment tracking'],
-      },
-      {
         name: 'Growth',
         price: '$14',
         period: '/seat/mo',
         label: 'Popular',
-        features: ['100 invoices / month', '$25k processing volume', 'Real-time reconciliation', 'API access'],
+        features: ['100 invoices / month', '$25k processing volume', 'Real-time reconciliation'],
       },
       {
         name: 'Scale',
         price: '$60',
         period: '/mo · 5 seats',
         label: null,
-        features: ['Unlimited invoices', '$100k processing volume', 'Approval workflows', 'Finance controls', 'Audit logs'],
+        features: ['Unlimited invoices', '$100k processing volume', 'Approval workflows', 'Finance controls', 'Audit logs', 'API access', 'BTC / Crypto payments'],
       },
     ],
   },
@@ -53,7 +46,7 @@ const MODULES = [
         price: '$95',
         period: '/mo · 5 seats',
         label: 'Popular',
-        features: ['Payroll & expenses', 'Finance controls', 'Audit logs', '$150k volume · 0.5% fee'],
+        features: ['Payroll & expenses', 'Finance controls', 'Audit logs', '$150k volume · 0.5% fee', 'BTC / Crypto payments'],
       },
     ],
   },
@@ -65,17 +58,17 @@ const MODULES = [
     tiers: [
       {
         name: 'Starter',
-        price: '$9.99',
-        period: '/seat/mo',
+        price: '$29',
+        period: '/mo · base',
         label: null,
-        features: ['Up to 20 employees / run', 'Digital payslips', 'Treasury payouts', 'Tax calculations'],
+        features: ['$6 / employee paid', 'Up to 20 employees / run', 'Digital payslips', 'Treasury payouts', 'Tax calculations'],
       },
       {
         name: 'Growth',
-        price: '$20',
-        period: '/seat/mo',
+        price: '$49',
+        period: '/mo · base',
         label: 'Popular',
-        features: ['Unlimited employees', 'Unlimited payroll runs', 'Multi-region payroll', 'Compliance reporting'],
+        features: ['$9 / employee paid', 'Unlimited employees', 'Unlimited payroll runs', 'Multi-region payroll', 'Compliance reporting'],
       },
     ],
   },
@@ -90,7 +83,7 @@ const MODULES = [
         price: '$125',
         period: '/mo · 5 seats',
         label: 'Best Value',
-        features: ['5 seats included · $19/extra seat', 'Unlimited invoices · Treasury · Payroll', '$250k volume · 0.4% fee', 'Advanced workflows', 'Audit logs'],
+        features: ['5 seats included · $19/extra seat', 'Unlimited invoices · Treasury · Payroll', '$250k volume · 0.4% fee', 'Advanced workflows', 'Audit logs', 'API access', 'BTC / Crypto payments'],
       },
     ],
   },
@@ -100,7 +93,7 @@ export default function PricingTablesSection() {
   return (
     <Wrapper>
       <SectionTitle>Simple, module-based pricing</SectionTitle>
-      <Lead>Pay only for what your team uses. Start free on invoices and add modules as you grow.</Lead>
+      <Lead>Pay only for what your team uses. Start with one module and add more as you grow.</Lead>
 
       {MODULES.map((mod) => (
         <ModuleBlock key={mod.id}>
