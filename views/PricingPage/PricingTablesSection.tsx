@@ -90,7 +90,7 @@ const MODULES = [
         price: '$125',
         period: '/mo · 5 seats',
         label: 'Best Value',
-        features: ['5 seats included · $19/extra seat', 'Unlimited invoices', '$250k volume · 0.4% fee', 'Unlimited payroll', 'Advanced workflows', 'Audit logs'],
+        features: ['5 seats included · $19/extra seat', 'Unlimited invoices · Treasury · Payroll', '$250k volume · 0.4% fee', 'Advanced workflows', 'Audit logs'],
       },
     ],
   },
