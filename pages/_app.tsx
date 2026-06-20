@@ -25,6 +25,7 @@ const navItems: NavItems = [
   { title: 'Explore Global Finance', href: 'https://global.chains-erp.com' },
   { title: 'POS', href: '/features#pos' },
   { title: 'Logistics', href: '/features#logistics' },
+  { title: 'Bitcoin Payments', href: '/accept-bitcoin-payments' },
   { title: 'Pricing', href: '/pricing' },
   { title: 'Contact', href: '/contact' },
   { title: 'Book a call', href: 'https://calendly.com/caspianodhis/30min', outlined: true },
