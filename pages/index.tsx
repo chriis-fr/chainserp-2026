@@ -20,24 +20,127 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
         title="Chains ERP — Global Finance, POS, Payroll & Logistics for Africa"
         description="Chains ERP is the all-in-one platform for invoicing, payroll, treasury, POS with M-Pesa and crypto, and fleet logistics. Used by businesses across Kenya and Africa. Start free."
         keywords={[
-          'Chains ERP',
-          'ERP Kenya',
-          'ERP Africa',
-          'POS Kenya',
-          'M-Pesa POS',
-          'restaurant POS Nairobi',
-          'payroll software Kenya',
-          'fleet management Kenya',
-          'logistics software Kenya',
-          'invoice software Africa',
-          'accounting software Kenya',
-          'treasury management',
-          'vendor payables Kenya',
-          'crypto payments Africa',
-          'Bitcoin stablecoin payments',
-          'progressusmavericks.co.ke',
-          'pos.chains-erp.com',
-          'global.chains-erp.com',
+              // Brand
+    "Chains ERP",
+    "ChainsERP",
+    "Chains ERP Africa",
+
+    // ERP
+    "ERP",
+    "ERP software",
+    "cloud ERP",
+    "business management software",
+    "enterprise resource planning",
+    "ERP Kenya",
+    "ERP Africa",
+    "ERP East Africa",
+    "ERP for SMEs",
+    "ERP for enterprises",
+
+    // Accounting & Finance
+    "accounting software",
+    "accounting software Kenya",
+    "finance software",
+    "bookkeeping software",
+    "general ledger",
+    "accounts payable",
+    "accounts receivable",
+    "expense management",
+    "treasury management",
+    "cash flow management",
+    "financial reporting",
+    "invoice software",
+    "invoice software Africa",
+    "billing software",
+    "quotation software",
+
+    // Payroll & HR
+    "payroll software",
+    "payroll software Kenya",
+    "HR software",
+    "HR management system",
+    "employee management",
+    "attendance management",
+    "leave management",
+    "staff payroll",
+    "human resource software",
+
+    // POS
+    "POS",
+    "POS system",
+    "point of sale",
+    "POS Kenya",
+    "retail POS",
+    "restaurant POS",
+    "restaurant POS Nairobi",
+    "supermarket POS",
+    "pharmacy POS",
+    "hotel POS",
+    "inventory POS",
+
+    // Inventory
+    "inventory management",
+    "warehouse management",
+    "stock management",
+    "barcode inventory",
+    "purchase orders",
+    "supplier management",
+
+    // Logistics
+    "fleet management",
+    "fleet management Kenya",
+    "transport management",
+    "logistics software",
+    "logistics software Kenya",
+    "delivery management",
+    "vehicle tracking",
+
+    // Payments
+    "M-Pesa POS",
+    "M-Pesa integration",
+    "mobile money payments",
+    "crypto payments",
+    "crypto payments Africa",
+    "Bitcoin payments",
+    "USDT payments",
+    "stablecoin payments",
+    "cross-border payments",
+    "payment gateway",
+
+    // Blockchain
+    "Web3 ERP",
+    "blockchain ERP",
+    "digital assets",
+    "business crypto wallet",
+    "on-chain accounting",
+
+    // Industries
+    "ERP for restaurants",
+    "ERP for hotels",
+    "ERP for schools",
+    "ERP for hospitals",
+    "ERP for NGOs",
+    "ERP for manufacturers",
+    "ERP for distributors",
+    "ERP for wholesalers",
+    "ERP for retailers",
+    "ERP for logistics companies",
+
+    // Geography
+    "Kenya",
+    "Nairobi",
+    "East Africa",
+    "Uganda",
+    "Tanzania",
+    "Rwanda",
+    "Africa",
+
+    // Domains
+    "chains-erp.com",
+    "app.chains-erp.com",
+    "global.chains-erp.com",
+    "pos.chains-erp.com",
+    "progressusmavericks.co.ke"
         ]}
       />
       <HomepageWrapper>

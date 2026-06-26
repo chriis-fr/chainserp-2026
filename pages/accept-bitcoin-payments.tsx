@@ -8,7 +8,7 @@ import AfricaStatsSection from 'views/BitcoinPage/AfricaStatsSection';
 import BitcoinFaqSection from 'views/BitcoinPage/FaqSection';
 
 const BTCPAY_URL = 'https://btcpay.chains-erp.com';
-const APP_URL = 'https://global.chains-erp.com/auth';
+const APP_URL = 'https://app.chains-erp.com/auth';
 
 export default function AcceptBitcoinPaymentsPage() {
   return (

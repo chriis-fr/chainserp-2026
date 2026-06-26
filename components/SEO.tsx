@@ -125,7 +125,7 @@ export default function SEO({
 
       {/* Alternate properties */}
       <link rel="alternate" href="https://pos.chains-erp.com" hrefLang="en" />
-      <link rel="alternate" href="https://global.chains-erp.com" hrefLang="en" />
+      <link rel="alternate" href="https://app.chains-erp.com" hrefLang="en" />
 
       {/* Author */}
       <meta name="author" content="Christopher Odhiambo" />

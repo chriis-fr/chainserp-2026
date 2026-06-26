@@ -3,7 +3,7 @@ import SectionTitle from 'components/SectionTitle';
 import Button from 'components/Button';
 import { media } from 'utils/media';
 
-const CTA = 'https://global.chains-erp.com/auth';
+const CTA = 'https://app.chains-erp.com/auth';
 
 const MODULES = [
   {

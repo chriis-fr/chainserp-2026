@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { media } from 'utils/media';
 import Container from 'components/Container';
 
-const APP_URL = 'https://global.chains-erp.com/auth';
+const APP_URL = 'https://app.chains-erp.com/auth';
 const BTCPAY_URL = 'https://btcpay.chains-erp.com';
 
 export default function HeroSection() {

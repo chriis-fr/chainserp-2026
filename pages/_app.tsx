@@ -22,7 +22,7 @@ import { EnvVars } from 'env';
 import { NavItems } from 'types';
 
 const navItems: NavItems = [
-  { title: 'Explore Global Finance', href: 'https://global.chains-erp.com' },
+  { title: 'Explore Global Finance', href: 'https://app.chains-erp.com' },
   { title: 'POS', href: '/features#pos' },
   { title: 'Logistics', href: '/features#logistics' },
   { title: 'Bitcoin', href: '/accept-bitcoin-payments' },
