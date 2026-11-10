@@ -30,11 +30,11 @@ const PLANS: Plan[] = [
     hl: true,
   },
   {
-    name: 'Point of sale',
+    name: 'Chains POS',
     usd: 'Ask us',
     kes: 'Ask us',
     per: '',
-    text: 'Switched on by request. We connect your own paybill or till number.',
+    text: 'Switched on by request. We connect your existing M-Pesa paybill or till, printers and tablets.',
     points: ['Tables, waiter mode, kitchen and bar screens', 'Keeps payments if the Wi-Fi drops', 'Android tablets and network printers'],
     cta: { label: 'Ask on WhatsApp', href: LINKS.whatsappTill, wa: true },
   },
@@ -80,15 +80,15 @@ const PLANS: Plan[] = [
 const FAQ = [
   {
     q: 'How do I get set up?',
-    a: "Send us your business name on WhatsApp. We switch on the till for your workspace and connect your own paybill or till number. You load your menu and stock list by pasting it or from a CSV or Excel file, and add your staff from a CSV file.",
+    a: "Send us your business name on WhatsApp. We switch on Chains POS for your workspace and connect your existing paybill or till number. You load your menu and stock list by pasting it or from a CSV or Excel file, and add your staff from a CSV file.",
   },
   {
     q: 'What do I need at the counter?',
-    a: 'The till runs on Android tablets and prints to receipt printers on your network. Orders show on the kitchen and bar screens.',
+    a: 'Nothing new. Chains POS runs on Android tablets or a browser and prints to the receipt printers already on your network. Orders show on the kitchen and bar screens.',
   },
   {
     q: 'Does it work with my own M-Pesa paybill or till number?',
-    a: 'Yes, at the counter. Payments taken at the till land in Chains with the M-Pesa code attached. On invoices, the Pay now button collects by M-Pesa into your Chains treasury, less a fee, and the invoice marks itself paid.',
+    a: 'Yes, at the counter. Payments taken at the POS land in Chains with the M-Pesa code attached. On invoices, the Pay now button collects by M-Pesa into your Chains treasury, less a fee, and the invoice marks itself paid.',
   },
   {
     q: 'Can the assistant move money without me?',
@@ -96,7 +96,7 @@ const FAQ = [
   },
   {
     q: 'Does Chains issue KRA eTIMS invoices?',
-    a: 'Not yet. Keep issuing tax invoices from your eTIMS system for now; Chains runs your payments, payroll, bills and till alongside it.',
+    a: 'Not yet. Keep issuing tax invoices from your eTIMS system for now; Chains runs your payments, payroll, bills and POS alongside it.',
   },
   {
     q: 'What about FleetOps logistics?',
@@ -110,7 +110,7 @@ export default function PricingPage() {
     <Page
       eyebrow="Pricing"
       title="Pay for what you use."
-      description="Full Suite covers invoices, bills, treasury and payroll for about KES 16,200 a month. The till is switched on by request. 15 days free, no card."
+      description="Full Suite covers invoices, bills, treasury and payroll for about KES 16,200 a month. Chains POS is switched on by request. 15 days free, no card."
     >
       <div className="cx">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 20 }}>

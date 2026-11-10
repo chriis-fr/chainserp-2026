@@ -10,7 +10,7 @@ type Product = { href: string; icon: IconName; title: string; blurb: string; hos
 // The products, in the order a visitor is most likely to need them. `host` marks a link that leaves this site.
 export const PRODUCTS: Product[] = [
   { href: LINKS.appProducts, icon: 'layers', title: 'Chains ERP', blurb: 'Payroll, supplier bills, invoices and treasury', host: 'app' },
-  { href: LINKS.pos, icon: 'till', title: 'Point of sale', blurb: 'A till that takes M-Pesa on your own number', host: 'pos' },
+  { href: LINKS.pos, icon: 'till', title: 'Chains POS', blurb: 'Point of sale operations, connected to your M-Pesa', host: 'pos' },
   { href: LINKS.logistics, icon: 'truck', title: 'FleetOps logistics', blurb: 'Vehicles, drivers and deliveries', host: 'fleet' },
   { href: LINKS.ai, icon: 'chat', title: 'Chains AI', blurb: 'The assistant on WhatsApp, sold separately (beta)', host: 'app' },
   { href: LINKS.appPayroll, icon: 'users', title: 'Payroll', blurb: 'Everyone paid by M-Pesa in one approval', host: 'app' },
@@ -157,7 +157,7 @@ export default function Navbar(_props: NavbarProps) {
             </li>
             <li>
               <a href={LINKS.posSignIn}>
-                <b>Till sign-in</b>
+                <b>POS sign-in</b>
                 <small>For cashiers and waiters</small>
               </a>
             </li>

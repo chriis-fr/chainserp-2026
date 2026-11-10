@@ -6,7 +6,7 @@ const COLUMNS: { title: string; links: { label: string; href: string; internal?:
     title: 'Products',
     links: [
       { label: 'Chains ERP', href: LINKS.appProducts },
-      { label: 'Point of sale', href: LINKS.pos },
+      { label: 'Chains POS', href: LINKS.pos },
       { label: 'FleetOps logistics', href: LINKS.logistics },
       { label: 'Chains AI', href: LINKS.ai },
       { label: 'Bitcoin payments', href: '/accept-bitcoin-payments', internal: true },
@@ -26,7 +26,7 @@ const COLUMNS: { title: string; links: { label: string; href: string; internal?:
     title: 'Sign in',
     links: [
       { label: 'Chains ERP app', href: LINKS.signIn },
-      { label: 'Till (cashiers, waiters)', href: LINKS.posSignIn },
+      { label: 'POS (cashiers, waiters)', href: LINKS.posSignIn },
       { label: 'FleetOps', href: LINKS.logistics },
       { label: 'Create an account', href: LINKS.signUp },
     ],
@@ -62,7 +62,7 @@ export default function Footer() {
               <img src="/chainsnobgnologo.PNG" alt="" width={30} height={30} />
               <span>Chains ERP</span>
             </NextLink>
-            <p>The till, payroll, supplier bills, invoices and deliveries for growing businesses. Made in Nairobi.</p>
+            <p>Point of sale, payroll, supplier bills, invoices and logistics for growing businesses. Made in Nairobi.</p>
             <a className="cx-link" href={LINKS.email}>
               hello@chains-erp.com
             </a>

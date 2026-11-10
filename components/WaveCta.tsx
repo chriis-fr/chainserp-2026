@@ -11,7 +11,7 @@ export default function WaveCta() {
             Get started
           </span>
           <h2>Send us your business name. We'll set up the rest with you.</h2>
-          <p>Start free for 15 days with no card, or message us on WhatsApp and we'll switch on the till and connect your own M-Pesa number.</p>
+          <p>Start free for 15 days with no card, or message us on WhatsApp and we'll connect Chains POS to your existing M-Pesa paybill or till.</p>
           <div className="cx-cta">
             <a className="cx-btn cx-btn-primary" href={LINKS.whatsapp} target="_blank" rel="noopener">
               <WhatsAppIcon /> Set up on WhatsApp
@@ -25,7 +25,7 @@ export default function WaveCta() {
               Prefer a call? <a href={LINKS.calendly}>Book 30 minutes</a>
             </span>
             <span>
-              Already with us? <a href={LINKS.signIn}>Sign in</a> · <a href={LINKS.posSignIn}>Open the till</a>
+              Already with us? <a href={LINKS.signIn}>Sign in</a> · <a href={LINKS.posSignIn}>Open the POS</a>
             </span>
           </div>
         </div>

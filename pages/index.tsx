@@ -3,10 +3,12 @@ import NextLink from 'next/link';
 import SEO from 'components/SEO';
 import { Icon, IconName, WhatsAppIcon } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
+import LogisticsScene from 'views/HomePage/LogisticsScene';
+import PosOperations from 'views/HomePage/PosOperations';
 
 // Every claim on this page has to match what the products do today (see the app site at app.chains-erp.com,
 // whose wording was checked against the code): money moves by M-Pesa in Kenya, invoices go out in 50+ currencies,
-// the till is switched on by the Chains team, Chains AI is in beta and sold separately, 15 days free with no card.
+// the POS is switched on by the Chains team, Chains AI is in beta and sold separately, 15 days free with no card.
 
 type ProductCard = {
   id: string;
@@ -38,26 +40,26 @@ const PRODUCTS: ProductCard[] = [
   {
     id: 'pos',
     icon: 'till',
-    name: 'Point of sale',
+    name: 'Chains POS',
     host: 'pos.chains-erp.com',
-    line: 'A till for bars, restaurants and cafés that takes M-Pesa on your own paybill or till number.',
+    line: 'Point of sale operations for bars, restaurants, cafés and hotels, connected to the M-Pesa, printers and tablets you already have.',
     points: [
-      'Tables, waiter mode, kitchen and bar screens',
-      'Keeps the payment if the Wi-Fi drops, syncs later',
-      'Runs on Android tablets, prints to network printers',
+      'Orders, tables, kitchen and bar screens, QR ordering',
+      'Recipes and stock, shifts and cash-up, credit tabs',
+      'M-Pesa records, sales and reconciliation, audit',
     ],
-    primary: { label: 'Get the till', href: LINKS.whatsappTill, wa: true },
-    secondary: { label: 'Open the till', href: LINKS.pos },
+    primary: { label: 'Explore Chains POS', href: LINKS.pos },
+    secondary: { label: 'See POS operations', href: '#pos-operations' },
   },
   {
     id: 'logistics',
     icon: 'truck',
     name: 'FleetOps',
     host: 'progressusmavericks.co.ke',
-    line: 'Logistics for businesses that move goods: vehicles, drivers and deliveries in one dashboard.',
-    points: ['Vehicles and drivers on one list', 'Orders and deliveries tracked to drop-off', 'Ask us to set it up for your fleet'],
+    line: 'Logistics for businesses that move goods: orders, drivers, vehicles and deliveries on one live map.',
+    points: ['Orders, dispatch, drivers and vehicles', 'Every vehicle live on the map', 'Customers track their own order'],
     primary: { label: 'Ask about FleetOps', href: LINKS.whatsappLogistics, wa: true },
-    secondary: { label: 'Open FleetOps', href: LINKS.logistics },
+    secondary: { label: 'See it on the map', href: '#logistics-3d' },
   },
   {
     id: 'ai',
@@ -66,14 +68,14 @@ const PRODUCTS: ProductCard[] = [
     status: 'Beta',
     host: 'app.chains-erp.com/ai',
     line: 'Tell your ERP what to do on WhatsApp. The assistant prepares it, you approve it.',
-    points: ['"How are sales today?" answered from the till', 'Payments out always need your passcode', 'Sold separately, on top of a paid plan'],
+    points: ['"How are sales today?" answered from the POS', 'Payments out always need your passcode', 'Sold separately, on top of a paid plan'],
     primary: { label: 'See Chains AI', href: LINKS.ai },
     secondary: { label: 'How approvals work', href: LINKS.security },
   },
 ];
 
 const FLOW: { icon: IconName; k: string; title: string; text: string; chip: string }[] = [
-  { icon: 'till', k: '01 · Till', title: 'A sale is rung up', text: 'The customer pays by M-Pesa to your own number. The code lands on the order.', chip: 'Table 4 · paid' },
+  { icon: 'till', k: '01 · POS', title: 'A sale is rung up', text: 'The customer pays by M-Pesa to your own number. The code lands on the order.', chip: 'Table 4 · paid' },
   { icon: 'users', k: '02 · Payroll', title: 'Staff are paid', text: 'Shifts and tips are there when you run payroll. One approval pays everyone.', chip: '18 staff · 1 approval' },
   { icon: 'receipt', k: '03 · Bills', title: 'Suppliers are settled', text: 'Bills wait for approval, then go out from the treasury.', chip: '3 awaiting approval' },
   { icon: 'file', k: '04 · Invoices', title: 'Clients pay you', text: 'Invoices go out in their currency and mark themselves paid.', chip: 'INV-0142 · paid' },
@@ -98,7 +100,7 @@ export default function Homepage() {
       <SEO
         url="/"
         title="Chains ERP — POS, payroll, bills, invoices and logistics in one place"
-        description="Chains ERP runs a business from the till to payroll: a point of sale with M-Pesa on your own number, payroll in one approval, supplier bills, invoices in 50+ currencies, FleetOps logistics and the Chains AI assistant. Start free for 15 days."
+        description="Chains ERP runs a business from the point of sale to payroll: POS operations connected to your own M-Pesa paybill or till, payroll in one approval, supplier bills, invoices in 50+ currencies, FleetOps logistics with live tracking, and the Chains AI assistant. Start free for 15 days."
       />
       <div className="cx">
         {/* ---------- Hero ---------- */}
@@ -112,7 +114,7 @@ export default function Homepage() {
                 Run the whole business from <span className="cx-grad">one place.</span>
               </h1>
               <p className="cx-lead">
-                The till, payroll, supplier bills, invoices and deliveries, in products that share the same records. Built
+                Point of sale, payroll, supplier bills, invoices and deliveries, in products that share the same records. Built
                 for bars, restaurants, hotels and growing businesses; money moves by M-Pesa in Kenya today.
               </p>
               <div className="cx-cta">
@@ -125,7 +127,7 @@ export default function Homepage() {
               </div>
               <p className="cx-fine">
                 15 days free, no card. Already a customer? <a href={LINKS.signIn}>Sign in</a> or open the{' '}
-                <a href={LINKS.posSignIn}>till</a>.
+                <a href={LINKS.posSignIn}>POS</a>.
               </p>
               <div className="cx-jump" aria-label="Go straight to a product">
                 <a href="#pos">
@@ -153,7 +155,7 @@ export default function Homepage() {
             <div className="cx-head">
               <span className="cx-eyebrow">Products</span>
               <h2>Start with the one you need. Add the rest when you're ready.</h2>
-              <p>Each product works on its own and they share the same records, so a sale at the till is already there when you run payroll.</p>
+              <p>Each product works on its own and they share the same records, so a sale at the POS is already there when you run payroll.</p>
             </div>
             <div className="cx-prods">
               {PRODUCTS.map((p, i) => (
@@ -197,12 +199,16 @@ export default function Homepage() {
           </div>
         </section>
 
+        <PosOperations />
+
+        <LogisticsScene />
+
         {/* ---------- How it connects ---------- */}
         <section className="cx-sec">
           <div className="cx-wrap">
             <div className="cx-head">
               <span className="cx-eyebrow">How it fits together</span>
-              <h2>From the till to payroll, without copying anything across.</h2>
+              <h2>From the point of sale to payroll, without copying anything across.</h2>
             </div>
             <ol className="cx-flow">
               {FLOW.map((s) => (
@@ -280,7 +286,7 @@ export default function Homepage() {
                 <div className="cx-amt">
                   Ask us <small>switched on by request</small>
                 </div>
-                <p>We connect your own paybill or till number and switch the till on for your workspace.</p>
+                <p>We connect your existing M-Pesa paybill or till, printers and tablets, and switch Chains POS on for your workspace.</p>
                 <a className="cx-btn cx-btn-quiet cx-btn-sm" href={LINKS.whatsappTill} target="_blank" rel="noopener">
                   <WhatsAppIcon /> Ask on WhatsApp
                 </a>
@@ -306,6 +312,21 @@ export default function Homepage() {
 /** The four products as live tiles: what an owner sees on a normal evening. Illustrative figures. */
 function HeroBoard() {
   return (
+    <div className="cx-board-3d">
+      <div className="cx-float f1" aria-hidden="true">
+        <Icon name="check" />
+        <span>
+          <b>KES 2,350 received</b>
+          <small>M-Pesa · Table 4</small>
+        </span>
+      </div>
+      <div className="cx-float f2" aria-hidden="true">
+        <Icon name="truck" />
+        <span>
+          <b>Order #1042 arriving</b>
+          <small>FleetOps · 12 min</small>
+        </span>
+      </div>
     <div className="cx-board" aria-label="Example: the Chains products on one evening">
       <div className="cx-board-top">
         <div className="cx-dots" aria-hidden="true">
@@ -320,7 +341,7 @@ function HeroBoard() {
         <a className="cx-tile" href="#pos">
           <div className="cx-tile-h">
             <span>
-              <Icon name="till" /> Till
+              <Icon name="till" /> POS
             </span>
             <span className="cx-st ok">Paid</span>
           </div>
@@ -369,6 +390,7 @@ function HeroBoard() {
           “How are sales today?”
         </span>
       </div>
+    </div>
     </div>
   );
 }
