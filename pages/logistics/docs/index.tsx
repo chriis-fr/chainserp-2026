@@ -90,8 +90,9 @@ const order = await fleet.post('orders', {
   internal_id: 'SO-1001',
   pickup: 'place_your_warehouse',
   dropoff: { street1: 'Ngong Road', city: 'Nairobi', country: 'KE', phone: '+254712345678' },
+  driver: 'driver_…',                           // dispatch needs a driver; leave out and we dispatch for you
 });
-await fleet.post(\`orders/\${order.id}/dispatch\`);
+await fleet.post(\`orders/\${order.id}/dispatch\`); // only once a driver is assigned
 `}</Code>
 
       <h2>In these docs</h2>

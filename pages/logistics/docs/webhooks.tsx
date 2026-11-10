@@ -26,14 +26,19 @@ export default function WebhooksDocs() {
     >
       <h2>Register an endpoint</h2>
       <p>
-        Send us your HTTPS URL and the events you want, and we register it; or do it yourself. Each endpoint gets its own signing secret.
+        Send us your HTTPS URL and the events you want, and we register it; or do it yourself. The URL must be public: FleetOps
+        refuses private and local addresses. Each endpoint gets its own signing secret, and{' '}
+        <b>the response that creates the endpoint is the only time the secret is shown</b>. Store it straight away; if you lose it,{' '}
+        <code>POST /webhook-endpoints/{'{id}'}/rotate-secret</code> gives you a new one.
       </p>
       <Code lang="typescript">{`
-const endpoint = await fleet.webhookEndpoints.create({
+// fleet comes from chains.ts in the TypeScript quickstart
+const endpoint = await fleet.post('webhook-endpoints', {
   url: 'https://erp.example.co.ke/hooks/chains',
   events: ['order.dispatched', 'order.driver_assigned', 'order.completed', 'order.canceled', 'order.failed'],
   description: 'ERP order status',
 });
+// endpoint.secret is shown only here: save it as CHAINS_WEBHOOK_SECRET
 `}</Code>
       <Code lang="curl">{`
 curl -X POST ${API_BASE}/webhook-endpoints \\

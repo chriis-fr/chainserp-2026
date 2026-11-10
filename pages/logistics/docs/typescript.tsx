@@ -114,8 +114,9 @@ try {
     pickup: 'place_your_warehouse',                 // a saved place id from us
     dropoff: { name: 'Jane Wanjiku', street1: 'Ngong Road', city: 'Nairobi', country: 'KE', phone: '+254712345678' },
     entities: [{ name: 'Carton of 24', internal_id: 'SKU-24' }],
+    driver: 'driver_…',                             // dispatch needs a driver; leave out and we dispatch for you
   });
-  await fleet.post(\`orders/\${order.id}/dispatch\`);
+  await fleet.post(\`orders/\${order.id}/dispatch\`); // only once a driver is assigned
   console.log('Created', order.id);
 } catch (e) {
   if (e instanceof ChainsApiError) console.error(e.status, e.errors);

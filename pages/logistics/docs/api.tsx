@@ -186,7 +186,8 @@ Accept: application/json
 
       <h2>Create an order</h2>
       <Code lang="typescript">{`
-const order = await fleet.orders.create({
+// fleet comes from chains.ts in the TypeScript quickstart
+const order = await fleet.post('orders', {
   internal_id: 'SO-1001',
   pickup: 'place_your_warehouse',               // id of a saved place
   dropoff: {                                     // or a new address
@@ -199,10 +200,12 @@ const order = await fleet.orders.create({
   entities: [{ name: 'Carton of 24', internal_id: 'SKU-24', weight: 12, weight_unit: 'kg' }],
   scheduled_at: '2026-11-12T09:00:00+03:00',     // leave out for as soon as possible
   notes: 'Call on arrival',
+  driver: 'driver_…',                            // dispatch needs a driver; leave out and we dispatch for you
 });
 
-await fleet.orders.dispatch(order.id);
-const live = await fleet.orders.tracker(order.id);
+// Dispatch answers 400 "No driver assigned to dispatch!" until the order has a driver.
+await fleet.post(\`orders/\${order.id}/dispatch\`);
+const live = await fleet.get(\`orders/\${order.id}/tracker\`);
 `}</Code>
 
       {GROUPS.map((g) => (
