@@ -1,222 +1,177 @@
-import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { EnvVars } from 'env';
-import { ScrollPositionEffectProps, useScrollPosition } from 'hooks/useScrollPosition';
-import { NavItems, SingleNavItem } from 'types';
-import { media } from 'utils/media';
-import Container from './Container';
-import Drawer from './Drawer';
-import { HamburgerIcon } from './HamburgerIcon';
-import Logo from './Logo';
+import { useEffect, useRef, useState } from 'react';
+import { Icon, IconName } from 'components/site/Icon';
+import { LINKS } from 'components/site/links';
+import { NavItems } from 'types';
 
-const ColorSwitcher = dynamic(() => import('../components/ColorSwitcher'), { ssr: false });
+type Product = { href: string; icon: IconName; title: string; blurb: string; host?: string };
 
-type NavbarProps = { items: NavItems };
-type ScrollingDirections = 'up' | 'down' | 'none';
-type NavbarContainerProps = { hidden: boolean; transparent: boolean };
+// The products, in the order a visitor is most likely to need them. `host` marks a link that leaves this site.
+export const PRODUCTS: Product[] = [
+  { href: LINKS.appProducts, icon: 'layers', title: 'Chains ERP', blurb: 'Payroll, supplier bills, invoices and treasury', host: 'app' },
+  { href: LINKS.pos, icon: 'till', title: 'Point of sale', blurb: 'A till that takes M-Pesa on your own number', host: 'pos' },
+  { href: LINKS.logistics, icon: 'truck', title: 'FleetOps logistics', blurb: 'Vehicles, drivers and deliveries', host: 'fleet' },
+  { href: LINKS.ai, icon: 'chat', title: 'Chains AI', blurb: 'The assistant on WhatsApp, sold separately (beta)', host: 'app' },
+  { href: LINKS.appPayroll, icon: 'users', title: 'Payroll', blurb: 'Everyone paid by M-Pesa in one approval', host: 'app' },
+  { href: '/accept-bitcoin-payments', icon: 'bitcoin', title: 'Bitcoin payments', blurb: 'Take Bitcoin on invoices' },
+];
 
-const SCROLL_HIDE_THRESHOLD = 80; // px to scroll down before hiding navbar
-const SCROLL_SHOW_THRESHOLD = 80; // px to scroll up before showing navbar (hysteresis)
+type NavbarProps = { items?: NavItems };
 
-export default function Navbar({ items }: NavbarProps) {
+export default function Navbar(_props: NavbarProps) {
   const router = useRouter();
-  const { toggle } = Drawer.useDrawer();
-  const [scrollingDirection, setScrollingDirection] = useState<ScrollingDirections>('none');
-  const lastScrollY = useRef(0);
-  const lastRoute = useRef('');
-  const thresholdScrollY = useRef(0);
-  const isHiddenRef = useRef(false); // avoid stale closure in scroll callback
-  const ticking = useRef(false);
+  const [ddOpen, setDdOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ddRef = useRef<HTMLDivElement>(null);
 
-  useScrollPosition(scrollPositionCallback, [router.asPath], undefined, undefined, 150);
+  // Close menus on route change, outside click and Escape.
+  useEffect(() => {
+    const close = () => {
+      setDdOpen(false);
+      setMenuOpen(false);
+    };
+    router.events.on('routeChangeStart', close);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
+    const onClick = (e: MouseEvent) => {
+      if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('click', onClick);
+    return () => {
+      router.events.off('routeChangeStart', close);
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('click', onClick);
+    };
+  }, [router.events]);
 
-  function scrollPositionCallback({ currPos }: ScrollPositionEffectProps) {
-    if (ticking.current) return;
-
-    const routerPath = router.asPath;
-    const hasRouteChanged = routerPath !== lastRoute.current;
-
-    if (hasRouteChanged) {
-      lastRoute.current = routerPath;
-      setScrollingDirection('none');
-      isHiddenRef.current = false;
-      lastScrollY.current = currPos.y;
-      thresholdScrollY.current = currPos.y;
-      return;
-    }
-
-    const currentScrollY = currPos.y;
-    const isInNonCollapsibleArea = currentScrollY > -50;
-
-    if (isInNonCollapsibleArea) {
-      setScrollingDirection('none');
-      isHiddenRef.current = false;
-      lastScrollY.current = currentScrollY;
-      thresholdScrollY.current = Math.min(thresholdScrollY.current, currentScrollY);
-      return;
-    }
-
-    ticking.current = true;
-    requestAnimationFrame(() => {
-      const scrolledDownEnough = thresholdScrollY.current - currentScrollY >= SCROLL_HIDE_THRESHOLD;
-      const scrolledUpEnough = currentScrollY - thresholdScrollY.current >= SCROLL_SHOW_THRESHOLD;
-
-      if (!isHiddenRef.current && scrolledDownEnough) {
-        setScrollingDirection('down');
-        isHiddenRef.current = true;
-        thresholdScrollY.current = currentScrollY;
-      } else if (isHiddenRef.current && scrolledUpEnough) {
-        setScrollingDirection('up');
-        isHiddenRef.current = false;
-        thresholdScrollY.current = currentScrollY;
-      }
-
-      lastScrollY.current = currentScrollY;
-      ticking.current = false;
-    });
-  }
-
-  const isNavbarHidden = scrollingDirection === 'down';
-  const isTransparent = scrollingDirection === 'none';
+  const here = (path: string) => (router.pathname === path ? 'page' : undefined);
 
   return (
-    <NavbarContainer hidden={isNavbarHidden} transparent={isTransparent}>
-      <Content>
-        <LogoLink href="/">
-          <Logo />
-          <TitleBlock className='flex flex-col md:flex-row md:items-center gap-0 md:gap-1 pt-5 md:pt-0 text-xl md:text-xl lg:text-2xl xl:text-3xl leading-tight'>
-            <span className='font-bold text-2xl md:text-2xl lg:text-3xl xl:text-4xl text-black'>Chains-</span>
-            <span>ERP & Global Finance</span>
-          </TitleBlock>
-        </LogoLink>
-        <NavItemList>
-          {items.filter((item) => !item.outlined).map((singleItem) => (
-            <NavItem key={singleItem.href} {...singleItem} />
-          ))}
-        </NavItemList>
-        <ColorSwitcherContainer>
-          <ColorSwitcher />
-        </ColorSwitcherContainer>
-        <HamburgerMenuWrapper>
-          <HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
-        </HamburgerMenuWrapper>
-      </Content>
-    </NavbarContainer>
+    <div className="cx cx-nav-shell">
+      <header className="cx-nav">
+        <div className="cx-nav-in">
+          <NextLink className="cx-brand" href="/">
+            {/* eslint-disable-next-line @next/next/no-img-element -- 30px static mark */}
+            <img src="/chainsnobgnologo.PNG" alt="" width={30} height={30} />
+            <span>Chains ERP</span>
+          </NextLink>
+
+          <nav className="cx-nav-links" aria-label="Main">
+            <div
+              className={`cx-dd${ddOpen ? ' open' : ''}`}
+              ref={ddRef}
+              onMouseEnter={() => setDdOpen(true)}
+              onMouseLeave={() => setDdOpen(false)}
+            >
+              <button type="button" aria-expanded={ddOpen} onClick={() => setDdOpen(true)}>
+                Products <Icon name="down" />
+              </button>
+              <div className="cx-dd-p">
+                {PRODUCTS.map((p) => (
+                  <a key={p.title} href={p.href} {...(p.host === 'fleet' ? { target: '_blank', rel: 'noopener' } : {})}>
+                    <span className="cx-dd-i">
+                      <Icon name={p.icon} />
+                    </span>
+                    <b>
+                      {p.title}
+                      {p.host && <span className="cx-ext">{p.host === 'fleet' ? '↗' : `${p.host}.`}</span>}
+                    </b>
+                    <small>{p.blurb}</small>
+                  </a>
+                ))}
+              </div>
+            </div>
+            <NextLink href="/features" aria-current={here('/features')}>
+              Features
+            </NextLink>
+            <a href={LINKS.solutions}>Who it&apos;s for</a>
+            <NextLink href="/pricing" aria-current={here('/pricing')}>
+              Pricing
+            </NextLink>
+            <NextLink href="/contact" aria-current={here('/contact')}>
+              Contact
+            </NextLink>
+          </nav>
+
+          <div className="cx-nav-act">
+            <a className="cx-signin" href={LINKS.signIn}>
+              Sign in
+            </a>
+            <a className="cx-btn cx-btn-primary cx-btn-sm" href={LINKS.signUp}>
+              Start free
+            </a>
+            <button
+              className="cx-burger"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="cx-menu"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <Icon name={menuOpen ? 'close' : 'menu'} />
+              <span>Menu</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {menuOpen && (
+        <nav className="cx-menu" id="cx-menu" aria-label="Menu">
+          <h4>Products</h4>
+          <ul className="cx-two">
+            {PRODUCTS.map((p) => (
+              <li key={p.title}>
+                <a href={p.href}>
+                  <b>{p.title}</b>
+                  <small>{p.blurb}</small>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <h4>Chains</h4>
+          <ul className="cx-two">
+            <li>
+              <NextLink href="/">
+                <b>Home</b>
+              </NextLink>
+            </li>
+            <li>
+              <NextLink href="/features">
+                <b>Features</b>
+              </NextLink>
+            </li>
+            <li>
+              <a href={LINKS.solutions}>
+                <b>Who it&apos;s for</b>
+              </a>
+            </li>
+            <li>
+              <NextLink href="/pricing">
+                <b>Pricing</b>
+              </NextLink>
+            </li>
+            <li>
+              <NextLink href="/contact">
+                <b>Contact</b>
+              </NextLink>
+            </li>
+            <li>
+              <a href={LINKS.posSignIn}>
+                <b>Till sign-in</b>
+                <small>For cashiers and waiters</small>
+              </a>
+            </li>
+          </ul>
+          <div className="cx-menu-cta">
+            <a className="cx-btn cx-btn-quiet" href={LINKS.signIn}>
+              Sign in
+            </a>
+            <a className="cx-btn cx-btn-primary" href={LINKS.signUp}>
+              Start free
+            </a>
+          </div>
+        </nav>
+      )}
+    </div>
   );
 }
-
-function NavItem({ href, title, outlined }: SingleNavItem) {
-  if (outlined) {
-    return (
-      <CustomButtonLink href={EnvVars.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-        {title}
-      </CustomButtonLink>
-    );
-  }
-
-  return (
-    <NavItemWrapper outlined={outlined}>
-      <NextLink href={href}>{title}</NextLink>
-    </NavItemWrapper>
-  );
-}
-
-const CustomButtonLink = styled.a`
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  line-height: 1.8;
-  text-decoration: none;
-  color: inherit;
-  font: inherit;
-  background: rgb(var(--primary));
-  color: rgb(var(--textSecondary));
-  border-radius: 0.4rem;
-  font-weight: bold;
-  transition: transform 0.2s;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const NavItemList = styled.div`
-  display: flex;
-  list-style: none;
-
-  ${media('<desktop')} {
-    display: none;
-  }
-`;
-
-const HamburgerMenuWrapper = styled.div`
-  ${media('>=desktop')} {
-    display: none;
-  }
-`;
-
-const LogoLink = styled(NextLink)`
-  display: flex;
-  margin-right: auto;
-  text-decoration: none;
-  color: rgb(var(--logoColor));
-`;
-
-const TitleBlock = styled.div`
-  color: rgb(var(--text), 0.75);
-`;
-
-const NavItemWrapper = styled.li<Partial<SingleNavItem>>`
-  background-color: ${(p) => (p.outlined ? 'rgb(var(--primary))' : 'transparent')};
-  border-radius: 0.5rem;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  line-height: 2;
-
-  &:hover {
-    background-color: ${(p) => (p.outlined ? 'rgb(var(--primary), 0.8)' : 'transparent')};
-    transition: background-color 0.2s;
-  }
-
-  a {
-    display: flex;
-    color: ${(p) => (p.outlined ? 'rgb(var(--textSecondary))' : 'rgb(var(--text), 0.75)')};
-    letter-spacing: 0.025em;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    font-weight: 700;
-  }
-
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
-`;
-
-const NavbarContainer = styled.div<NavbarContainerProps>`
-  display: flex;
-  position: sticky;
-  top: 0;
-  padding: 1.5rem 0;
-  width: 100%;
-  height: 8rem;
-  z-index: var(--z-navbar);
-  background-color: rgb(var(--navbarBackground));
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
-  transform: ${(p) => (p.hidden ? 'translateY(-100%)' : 'translateY(0)')};
-  opacity: ${(p) => (p.hidden ? '0' : '1')};
-  pointer-events: ${(p) => (p.hidden ? 'none' : 'auto')};
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, opacity;
-`;
-
-const Content = styled(Container)`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const ColorSwitcherContainer = styled.div`
-  width: 4rem;
-  margin: 0 1rem;
-`;

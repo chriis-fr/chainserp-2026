@@ -1,170 +1,94 @@
 import NextLink from 'next/link';
-import { FacebookIcon, LinkedinIcon, TwitterIcon } from 'react-share';
-import styled from 'styled-components';
-import Container from 'components/Container';
-import Logo from 'components/Logo';
-import { EnvVars } from 'env';
-import { media } from 'utils/media';
+import { LINKS } from 'components/site/links';
 
-const FOOTER_LINKS = [
-  { title: 'Features', href: '/features' },
-  { title: 'Pricing', href: '/pricing' },
-  { title: 'Blog', href: '/blog' },
-  { title: 'Contact', href: '/contact' },
-  { title: 'Privacy', href: '/privacy-policy' },
-  { title: 'Cookies', href: '/cookies-policy' },
+const COLUMNS: { title: string; links: { label: string; href: string; internal?: boolean }[] }[] = [
+  {
+    title: 'Products',
+    links: [
+      { label: 'Chains ERP', href: LINKS.appProducts },
+      { label: 'Point of sale', href: LINKS.pos },
+      { label: 'FleetOps logistics', href: LINKS.logistics },
+      { label: 'Chains AI', href: LINKS.ai },
+      { label: 'Bitcoin payments', href: '/accept-bitcoin-payments', internal: true },
+    ],
+  },
+  {
+    title: 'Modules',
+    links: [
+      { label: 'Payroll', href: LINKS.appPayroll },
+      { label: 'Supplier bills', href: LINKS.appBills },
+      { label: 'Invoices', href: LINKS.appInvoices },
+      { label: 'Treasury', href: LINKS.appTreasury },
+      { label: 'All features', href: '/features', internal: true },
+    ],
+  },
+  {
+    title: 'Sign in',
+    links: [
+      { label: 'Chains ERP app', href: LINKS.signIn },
+      { label: 'Till (cashiers, waiters)', href: LINKS.posSignIn },
+      { label: 'FleetOps', href: LINKS.logistics },
+      { label: 'Create an account', href: LINKS.signUp },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Pricing', href: '/pricing', internal: true },
+      { label: 'Contact', href: '/contact', internal: true },
+      { label: 'Book a call', href: LINKS.calendly },
+      { label: 'Security', href: LINKS.security },
+      { label: 'Privacy', href: '/privacy-policy', internal: true },
+      { label: 'Cookies', href: '/cookies-policy', internal: true },
+    ],
+  },
 ];
 
 const SOCIAL = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/chainserp', Icon: LinkedinIcon },
-  { label: 'X', href: 'https://x.com/chainserp', Icon: TwitterIcon },
-  { label: 'Facebook', href: 'https://www.facebook.com/chainserp', Icon: FacebookIcon },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/chainserp' },
+  { label: 'X', href: 'https://x.com/chainserp' },
+  { label: 'Facebook', href: 'https://www.facebook.com/chainserp' },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
-
   return (
-    <FooterWrapper>
-      <Container>
-        <Top>
-          <Brand>
-            <LogoLink href="/">
-              <Logo width={36} height={36} />
-            </LogoLink>
-            <Tagline>{EnvVars.SITE_NAME}</Tagline>
-          </Brand>
-          <Contact>
-            <MailLink href="mailto:hello@chains-erp.com">hello@chains-erp.com</MailLink>
-          </Contact>
-        </Top>
-
-        <Links>
-          {FOOTER_LINKS.map(({ title, href }) => (
-            <NextLink key={href} href={href}>
-              {title}
+    <footer className="cx cx-foot">
+      <div className="cx-wrap">
+        <div className="cx-foot-grid">
+          <div className="cx-foot-brand">
+            <NextLink className="cx-brand" href="/">
+              {/* eslint-disable-next-line @next/next/no-img-element -- 30px static mark */}
+              <img src="/chainsnobgnologo.PNG" alt="" width={30} height={30} />
+              <span>Chains ERP</span>
             </NextLink>
+            <p>The till, payroll, supplier bills, invoices and deliveries for growing businesses. Made in Nairobi.</p>
+            <a className="cx-link" href={LINKS.email}>
+              hello@chains-erp.com
+            </a>
+          </div>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h4>{col.title}</h4>
+              <ul>
+                {col.links.map((l) => (
+                  <li key={l.label}>{l.internal ? <NextLink href={l.href}>{l.label}</NextLink> : <a href={l.href}>{l.label}</a>}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </Links>
-
-        <Divider />
-
-        <Bottom>
-          <Social>
-            {SOCIAL.map(({ label, href, Icon }) => (
-              <SocialLink key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
-                <Icon size={28} round />
-              </SocialLink>
+        </div>
+        <div className="cx-foot-bottom">
+          <span>© {year} Chains ERP</span>
+          <div className="cx-social">
+            {SOCIAL.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
             ))}
-          </Social>
-          <Copyright>© {year} {EnvVars.SITE_NAME}</Copyright>
-        </Bottom>
-      </Container>
-    </FooterWrapper>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
-
-const FooterWrapper = styled.footer`
-  padding: 5rem 0 3rem;
-  background: rgb(var(--secondary));
-  color: rgb(var(--textSecondary));
-`;
-
-const Top = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-`;
-
-const Brand = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const LogoLink = styled(NextLink)`
-  display: block;
-  line-height: 0;
-`;
-
-const Tagline = styled.span`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: rgb(var(--textSecondary));
-  opacity: 0.95;
-`;
-
-const Contact = styled.div``;
-
-const MailLink = styled.a`
-  font-size: 1.4rem;
-  color: rgba(var(--textSecondary), 0.85);
-  text-decoration: none;
-  transition: color 0.2s;
-
-  &:hover {
-    color: rgb(var(--primary));
-  }
-`;
-
-const Links = styled.nav`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2.5rem;
-  margin-bottom: 2rem;
-
-  a {
-    font-size: 1.35rem;
-    color: rgba(var(--textSecondary), 0.8);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  a:hover {
-    color: rgb(var(--primary));
-  }
-
-  ${media('<=phone')} {
-    gap: 1rem 1.5rem;
-  }
-`;
-
-const Divider = styled.hr`
-  border: none;
-  height: 1px;
-  background: rgba(var(--textSecondary), 0.15);
-  margin: 0 0 2rem;
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const Social = styled.div`
-  display: flex;
-  gap: 0.75rem;
-
-  a {
-    color: rgba(var(--textSecondary), 0.7);
-    transition: color 0.2s, transform 0.2s;
-  }
-  a:hover {
-    color: rgb(var(--primary));
-    transform: scale(1.05);
-  }
-`;
-
-const SocialLink = styled.a``;
-
-const Copyright = styled.p`
-  font-size: 1.25rem;
-  color: rgba(var(--textSecondary), 0.6);
-  margin: 0;
-`;

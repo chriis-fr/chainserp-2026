@@ -1,4 +1,5 @@
 import 'styles/globals.css';
+import 'styles/site.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -7,29 +8,17 @@ import 'utils/suppressWarnings';
 
 import { AppProps } from 'next/dist/shared/lib/router/router';
 import Head from 'next/head';
-import { ColorModeScript } from 'nextjs-color-mode';
 import React, { PropsWithChildren } from 'react';
 
 import { Analytics } from '@vercel/analytics/next';
 import Footer from 'components/Footer';
 import { GlobalStyle } from 'components/GlobalStyles';
 import Navbar from 'components/Navbar';
-import NavigationDrawer from 'components/NavigationDrawer';
 import SEO from 'components/SEO';
 import StructuredData from 'components/StructuredData';
 import WaveCta from 'components/WaveCta';
 import { EnvVars } from 'env';
-import { NavItems } from 'types';
 
-const navItems: NavItems = [
-  { title: 'Explore Global Finance', href: 'https://app.chains-erp.com' },
-  { title: 'POS', href: '/features#pos' },
-  { title: 'Logistics', href: '/features#logistics' },
-  { title: 'Bitcoin', href: '/accept-bitcoin-payments' },
-  { title: 'Pricing', href: '/pricing' },
-  { title: 'Contact', href: '/contact' },
-  { title: 'Book a call', href: 'https://calendly.com/caspianodhis/30min', outlined: true },
-];
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -65,11 +54,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* <script async src="https://www.google-analytics.com/analytics.js"></script> */}
       </Head>
       <Analytics />
-      <ColorModeScript />
       <GlobalStyle />
 
       <Providers>
-        <Navbar items={navItems} />
+        <Navbar />
         <Component {...pageProps} />
         <WaveCta />
         <Footer />
@@ -78,8 +66,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
+// The site is light-only, like app.chains-erp.com; the mobile menu lives in the Navbar.
 function Providers<T>({ children }: PropsWithChildren<T>) {
-  return <NavigationDrawer items={navItems}>{children}</NavigationDrawer>;
+  return <>{children}</>;
 }
 
 export default MyApp;

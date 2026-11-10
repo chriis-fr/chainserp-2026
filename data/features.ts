@@ -28,23 +28,23 @@ export const featureGroups: FeatureGroup[] = [
   {
     id: 'pos',
     title: 'Point of Sale',
-    tagline: 'Run a modern, M-Pesa-connected POS with real-time order flow and staff payroll built in.',
+    tagline: 'A till for bars, restaurants and cafés that takes M-Pesa on your own paybill or till number. Open it at pos.chains-erp.com.',
     icon: '🛒',
     items: [
       {
-        title: 'Real-Time Order Tracking',
-        description: 'Orders progress through created → preparing → ready → paid in real time. Assign waiters, monitor tables, and see every sale as it happens.',
-        href: '/features/global-invoicing',
+        title: 'Tables, waiters and kitchen screens',
+        description: 'Orders move from the table to the kitchen and bar screens and on to paid. Waiter mode, split bills and credit accounts for regulars.',
+        href: 'https://app.chains-erp.com/products#pos',
       },
       {
-        title: 'M-Pesa Payment Matching',
-        description: 'Automatically match incoming M-Pesa STK and Till payments to open orders by amount and phone number — zero manual reconciliation.',
-        href: '/features/cross-border-payments',
+        title: 'M-Pesa on your own number',
+        description: 'Customers pay by M-Pesa to your own paybill or till number, and the payment lands on the order with its M-Pesa code. If the Wi-Fi drops, the till keeps the payment and syncs later.',
+        href: 'https://pos.chains-erp.com',
       },
       {
-        title: 'POS-Integrated Staff Payroll',
-        description: 'Tips, deductions, and sales per waiter flow directly into payroll. Run staff wages straight from your POS data with one click.',
-        href: '/features/crypto-payroll',
+        title: 'Till and payroll in one system',
+        description: 'Your staff are already in Chains when you run payroll: advances, bonuses, tips and deductions are one entry each, and one approval pays everyone.',
+        href: 'https://app.chains-erp.com/products#payroll',
       },
     ],
   },
@@ -120,22 +120,22 @@ export const featureGroups: FeatureGroup[] = [
   {
     id: 'logistics',
     title: 'Logistics',
-    tagline: 'Fleet management and end-to-end logistics operations — live at progressusmavericks.co.ke.',
+    tagline: 'Chains FleetOps: vehicles, drivers and deliveries in one dashboard. Open it at progressusmavericks.co.ke.',
     icon: '🚚',
     items: [
       {
         title: 'Fleet Management',
-        description: 'Track every vehicle, driver, and trip in real time. Manage maintenance schedules, fuel logs, and fleet utilization from a single dashboard.',
+        description: 'Keep every vehicle and driver on one list and see which trips are running, from a single dashboard.',
         href: 'https://progressusmavericks.co.ke',
       },
       {
         title: 'Route & Delivery Tracking',
-        description: 'Plan optimal routes, assign drivers, and monitor deliveries live. Customers get real-time ETAs and proof-of-delivery confirmations.',
+        description: 'Create delivery orders, assign a driver and vehicle, and follow each order to drop-off.',
         href: 'https://progressusmavericks.co.ke',
       },
       {
-        title: 'Logistics Finance Integration',
-        description: 'Fuel costs, driver payroll, and trip expenses flow directly into Chains ERP — no manual entry, full audit trail across every run.',
+        title: 'Pay drivers with Chains',
+        description: 'Run driver wages and pay fuel and supplier bills from Chains ERP payroll and bills, with an approval on every payment.',
         href: 'https://progressusmavericks.co.ke',
       },
     ],

@@ -1,28 +1,28 @@
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
-import { media } from 'utils/media';
 import Container from './Container';
 import SEO from './SEO';
-import SectionTitle from './SectionTitle';
 
 export interface PageProps {
   title: string;
   description?: string;
+  eyebrow?: string;
 }
 
-export default function Page({ title, description, children }: PropsWithChildren<PageProps>) {
+export default function Page({ title, description, eyebrow, children }: PropsWithChildren<PageProps>) {
   const router = useRouter();
   return (
     <>
       <SEO title={title} description={description} url={router.asPath} />
       <Wrapper>
-        <HeaderContainer>
-          <Container>
-            <Title>{title}</Title>
-            {description && <Description>{description}</Description>}
-          </Container>
-        </HeaderContainer>
+        <header className="cx cx-page-head cx-grid-bg">
+          <div className="cx-wrap">
+            <span className="cx-eyebrow">{eyebrow ?? 'Chains ERP'}</span>
+            <h1>{title}</h1>
+            {description && <p>{description}</p>}
+          </div>
+        </header>
         <Container>
           <ChildrenWrapper>{children}</ChildrenWrapper>
         </Container>
@@ -35,32 +35,7 @@ const Wrapper = styled.div`
   background: rgb(var(--background));
 `;
 
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgb(var(--secondary));
-  min-height: 40rem;
-`;
-
-const Title = styled(SectionTitle)`
-  color: rgb(var(--textSecondary));
-  margin-bottom: 2rem;
-`;
-
-const Description = styled.div`
-  font-size: 1.8rem;
-  color: rgba(var(--textSecondary), 0.8);
-  text-align: center;
-  max-width: 60%;
-  margin: auto;
-
-  ${media('<=tablet')} {
-    max-width: 100%;
-  }
-`;
-
 const ChildrenWrapper = styled.div`
-  margin-top: 10rem;
-  margin-bottom: 10rem;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
 `;

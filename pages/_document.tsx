@@ -31,8 +31,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en" data-scroll-behavior="smooth">
         <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
-          <meta name="theme-color" content="#1c398e" />
+          <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+          <meta name="theme-color" content="#00139f" />
         </Head>
         <body className="next-light-theme">
           <Main />

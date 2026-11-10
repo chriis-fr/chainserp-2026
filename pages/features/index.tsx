@@ -7,8 +7,9 @@ import { media } from 'utils/media';
 export default function FeaturesIndexPage() {
   return (
     <Page
+      eyebrow="Features"
       title="Features — POS, Payroll, Treasury, Invoicing & Logistics"
-      description="Explore all Chains ERP modules: POS with M-Pesa, Bitcoin and stablecoin payments; payroll automation; vendor treasury and approvals; smart invoicing; and fleet logistics. Built for Kenya, Africa, and global businesses."
+      description="Every Chains module: a till that takes M-Pesa on your own number, payroll in one approval, supplier bills and treasury with approvals, invoices in 50+ currencies, and FleetOps logistics."
     >
       {featureGroups.map((group) => (
         <GroupSection key={group.id} id={group.id}>
