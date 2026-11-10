@@ -52,7 +52,7 @@ export default function StorefrontDocs() {
           <ul>
             <li>Products, stores, customers and orders managed in the FleetOps console</li>
             <li>Each paid checkout lands as a delivery order, ready to dispatch</li>
-            <li>Drivers get the job in the driver app and capture proof of delivery</li>
+            <li>Drivers get the job in the Fleetbase Navigator app and capture proof of delivery</li>
             <li>Customers follow their order until it arrives</li>
           </ul>
         </div>
@@ -65,7 +65,10 @@ export default function StorefrontDocs() {
       <h2>Build your own front end on the Storefront API</h2>
       <p>
         Prefer your own website or app? Use the same API the hosted shop uses. Base URL <code>{STOREFRONT_BASE}</code>, authenticated with a{' '}
-        <strong>Store key</strong> we issue for your store.
+        <strong>Store key</strong> we send you for your store. It starts with <code>store_</code> and goes in the{' '}
+        <code>Authorization: Bearer</code> header, like an API key. A wrong key answers <code>401</code> with{' '}
+        <code>{'"Oops! The Storefront key provided was not valid"'}</code>. If a Store key leaks, tell us: we rotate it, and the old one
+        stops working.
       </p>
       <Callout tone="warn" title="The Store key stays on your server">
         Call the Storefront API from your backend (or server-side route handlers) and let your browser talk to your backend. Our hosted

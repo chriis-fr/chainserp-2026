@@ -42,7 +42,7 @@ export default function IntegratePage() {
           your own order number.
         </li>
         <li>
-          <b>FleetOps dispatches it</b> to a driver, automatically or from the console, and the driver works it in the driver app.
+          <b>FleetOps dispatches it</b> to a driver, automatically or from the console, and the driver works it in the Fleetbase Navigator app on their phone.
         </li>
         <li>
           <b>We call your webhook</b> on each change (<code>order.dispatched</code>, <code>order.started</code>,{' '}

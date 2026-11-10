@@ -52,7 +52,7 @@ const GROUPS: { id: string; title: string; intro: string; rows: Row[] }[] = [
   {
     id: 'drivers',
     title: 'Drivers',
-    intro: 'Your riders and drivers. They work orders in the driver app.',
+    intro: 'Your riders and drivers. They work orders in the Fleetbase Navigator app, which we link to your FleetOps.',
     rows: [
       ['GET / POST', '/drivers', 'List or create'],
       ['GET / PUT / DELETE', '/drivers/{id}', 'Get, update or delete'],
@@ -241,7 +241,7 @@ const live = await fleet.get(\`orders/\${order.id}/tracker\`);
 
       <Callout title="Driver endpoints">
         The driver app also uses driver sign-in endpoints (<code>/drivers/login</code>, <code>/drivers/login-with-sms</code>,{' '}
-        <code>/drivers/verify-code</code>). You only need them if you are building your own driver app; talk to us first.
+        <code>/drivers/verify-code</code>). You only need them if you are building your own driver app instead of using Fleetbase Navigator; talk to us first.
       </Callout>
     </DocsLayout>
   );

@@ -23,7 +23,7 @@ export default function LogisticsDocsHome() {
           <ul>
             <li>The FleetOps console for orders, dispatch, drivers and vehicles</li>
             <li>A Storefront: online shop or ordering page with delivery and pickup checkout</li>
-            <li>A driver app so your riders get jobs and capture proof of delivery</li>
+            <li>The Fleetbase Navigator driver app (iOS and Android), linked to your FleetOps by us, so riders get jobs and capture proof of delivery</li>
           </ul>
           <span className="cx-link">
             See the Storefront <Icon name="arrow" />
