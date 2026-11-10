@@ -16,15 +16,12 @@ first, and a **live key** once your integration is signed off. Keep every key on
 
 ## Install
 
-Not on npm yet. Install it from the Chains ERP repository:
-
 ```bash
-git clone https://github.com/chriis-fr/chainserp-2026.git
-cd chainserp-2026/packages/chains-logistics-sdk
-npm install && npm run build
-# then, in your project:
-npm install /path/to/chainserp-2026/packages/chains-logistics-sdk
+npm install @chains-erp/logistics
 ```
+
+Node 18 or later (it uses the built-in `fetch` and Web Crypto), and it also runs in edge runtimes and browsers.
+It has no runtime dependencies.
 
 ## Create and dispatch an order
 
