@@ -14,7 +14,7 @@ export interface SEOProps {
 
 const defaultTitle = 'Chains ERP — Global Finance, POS, Payroll & Logistics Platform';
 const defaultDescription =
-  'Chains ERP is the all-in-one finance and operations platform for global businesses. Send invoices, run payroll, manage vendor payables, operate a POS with M-Pesa and crypto payments, and track your fleet — all from one connected system. Built for Africa and the world.';
+  'Chains ERP runs a business from the point of sale to payroll: POS operations connected to your own M-Pesa paybill or till, payroll in one approval, supplier bills and treasury, invoices in 50+ currencies, and FleetOps logistics. Made in Nairobi; money moves by M-Pesa in Kenya today.';
 
 const defaultKeywords = [
   // Brand
@@ -29,10 +29,6 @@ const defaultKeywords = [
   'restaurant POS Kenya',
   'M-Pesa POS',
   'M-Pesa point of sale',
-  'crypto POS',
-  'Bitcoin POS',
-  'stablecoin payments POS',
-  'multi-currency POS',
   'POS payroll integration',
   'waiter payroll POS',
   'pos.chains-erp.com',
@@ -49,8 +45,6 @@ const defaultKeywords = [
   // Payroll
   'payroll software Kenya',
   'payroll Africa',
-  'crypto payroll',
-  'Bitcoin payroll',
   'employee salary management',
   'digital payslips',
   'payroll automation Kenya',
@@ -68,7 +62,6 @@ const defaultKeywords = [
   'fleet management Kenya',
   'fleet tracking Africa',
   'delivery tracking system',
-  'route optimization Kenya',
   'progressusmavericks.co.ke',
   'logistics ERP Kenya',
   'transport management system',
@@ -77,12 +70,8 @@ const defaultKeywords = [
   'ERP software Kenya',
   'ERP Africa',
   'small business ERP Kenya',
-  'accounting software Kenya',
   'finance ERP startups',
   'enterprise ERP Africa',
-  'web3 ERP',
-  'blockchain payments',
-  'decentralized accounting',
 
   // Competitors / comparison
   'QuickBooks alternative Kenya',
@@ -93,8 +82,6 @@ const defaultKeywords = [
   'Kenya fintech',
   'Africa ERP',
   'Nairobi finance software',
-  'Lagos ERP',
-  'South Africa ERP',
   'global finance software',
 ];
 
