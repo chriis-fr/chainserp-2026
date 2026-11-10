@@ -165,7 +165,8 @@ Accept: application/json
         </li>
       </ul>
       <p>
-        The SDK turns every non-2xx answer into a <code>ChainsApiError</code> with <code>status</code> and <code>errors</code>.
+        The <code>chains.ts</code> file in the TypeScript quickstart turns every non-2xx answer into a <code>ChainsApiError</code> with{' '}
+        <code>status</code> and <code>errors</code>.
       </p>
 
       <h2>Ids, your ids, and lists</h2>

@@ -98,14 +98,12 @@ export default function StorefrontDocs() {
 
       <h3>Example: list products and add one to a cart</h3>
       <Code lang="typescript">{`
-import { Storefront } from '@chains-erp/logistics';
+// store comes from chains.ts in the TypeScript quickstart (server-side only, key in CHAINS_STORE_KEY)
+import { store } from './chains';
 
-// server-side only
-const store = new Storefront({ apiKey: process.env.CHAINS_STORE_KEY! });
-
-const products = await store.products.list({ limit: 12 });
-const cart = await store.carts.get(sessionId); // your own session id
-await store.carts.add(String(cart.id), String(products[0]?.id), { quantity: 2 });
+const products = await store.get('products', { limit: 12 });
+const cart = await store.get(\`carts/\${sessionId}\`); // your own session id
+await store.post(\`carts/\${cart.id}/\${products[0].id}\`, { quantity: 2 });
 `}</Code>
       <Code lang="curl">{`
 curl ${STOREFRONT_BASE}/products?limit=12 \\

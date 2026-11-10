@@ -107,32 +107,31 @@ X-Fleetbase-Signature: t=1794300000,v1=5f2b…c9
       </ol>
       <Code lang="typescript">{`
 // app/api/chains/route.ts (Next.js), or any Fetch-API handler (Bun, Deno, Cloudflare, Hono)
-import { parseWebhook, WebhookVerificationError } from '@chains-erp/logistics';
+// verifyWebhook is below, and also in chains.ts from the TypeScript quickstart
+import { verifyWebhook } from './chains';
 
 export async function POST(req: Request) {
-  const raw = await req.text();
-  try {
-    const evt = await parseWebhook(raw, req.headers.get('x-fleetbase-signature'), process.env.CHAINS_WEBHOOK_SECRET!);
-
-    if (await alreadyHandled(evt.id)) return new Response('ok'); // deliveries can repeat
-
-    switch (evt.event) {
-      case 'order.completed':
-        await markDelivered(String(evt.data.internal_id));
-        break;
-      case 'order.canceled':
-      case 'order.failed':
-        await flagForFollowUp(String(evt.data.internal_id), evt.event);
-        break;
-    }
-    return new Response('ok');
-  } catch (e) {
-    if (e instanceof WebhookVerificationError) return new Response('bad signature', { status: 400 });
-    throw e;
+  const raw = await req.text(); // the raw body, before parsing
+  if (!verifyWebhook(raw, req.headers.get('x-fleetbase-signature'), process.env.CHAINS_WEBHOOK_SECRET!)) {
+    return new Response('bad signature', { status: 400 });
   }
+  const evt = JSON.parse(raw); // { id, api_version, event, created_at, data }
+
+  if (await alreadyHandled(evt.id)) return new Response('ok'); // deliveries can repeat
+
+  switch (evt.event) {
+    case 'order.completed':
+      await markDelivered(String(evt.data.internal_id));
+      break;
+    case 'order.canceled':
+    case 'order.failed':
+      await flagForFollowUp(String(evt.data.internal_id), evt.event);
+      break;
+  }
+  return new Response('ok');
 }
 `}</Code>
-      <p>Without the SDK, on Node:</p>
+      <p>The check itself, on Node (any language works the same way):</p>
       <Code lang="typescript">{`
 import { createHmac, timingSafeEqual } from 'node:crypto';
 

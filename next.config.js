@@ -25,4 +25,9 @@ module.exports = withBundleAnalyzer({
 
   // REQUIRED to silence the error and confirm intent
   turbopack: {},
+
+  // The SDK page became the TypeScript quickstart; keep old links working.
+  async redirects() {
+    return [{ source: '/logistics/docs/sdk', destination: '/logistics/docs/typescript', permanent: true }];
+  },
 });

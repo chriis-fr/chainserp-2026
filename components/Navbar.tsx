@@ -12,7 +12,7 @@ export const PRODUCTS: Product[] = [
   { href: LINKS.appProducts, icon: 'layers', title: 'Chains ERP', blurb: 'Payroll, supplier bills, invoices and treasury', host: 'app' },
   { href: LINKS.pos, icon: 'till', title: 'Chains POS', blurb: 'Point of sale operations, connected to your M-Pesa', host: 'pos' },
   { href: LINKS.logistics, icon: 'truck', title: 'FleetOps logistics', blurb: 'Vehicles, drivers and deliveries', host: 'fleet' },
-  { href: '/logistics/docs', icon: 'file', title: 'Logistics API docs', blurb: 'Connect your system, Storefront, TypeScript SDK' },
+  { href: '/logistics/docs', icon: 'file', title: 'Logistics API docs', blurb: 'Connect your system, Storefront, TypeScript' },
   { href: LINKS.ai, icon: 'chat', title: 'Chains AI', blurb: 'The assistant on WhatsApp, sold separately (beta)', host: 'app' },
   { href: LINKS.appPayroll, icon: 'users', title: 'Payroll', blurb: 'Everyone paid by M-Pesa in one approval', host: 'app' },
   { href: '/accept-bitcoin-payments', icon: 'bitcoin', title: 'Bitcoin payments', blurb: 'Take Bitcoin on invoices' },

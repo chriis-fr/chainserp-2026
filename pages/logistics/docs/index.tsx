@@ -9,9 +9,9 @@ export default function LogisticsDocsHome() {
     <DocsLayout
       title="Chains FleetOps developer docs"
       seoTitle="Logistics API & integration docs — Chains FleetOps"
-      description="Connect your ERP, shop or order system to Chains FleetOps: REST API for orders, places, drivers and vehicles, signed webhooks, a hosted Storefront, and a TypeScript SDK. Keys are issued by Chains."
+      description="Connect your ERP, shop or order system to Chains FleetOps: REST API for orders, places, drivers and vehicles, signed webhooks, a hosted Storefront, and a copy-paste TypeScript quickstart. Keys are issued by Chains."
       lead="Everything you need to run deliveries on Chains FleetOps: start from scratch with our console and storefront, or plug your own system into our API and webhooks."
-      keywords={['Chains FleetOps API', 'logistics API Kenya', 'delivery API', 'fleet management API', 'order tracking webhooks', 'TypeScript logistics SDK', 'Fleetbase API']}
+      keywords={['Chains FleetOps API', 'logistics API Kenya', 'delivery API', 'fleet management API', 'order tracking webhooks', 'logistics API TypeScript', 'Fleetbase API']}
     >
       <h2>Two ways to start</h2>
       <div className="cx-cards">
@@ -59,7 +59,7 @@ export default function LogisticsDocsHome() {
           <b>We set you up</b>: your organisation, console logins, a test key and, if you need it, your Storefront.
         </li>
         <li>
-          <b>You build and test</b> with the API reference, webhooks guide and the TypeScript SDK.
+          <b>You build and test</b> with the API reference, the webhooks guide and the TypeScript quickstart.
         </li>
         <li>
           <b>We sign off and go live</b> with a live key and your webhook endpoint registered.
@@ -83,16 +83,15 @@ curl ${API_BASE}/orders?limit=5 \\
   -H "Authorization: Bearer $CHAINS_LOGISTICS_KEY"
 `}</Code>
       <Code lang="typescript">{`
-import { ChainsLogistics } from '@chains-erp/logistics';
+// fleet comes from chains.ts, the one file in the TypeScript quickstart
+import { fleet } from './chains';
 
-const fleet = new ChainsLogistics({ apiKey: process.env.CHAINS_LOGISTICS_KEY! });
-
-const order = await fleet.orders.create({
+const order = await fleet.post('orders', {
   internal_id: 'SO-1001',
   pickup: 'place_your_warehouse',
   dropoff: { street1: 'Ngong Road', city: 'Nairobi', country: 'KE', phone: '+254712345678' },
 });
-await fleet.orders.dispatch(order.id);
+await fleet.post(\`orders/\${order.id}/dispatch\`);
 `}</Code>
 
       <h2>In these docs</h2>
@@ -121,13 +120,11 @@ await fleet.orders.dispatch(order.id);
           </h3>
           <p>Order events pushed to your server, and how to verify each signature.</p>
         </NextLink>
-        <NextLink className="cx-card" href="/logistics/docs/sdk">
+        <NextLink className="cx-card" href="/logistics/docs/typescript">
           <h3>
-            <Icon name="receipt" /> TypeScript SDK
+            <Icon name="receipt" /> TypeScript quickstart
           </h3>
-          <p>
-            <code>@chains-erp/logistics</code>: typed client, Storefront client and webhook verification.
-          </p>
+          <p>One file to copy into your project: fetch, your API key and webhook checks. Nothing to install.</p>
         </NextLink>
         <a className="cx-card" href={`${LINKS.logistics}/auth`} target="_blank" rel="noopener">
           <h3>

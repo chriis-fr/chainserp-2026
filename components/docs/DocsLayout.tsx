@@ -11,7 +11,7 @@ export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
   { href: '/logistics/docs/storefront', title: 'Storefront', icon: 'till' },
   { href: '/logistics/docs/api', title: 'API reference', icon: 'file' },
   { href: '/logistics/docs/webhooks', title: 'Webhooks', icon: 'spark' },
-  { href: '/logistics/docs/sdk', title: 'TypeScript SDK', icon: 'receipt' },
+  { href: '/logistics/docs/typescript', title: 'TypeScript quickstart', icon: 'receipt' },
 ];
 
 export const API_BASE = 'https://api.progressusmavericks.co.ke/v1';

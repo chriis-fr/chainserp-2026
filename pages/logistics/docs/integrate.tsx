@@ -88,13 +88,12 @@ export default function IntegratePage() {
         <code>internal_id</code>.
       </p>
       <Code lang="typescript">{`
-import { ChainsLogistics, ChainsApiError } from '@chains-erp/logistics';
-
-const fleet = new ChainsLogistics({ apiKey: process.env.CHAINS_LOGISTICS_KEY! }); // test key while you build
+// chains.ts is the one file from the TypeScript quickstart; CHAINS_LOGISTICS_KEY holds your test key while you build
+import { fleet, ChainsApiError } from './chains';
 
 export async function sendToFleetOps(sale: { number: string; customer: { name: string; phone: string }; address: string; items: { sku: string; name: string; qty: number }[] }) {
   try {
-    const order = await fleet.orders.create({
+    const order = await fleet.post('orders', {
       internal_id: sale.number,
       pickup: 'place_your_warehouse', // from us, after we save your pickup locations
       dropoff: { name: sale.customer.name, street1: sale.address, city: 'Nairobi', country: 'KE', phone: sale.customer.phone },
