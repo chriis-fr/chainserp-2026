@@ -29,8 +29,8 @@ export default function SdkDocs() {
       keywords={['logistics SDK TypeScript', 'delivery API SDK', 'FleetOps SDK', 'Fleetbase TypeScript']}
     >
       <h2>Install</h2>
-      <Callout title="Not on npm yet">
-        Install it from the Chains ERP repository for now. We will publish <code>@chains-erp/logistics</code> to npm and update this page.
+      <Callout title="Install from the repository">
+        <code>@chains-erp/logistics</code> is not on npm. Build it from the Chains ERP repository and install it into your project from that folder.
       </Callout>
       <Code lang="bash">{`
 git clone https://github.com/chriis-fr/chainserp-2026.git
