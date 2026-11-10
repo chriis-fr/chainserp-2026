@@ -1,38 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import ComparisonPageTemplate from 'components/templates/ComparisonPageTemplate';
-import { comparisons, Comparison } from 'data/comparisons';
+import SitePageTemplate from 'components/templates/SitePageTemplate';
+import { comparisons } from 'data/comparisons';
+import type { SitePage } from 'data/site-page';
 
-interface ComparisonPageProps {
-  comparison: Comparison;
+export default function Page({ page }: { page: SitePage }) {
+  return <SitePageTemplate page={page} section="Compare" sectionHref="/compare" />;
 }
 
-export default function ComparisonPage({ comparison }: ComparisonPageProps) {
-  return <ComparisonPageTemplate comparison={comparison} />;
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = comparisons.map((comparison) => ({
-    params: { slug: comparison.slug },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: comparisons.map((p) => ({ params: { slug: p.slug } })),
+  fallback: false,
+});
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const comparison = comparisons.find((c) => c.slug === params?.slug);
-
-  if (!comparison) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      comparison,
-    },
-  };
+  const page = comparisons.find((p) => p.slug === params?.slug);
+  return page ? { props: { page } } : { notFound: true };
 };

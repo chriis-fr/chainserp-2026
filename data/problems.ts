@@ -1,135 +1,142 @@
-export interface Problem {
-  slug: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  impact: string[];
-  solution: string;
-  keywords: string[];
-  relatedFeatures: string[];
-  relatedProblems: string[];
-  faqs: Array<{ question: string; answer: string }>;
-}
+import type { SitePage } from './site-page';
 
-export const problems: Problem[] = [
+export const problems: SitePage[] = [
   {
     slug: 'multi-currency-invoicing',
-    title: 'Multi-Currency Invoicing Challenges',
-    description: 'Managing invoices across multiple currencies is complex and error-prone.',
-    longDescription:
-      'Businesses operating globally face constant challenges with multi-currency invoicing. Currency conversion, exchange rate fluctuations, tax calculations, and compliance requirements make it difficult to manage invoices efficiently.',
-    impact: [
-      'Manual errors in currency conversion',
-      'Difficulty tracking exchange rates',
-      'Compliance issues across jurisdictions',
-      'Time-consuming invoice management',
-    ],
-    solution:
-      'Chains ERP automates multi-currency invoicing with real-time exchange rates, automatic tax calculations, and built-in compliance. Create invoices in any currency and let the system handle the complexity.',
-    keywords: ['multi-currency invoicing', 'currency conversion', 'international invoicing', 'forex invoicing'],
-    relatedFeatures: ['global-invoicing', 'multi-currency-support'],
-    relatedProblems: ['cross-border-invoicing-complexity'],
-    faqs: [
+    name: 'Invoicing in several currencies',
+    eyebrow: 'Problem',
+    title: 'Clients in different currencies, invoices in different tools',
+    description: 'Send every client an invoice in their own currency from one place, with the right way to pay attached.',
+    lead: 'When clients pay in shillings, dollars and euros, invoices end up spread across templates and spreadsheets.',
+    sections: [
       {
-        question: 'How do you handle exchange rate fluctuations?',
-        answer: 'We use real-time exchange rates and lock rates at invoice creation to protect both you and your customers.',
+        heading: 'How Chains handles it',
+        points: [
+          'One invoice builder for 50+ currencies, with a live preview',
+          'M-Pesa Pay now for Kenyan clients; bank details for clients abroad',
+          'Every invoice’s status in one list: sent, pending, paid',
+        ],
       },
     ],
-  },
-  {
-    slug: 'cross-border-payroll',
-    title: 'Cross-Border Payroll Complexity',
-    description: 'Paying remote teams across borders involves complex tax and compliance requirements.',
-    longDescription:
-      'Managing payroll for remote teams across different countries requires understanding local tax laws, labor regulations, and payment methods. This complexity grows exponentially with team size.',
-    impact: [
-      'Compliance risks',
-      'High administrative overhead',
-      'Currency conversion costs',
-      'Delayed payments',
-    ],
-    solution:
-      'Chains ERP handles cross-border payroll automatically. We calculate taxes, ensure compliance, and support multiple payment methods including crypto.',
-    keywords: ['cross-border payroll', 'international payroll', 'remote team payroll', 'global payroll'],
-    relatedFeatures: ['crypto-payroll', 'payroll-management'],
-    relatedProblems: ['crypto-payroll-compliance'],
-    faqs: [
-      {
-        question: 'Which countries are supported?',
-        answer: 'We support payroll in over 50 countries with automatic tax calculations.',
-      },
-    ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'Invoices', href: '/features/global-invoicing' }],
+    keywords: ['multi-currency invoicing', 'invoice in dollars Kenya'],
   },
   {
     slug: 'slow-invoice-collections',
-    title: 'Slow Invoice Collections',
-    description: 'Waiting weeks or months for invoice payments hurts cash flow.',
-    longDescription:
-      'Traditional payment methods mean waiting days or weeks for funds to clear. International payments can take even longer. This creates cash flow problems and operational challenges.',
-    impact: [
-      'Cash flow constraints',
-      'Difficulty planning',
-      'Increased credit risk',
-      'Operational delays',
-    ],
-    solution:
-      'Chains ERP supports instant crypto payments alongside traditional methods. Get paid faster and improve your cash flow.',
-    keywords: ['slow payments', 'invoice collection', 'payment delays', 'cash flow'],
-    relatedFeatures: ['cross-border-payments', 'payment-automation'],
-    relatedProblems: ['high-payment-fees'],
-    faqs: [
+    name: 'Slow invoice payments',
+    eyebrow: 'Problem',
+    title: 'Invoices that sit unpaid',
+    description: 'Make paying easy: a private pay link on every invoice, M-Pesa Pay now for Kenyan clients, and the invoice marks itself paid.',
+    lead: 'Clients pay faster when paying takes one tap. Most late invoices are not refused; they are just inconvenient to pay.',
+    sections: [
       {
-        question: 'How fast are crypto payments?',
-        answer: 'Crypto payments settle instantly, compared to 1-3 days for traditional bank transfers.',
+        heading: 'How Chains helps',
+        points: [
+          'Send the invoice by email or WhatsApp with a private pay link',
+          'Kenyan clients tap Pay now and approve the M-Pesa prompt',
+          'The invoice marks itself paid, so you are not reconciling by hand',
+        ],
       },
     ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'Invoices', href: '/features/global-invoicing' }],
+    keywords: ['get invoices paid faster', 'M-Pesa invoice link'],
   },
   {
     slug: 'manual-accounting-errors',
-    title: 'Manual Accounting Errors',
-    description: 'Manual data entry leads to costly mistakes and compliance issues.',
-    longDescription:
-      'Manual accounting processes are prone to errors. A single mistake can cascade through your books, causing compliance issues, financial discrepancies, and wasted time fixing problems.',
-    impact: [
-      'Financial discrepancies',
-      'Compliance violations',
-      'Time wasted on corrections',
-      'Audit complications',
-    ],
-    solution:
-      'Chains ERP automates accounting processes, reducing manual entry and eliminating errors. Automatic reconciliation and validation ensure accuracy.',
-    keywords: ['accounting errors', 'manual entry', 'bookkeeping mistakes', 'accounting automation'],
-    relatedFeatures: ['accounting-automation', 'erp-for-finance-teams'],
-    relatedProblems: ['fragmented-finance-tools'],
-    faqs: [
+    name: 'Copying numbers between tools',
+    eyebrow: 'Problem',
+    title: 'Re-typing sales, tips and bills into spreadsheets',
+    description: 'Stop copying POS sales, tips and supplier bills between tools: in Chains they are already where payroll and payments need them.',
+    lead: 'Every time a number is copied from the POS to a spreadsheet to payroll, it can go wrong.',
+    sections: [
       {
-        question: 'How does automation reduce errors?',
-        answer: 'By eliminating manual data entry and using automatic validation, we reduce error rates by over 95%.',
+        heading: 'What Chains removes',
+        points: [
+          'Tips taken at the POS land on the right person’s pay after you review them',
+          'Suppliers enter their own bills through their link',
+          'M-Pesa payments are recorded with their codes, at the counter and on invoices',
+        ],
       },
     ],
+    product: 'erp',
+    faqs: [],
+    related: [
+      { label: 'Payroll', href: '/features/payroll' },
+      { label: 'Supplier bills', href: '/features/supplier-bills' },
+    ],
+    keywords: ['spreadsheet errors payroll', 'POS to payroll'],
   },
   {
-    slug: 'web3-accounting-compliance',
-    title: 'Web3 Accounting Compliance',
-    description: 'Accounting for crypto and Web3 transactions requires specialized knowledge.',
-    longDescription:
-      'Traditional accounting software doesn\'t handle cryptocurrency transactions well. Tracking crypto payments, DeFi activities, and NFT transactions requires specialized tools and knowledge.',
-    impact: [
-      'Compliance risks',
-      'Inaccurate financial records',
-      'Tax reporting challenges',
-      'Audit difficulties',
-    ],
-    solution:
-      'Chains ERP is built for Web3 businesses. We handle crypto transactions, DeFi accounting, and ensure compliance with evolving regulations.',
-    keywords: ['crypto accounting', 'web3 accounting', 'blockchain accounting', 'defi accounting'],
-    relatedFeatures: ['crypto-payroll', 'web3-integrations'],
-    relatedProblems: ['crypto-payroll-compliance'],
-    faqs: [
+    slug: 'unapproved-supplier-payments',
+    name: 'Payments nobody approved',
+    eyebrow: 'Problem',
+    title: 'Supplier payments that go out without a yes',
+    description: 'Require approval before a bill can be paid, record who approved and when, and need a passcode for every payment out.',
+    lead: 'When anyone can pay a supplier from the business phone, mistakes and worse are only a message away.',
+    sections: [
       {
-        question: 'Which cryptocurrencies are supported?',
-        answer: 'We support all major cryptocurrencies and can track transactions across multiple chains.',
+        heading: 'How Chains controls it',
+        points: [
+          'Switch on approvals: a bill must be approved before it can be paid',
+          'Who approved, and when, is recorded',
+          'Every payment out needs the treasury passcode',
+          'Roles decide who can do what',
+        ],
       },
     ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'Supplier bills', href: '/features/supplier-bills' }],
+    keywords: ['approve supplier payments', 'payment approval workflow Kenya'],
+  },
+  {
+    slug: 'till-cash-mismatch',
+    name: 'Cash that doesn’t add up',
+    eyebrow: 'Problem',
+    title: 'End-of-night cash that never matches the sales',
+    description: 'Shift cash-ups, M-Pesa codes on every order and manager-approved voids make the gap visible, and show who and when.',
+    lead: 'At the end of a busy night, the cash, the M-Pesa messages and the sales rarely agree, and nobody can say why.',
+    sections: [
+      {
+        heading: 'How Chains POS helps',
+        points: [
+          'Open and close each shift with a cash-up',
+          'Every M-Pesa payment recorded on its order with the code',
+          'Sent items need a manager to void',
+          'Sales by person and product, and reconciliation',
+        ],
+      },
+    ],
+    product: 'pos',
+    faqs: [],
+    related: [{ label: 'Chains POS', href: '/features/point-of-sale' }],
+    keywords: ['bar cash reconciliation', 'POS shift cash up', 'M-Pesa reconciliation'],
+  },
+  {
+    slug: 'untracked-deliveries',
+    name: 'Deliveries you can’t see',
+    eyebrow: 'Problem',
+    title: 'Not knowing where a delivery is',
+    description: 'Put every order, driver and vehicle on one live map, let customers follow their order, and get webhooks when it is delivered.',
+    lead: 'When the only way to find a delivery is to call the driver, customers call you.',
+    sections: [
+      {
+        heading: 'How FleetOps helps',
+        points: [
+          'Every order dispatched to a driver and followed on the map',
+          'Customers track their own order in the customer portal',
+          'Proof of delivery captured in the Fleetbase Navigator app',
+          'Signed webhooks tell your system when an order is completed',
+        ],
+      },
+    ],
+    product: 'fleet',
+    faqs: [],
+    related: [{ label: 'FleetOps', href: '/features/fleetops-logistics' }],
+    keywords: ['delivery tracking Kenya', 'track drivers'],
   },
 ];

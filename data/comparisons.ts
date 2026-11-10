@@ -1,99 +1,91 @@
-export interface Comparison {
-  slug: string;
-  title: string;
-  competitor: string;
-  description: string;
-  chainsAdvantages: string[];
-  competitorAdvantages: string[];
-  useCase: string;
-  keywords: string[];
-  faqs: Array<{ question: string; answer: string }>;
-}
+import type { SitePage } from './site-page';
 
-export const comparisons: Comparison[] = [
+// Comparisons stay on facts about Chains. Competitors are described only in neutral, widely known terms,
+// and each page says when the other product is the better fit.
+export const comparisons: SitePage[] = [
   {
     slug: 'chains-erp-vs-quickbooks',
-    title: 'Chains ERP vs QuickBooks',
-    competitor: 'QuickBooks',
-    description: 'Compare Chains ERP and QuickBooks to find the right solution for your global business.',
-    chainsAdvantages: [
-      'Multi-currency and crypto support',
-      'Built for global businesses',
-      'Modern API and integrations',
-      'Web3 and blockchain features',
-      'Lower fees for international transactions',
-    ],
-    competitorAdvantages: [
-      'More established brand',
-      'Larger user base',
-      'More third-party integrations',
-      'Better for US-only businesses',
-    ],
-    useCase: 'Choose Chains ERP if you operate globally or need crypto support. QuickBooks is better for US-only businesses.',
-    keywords: ['chains erp vs quickbooks', 'quickbooks alternative', 'global accounting software'],
-    faqs: [
+    name: 'Chains ERP and QuickBooks',
+    eyebrow: 'Compare',
+    title: 'Chains ERP and QuickBooks',
+    description: 'How Chains ERP differs from accounting software like QuickBooks, and when to use one, the other, or both.',
+    lead:
+      'QuickBooks is accounting software: books, ledgers and the reports an accountant works from. Chains ERP runs the day-to-day money of a Kenyan business: the POS, payroll, supplier payments and invoices with M-Pesa built in.',
+    sections: [
       {
-        question: 'Can I migrate from QuickBooks?',
-        answer: 'Yes, we offer migration tools and support to help you move your data from QuickBooks.',
+        heading: 'What Chains does',
+        points: [
+          'M-Pesa at the counter, on invoices and for payroll and supplier payouts',
+          'Chains POS for bars, restaurants and cafés',
+          'Approvals and a passcode on every payment out',
+        ],
       },
       {
-        question: 'Which is more expensive?',
-        answer: 'Pricing depends on your needs. Chains ERP offers better value for global businesses.',
+        heading: 'When accounting software is the better fit',
+        body: 'If you need a general ledger, accountant collaboration or tax filing, use accounting software. Chains is not a ledger and does not file taxes.',
       },
-    ],
-  },
-  {
-    slug: 'chains-erp-vs-odoo',
-    title: 'Chains ERP vs Odoo',
-    competitor: 'Odoo',
-    description: 'Compare Chains ERP and Odoo for your business management needs.',
-    chainsAdvantages: [
-      'Simpler, finance-focused',
-      'Better crypto and Web3 support',
-      'More modern interface',
-      'Better for finance teams',
-      'Lower learning curve',
-    ],
-    competitorAdvantages: [
-      'More modules available',
-      'Open source option',
-      'More customization',
-      'Larger community',
-    ],
-    useCase: 'Chains ERP is better if you need a finance-first solution. Odoo is better if you need many modules.',
-    keywords: ['chains erp vs odoo', 'odoo alternative', 'finance erp comparison'],
-    faqs: [
       {
-        question: 'Is Chains ERP open source?',
-        answer: 'No, Chains ERP is a SaaS platform with a modern architecture and regular updates.',
+        heading: 'Using both',
+        body: 'You can keep your accounting software for the books and run payments and operations in Chains.',
       },
     ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'For finance teams', href: '/features/erp-for-finance-teams' }],
+    keywords: ['QuickBooks alternative Kenya', 'Chains ERP vs QuickBooks'],
   },
   {
     slug: 'chains-erp-vs-xero',
-    title: 'Chains ERP vs Xero',
-    competitor: 'Xero',
-    description: 'Compare Chains ERP and Xero for cloud accounting.',
-    chainsAdvantages: [
-      'Crypto payment support',
-      'Better for global businesses',
-      'More modern platform',
-      'Lower international fees',
-      'Web3 features',
-    ],
-    competitorAdvantages: [
-      'More established',
-      'More add-ons',
-      'Better for small businesses',
-      'More tutorials available',
-    ],
-    useCase: 'Chains ERP is better for global or crypto-native businesses. Xero is better for traditional small businesses.',
-    keywords: ['chains erp vs xero', 'xero alternative', 'cloud accounting comparison'],
-    faqs: [
+    name: 'Chains ERP and Xero',
+    eyebrow: 'Compare',
+    title: 'Chains ERP and Xero',
+    description: 'How Chains ERP differs from cloud accounting software like Xero, and when to use one, the other, or both.',
+    lead:
+      'Xero is cloud accounting software for keeping the books. Chains ERP runs payments and operations in Kenya: the POS, payroll, supplier bills and invoices, on M-Pesa.',
+    sections: [
       {
-        question: 'Does Chains ERP have mobile apps?',
-        answer: 'Yes, we have mobile apps for iOS and Android with full feature parity.',
+        heading: 'What Chains does',
+        points: [
+          'M-Pesa Pay now on invoices; the invoice marks itself paid',
+          'Payroll and supplier payouts by M-Pesa or bank in one approval',
+          'Chains POS and FleetOps logistics',
+        ],
+      },
+      {
+        heading: 'When accounting software is the better fit',
+        body: 'For bookkeeping, a general ledger, bank feeds and tax returns, use accounting software. Chains does not replace it.',
       },
     ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'Invoices', href: '/features/global-invoicing' }],
+    keywords: ['Xero alternative Kenya', 'Chains ERP vs Xero'],
+  },
+  {
+    slug: 'chains-erp-vs-odoo',
+    name: 'Chains ERP and Odoo',
+    eyebrow: 'Compare',
+    title: 'Chains ERP and Odoo',
+    description: 'Odoo is a broad, modular ERP you configure; Chains is a focused set of products for Kenyan hospitality and logistics, set up with you.',
+    lead:
+      'Odoo is a broad, modular ERP that covers many business areas and is usually configured by a partner. Chains is narrower: the POS, payroll, supplier bills, invoices, treasury and FleetOps, with M-Pesa built in and set up with you over WhatsApp.',
+    sections: [
+      {
+        heading: 'What Chains does',
+        points: [
+          'Ready for bars, restaurants, cafés and hotels on day one',
+          'M-Pesa on your own paybill or till, and M-Pesa payroll',
+          '15 days free, no card',
+        ],
+      },
+      {
+        heading: 'When a broad ERP is the better fit',
+        body: 'If you need manufacturing, a full accounting ledger, HR beyond payroll, or deep custom modules, a broad ERP is built for that. Chains is not.',
+      },
+    ],
+    product: 'erp',
+    faqs: [],
+    related: [{ label: 'Bars, restaurants and cafés', href: '/industries/hospitality' }],
+    keywords: ['Odoo alternative Kenya', 'Chains ERP vs Odoo'],
   },
 ];

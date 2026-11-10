@@ -1,132 +1,124 @@
-import styled from 'styled-components';
-import Container from 'components/Container';
-import SEO from 'components/SEO';
-import HeroSection from 'views/BitcoinPage/HeroSection';
-import HowItWorksSection from 'views/BitcoinPage/HowItWorksSection';
-import FeaturesSection from 'views/BitcoinPage/FeaturesSection';
-import AfricaStatsSection from 'views/BitcoinPage/AfricaStatsSection';
-import BitcoinFaqSection from 'views/BitcoinPage/FaqSection';
+/* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
+import NextLink from 'next/link';
+import Page from 'components/Page';
+import { Icon, WhatsAppIcon } from 'components/site/Icon';
+import { LINKS } from 'components/site/links';
+import StructuredData from 'components/StructuredData';
 
-const BTCPAY_URL = 'https://btcpay.chains-erp.com';
-const APP_URL = 'https://app.chains-erp.com/auth';
+// What is true today (chains-API src/modules/treasury/btcpay, finance app invoice builder):
+// - An admin or the workspace owner provisions a BTCPay store for the workspace on the BTCPay Server we host
+//   (btcpay.chains-erp.com); after that, Bitcoin payment invoices can be created, priced in a currency (USD by default).
+// - The invoice builder still shows a "set up BTCPay" step when you pick Bitcoin, so it is switched on with us.
+// - Nothing in the code connects a wallet automatically; the store's wallet is set up with the customer.
+const FAQS = [
+  {
+    question: 'Is Bitcoin available on every account?',
+    answer: 'Not yet. We switch it on per workspace by request while we finish it. Message us on WhatsApp.',
+  },
+  {
+    question: 'Where do the payments go?',
+    answer: 'To the wallet connected to your workspace’s BTCPay store. We set that up with you before you take your first payment.',
+  },
+  {
+    question: 'Can I pay staff or suppliers in Bitcoin?',
+    answer: 'No. Payroll and supplier payouts go by M-Pesa or bank in Kenya.',
+  },
+  {
+    question: 'What about stablecoins?',
+    answer: 'Invoices can also be issued in USDC or USDT on Base. Those payments go to your address and are marked paid by hand.',
+  },
+  {
+    question: 'Does this handle tax?',
+    answer: 'No. Chains does not issue eTIMS tax invoices or handle tax on crypto. Talk to your accountant.',
+  },
+];
 
 export default function AcceptBitcoinPaymentsPage() {
   return (
-    <>
-      <SEO
-        title="Accept Bitcoin Payments in Africa | Chains ERP + BTCPay Server"
-        description="Self-custodial Bitcoin invoicing for African businesses. Your own BTCPay Server node — integrated with Chains ERP. Invoice in USD or KES, receive BTC, reconcile automatically. No middleman. No chargebacks. KRA-ready."
-        keywords={[
-          'accept bitcoin payments Kenya',
-          'BTCPay Server Africa',
-          'BTCPay Server hosting Kenya',
-          'Bitcoin invoicing Africa',
-          'self-custodial Bitcoin business',
-          'Bitcoin M-Pesa payment',
-          'Bitcoin ERP Africa',
-          'crypto payments Kenya',
-          'Lightning Network Kenya',
-          'Bitcoin payroll Africa',
-          'accept crypto payments Kenya',
-          'BTCPay third party host Africa',
-          'Bitcoin accounting Kenya',
-          'non-custodial Bitcoin payments',
-          'Bitcoin invoice software Africa',
-        ]}
-        url="/accept-bitcoin-payments"
-      />
+    <Page
+      eyebrow="Bitcoin on invoices"
+      title="Take Bitcoin on your invoices, through BTCPay Server"
+      description="Bitcoin payments on Chains invoices run through BTCPay Server, the open-source payment processor, which we host. Switched on per workspace by request."
+    >
+      <StructuredData type="FAQPage" data={FAQS} />
+      <div className="cx cx-tpl">
+        <div className="cx-tpl-grid">
+          <article className="cx-tpl-main">
+            <p className="cx-tpl-lead">
+              Some clients would rather pay in Bitcoin. Chains can take it on your invoices through BTCPay Server, the open-source
+              Bitcoin payment processor, running on our own server. It is early, so we switch it on with you.
+            </p>
 
-      <HeroSection />
-      <HowItWorksSection />
-      <FeaturesSection />
-      <AfricaStatsSection />
+            <section className="cx-tpl-sec">
+              <h2>How it works</h2>
+              <ul>
+                <li>
+                  <Icon name="check" />
+                  <span>We create a BTCPay store for your workspace and connect it to a wallet with you</span>
+                </li>
+                <li>
+                  <Icon name="check" />
+                  <span>You price the invoice in a currency such as USD; the client pays the equivalent in Bitcoin</span>
+                </li>
+                <li>
+                  <Icon name="check" />
+                  <span>BTCPay tracks the payment against that invoice</span>
+                </li>
+              </ul>
+            </section>
 
-      <Container>
-        <BitcoinFaqSection />
-        <CtaBlock>
-          <CtaHeading>Ready to accept Bitcoin?</CtaHeading>
-          <CtaBody>
-            Open your BTCPay portal and start receiving payments in minutes. Already have a Chains ERP account? Bitcoin is already waiting for you on Scale and Full Suite plans.
-          </CtaBody>
-          <CtaButtons>
-            <CtaPrimary href={BTCPAY_URL} target="_blank" rel="noopener noreferrer">
-              Open BTCPay Portal
-            </CtaPrimary>
-            <CtaSecondary href={APP_URL} target="_blank" rel="noopener noreferrer">
-              Start with Chains ERP
-            </CtaSecondary>
-          </CtaButtons>
-        </CtaBlock>
-      </Container>
-    </>
+            <section className="cx-tpl-sec">
+              <h2>What it is not</h2>
+              <p>
+                Bitcoin is for getting paid on invoices only: there is no Bitcoin at the POS counter and no payroll or supplier payouts in
+                Bitcoin. Money moves out of Chains by M-Pesa or bank in Kenya.
+              </p>
+            </section>
+
+            <section className="cx-tpl-sec">
+              <h2>Questions</h2>
+              <div className="cx-faq">
+                {FAQS.map((f) => (
+                  <details key={f.question}>
+                    <summary>{f.question}</summary>
+                    <p>{f.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </article>
+
+          <aside className="cx-tpl-side">
+            <div className="cx-plan hl">
+              <h3>Ask for Bitcoin on your workspace</h3>
+              <p>Tell us your business name and we will set it up with you.</p>
+              <div className="cx-tpl-actions">
+                <a className="cx-btn cx-btn-primary" href={LINKS.whatsapp} target="_blank" rel="noopener">
+                  <WhatsAppIcon /> Ask on WhatsApp
+                </a>
+                <a className="cx-btn cx-btn-quiet" href={LINKS.signUp}>
+                  Start free <Icon name="arrow" />
+                </a>
+              </div>
+            </div>
+            <div className="cx-plan">
+              <h3>Related</h3>
+              <ul className="cx-tpl-rel">
+                <li>
+                  <NextLink href="/features/cross-border-payments">
+                    Getting paid by clients <Icon name="arrow" />
+                  </NextLink>
+                </li>
+                <li>
+                  <NextLink href="/features/global-invoicing">
+                    Invoices in 50+ currencies <Icon name="arrow" />
+                  </NextLink>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </Page>
   );
 }
-
-const CtaBlock = styled.div`
-  margin: 10rem 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-`;
-
-const CtaHeading = styled.h2`
-  font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: rgb(var(--text));
-`;
-
-const CtaBody = styled.p`
-  font-size: 1.7rem;
-  line-height: 1.65;
-  color: rgb(var(--text));
-  opacity: 0.65;
-  max-width: 55rem;
-`;
-
-const CtaButtons = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 1rem;
-`;
-
-const CtaPrimary = styled.a`
-  display: inline-block;
-  padding: 1.4rem 2.8rem;
-  background: rgb(var(--primary));
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 0.4rem;
-  text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-  &:hover {
-    transform: scale(1.025);
-    box-shadow: 0 4px 20px rgba(var(--primary), 0.35);
-  }
-`;
-
-const CtaSecondary = styled.a`
-  display: inline-block;
-  padding: 1.4rem 2.8rem;
-  background: transparent;
-  color: rgb(var(--primary));
-  font-size: 1.5rem;
-  font-weight: 600;
-  border: 2px solid rgb(var(--primary));
-  border-radius: 0.4rem;
-  text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease;
-
-  &:hover {
-    background: rgb(var(--primary));
-    color: #fff;
-  }
-`;

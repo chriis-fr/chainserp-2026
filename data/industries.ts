@@ -1,126 +1,159 @@
-export interface Industry {
-  slug: string;
-  name: string;
-  description: string;
-  challenges: string[];
-  solutions: string[];
-  keywords: string[];
-  relatedFeatures: string[];
-}
+import type { SitePage } from './site-page';
 
-export const industries: Industry[] = [
+export const industries: SitePage[] = [
   {
-    slug: 'fintech',
-    name: 'Fintech',
-    description: 'ERP solution designed for fintech companies operating globally.',
-    challenges: [
-      'Regulatory compliance across jurisdictions',
-      'Multi-currency operations',
-      'Real-time transaction processing',
-      'Crypto and traditional payment support',
+    slug: 'hospitality',
+    name: 'Bars, restaurants and cafés',
+    eyebrow: 'Hospitality',
+    title: 'For bars, clubs, lounges, restaurants and cafés',
+    description: 'The POS, payroll, supplier bills and invoices in one system: M-Pesa on your own number at the counter, and staff paid in one approval.',
+    lead:
+      'A night at a bar touches the POS, the kitchen, the stock, the staff and the suppliers. Chains keeps them in one system, so tonight’s sales are already there when you pay tomorrow’s supplier and Friday’s payroll.',
+    sections: [
+      {
+        heading: 'At the counter',
+        points: [
+          'Chains POS with tables, waiter mode, kitchen and bar screens and QR ordering',
+          'M-Pesa to your own paybill or till; every code recorded on the order',
+          'Credit tabs for regulars, and shift cash-ups',
+        ],
+      },
+      {
+        heading: 'Behind the bar',
+        points: [
+          'Recipes deduct ingredients as you sell',
+          'Supplier bills approved, then paid by M-Pesa, paybill or till',
+          'Payroll with tips from the POS, in one approval',
+        ],
+      },
     ],
-    solutions: [
-      'Built-in compliance tools',
-      'Multi-currency support',
-      'Real-time processing',
-      'Crypto payment integration',
+    product: 'pos',
+    faqs: [
+      {
+        question: 'How do I get set up?',
+        answer:
+          'Send us your business name on WhatsApp. We switch on the POS and connect your own paybill or till number. You load your menu and stock list by pasting it or from a CSV or Excel file.',
+      },
     ],
-    keywords: ['fintech erp', 'fintech software', 'financial technology', 'fintech solutions'],
-    relatedFeatures: ['crypto-payroll', 'cross-border-payments', 'regulatory-compliance'],
+    related: [
+      { label: 'Chains POS', href: '/features/point-of-sale' },
+      { label: 'Payroll', href: '/features/payroll' },
+      { label: 'Cash that does not add up', href: '/problems/till-cash-mismatch' },
+    ],
+    keywords: ['bar software Kenya', 'restaurant management system Nairobi', 'club POS', 'café POS'],
   },
   {
-    slug: 'saas',
-    name: 'SaaS',
-    description: 'Complete financial management for SaaS companies.',
-    challenges: [
-      'Subscription billing complexity',
-      'Multi-currency revenue',
-      'Global customer base',
-      'Recurring revenue tracking',
+    slug: 'hotels',
+    name: 'Hotels and lodges',
+    eyebrow: 'Hospitality',
+    title: 'For hotels and lodges: their bars, restaurants and staff',
+    description: 'Run a hotel’s bars and restaurants on Chains POS, pay its staff and suppliers from one treasury, and see every outlet together.',
+    lead:
+      'Chains runs the food and drink side of a hotel or lodge, and the payroll and supplier payments behind it. Several outlets share one login and one parent treasury.',
+    sections: [
+      {
+        heading: 'What hotels use',
+        points: [
+          'Chains POS in each bar and restaurant, with branches and devices',
+          'Payroll for all staff by M-Pesa or bank',
+          'Supplier bills with approvals',
+          'A treasury per outlet, funded from one pool',
+        ],
+      },
+      {
+        heading: 'Not included',
+        body: 'Chains is not a room booking or property management system. Keep your PMS for rooms; Chains runs the outlets, payroll and suppliers.',
+      },
     ],
-    solutions: [
-      'Subscription billing automation',
-      'Multi-currency invoicing',
-      'Revenue recognition',
-      'Customer portal integration',
+    product: 'pos',
+    faqs: [],
+    related: [
+      { label: 'Groups with several businesses', href: '/features/erp-for-enterprises' },
+      { label: 'Chains POS', href: '/features/point-of-sale' },
     ],
-    keywords: ['saas erp', 'saas accounting', 'subscription billing', 'saas finance'],
-    relatedFeatures: ['global-invoicing', 'subscription-management', 'recurring-billing'],
+    keywords: ['hotel restaurant POS Kenya', 'lodge management software', 'hotel payroll Kenya'],
   },
   {
     slug: 'logistics',
-    name: 'Logistics',
-    description: 'Finance management for logistics and shipping companies.',
-    challenges: [
-      'Cross-border transactions',
-      'Multi-currency invoicing',
-      'Complex tax requirements',
-      'Payment processing delays',
+    name: 'Logistics and delivery',
+    eyebrow: 'Logistics',
+    title: 'For businesses that move goods',
+    description: 'FleetOps for orders, dispatch, drivers and live tracking, with payroll and supplier payments for drivers and fuel in Chains ERP.',
+    lead:
+      'FleetOps puts orders, drivers and vehicles on one live map. Chains ERP pays the drivers and the fuel and repair suppliers, with an approval on every payment.',
+    sections: [
+      {
+        heading: 'Deliveries',
+        points: [
+          'Create orders in the console or from your own system through the API',
+          'Dispatch to a driver; drivers work jobs in the Fleetbase Navigator app',
+          'Customers follow their order in the customer portal',
+          'Signed webhooks tell your system when an order is dispatched, started or completed',
+        ],
+      },
+      {
+        heading: 'Money',
+        points: ['Driver payroll by M-Pesa or bank', 'Fuel and repair bills approved, then paid', 'Invoices to your customers in 50+ currencies'],
+      },
     ],
-    solutions: [
-      'Global payment processing',
-      'Automated invoicing',
-      'Tax compliance',
-      'Fast payment settlement',
+    product: 'fleet',
+    faqs: [],
+    related: [
+      { label: 'FleetOps', href: '/features/fleetops-logistics' },
+      { label: 'Logistics docs', href: '/logistics/docs' },
     ],
-    keywords: ['logistics erp', 'shipping software', 'freight management', 'logistics finance'],
-    relatedFeatures: ['cross-border-payments', 'global-invoicing', 'tax-compliance'],
+    keywords: ['logistics software Kenya', 'delivery management Nairobi', 'fleet management system'],
   },
   {
     slug: 'ecommerce',
-    name: 'E-commerce',
-    description: 'Financial operations for e-commerce businesses.',
-    challenges: [
-      'High transaction volume',
-      'Multiple payment methods',
-      'International sales',
-      'Inventory accounting',
+    name: 'Online shops',
+    eyebrow: 'Commerce',
+    title: 'For shops that sell online and deliver',
+    description: 'A hosted storefront on FleetOps, with deliveries quoted at checkout and dispatched to drivers, plus invoices and supplier payments in Chains ERP.',
+    lead:
+      'We can set up a hosted shop on the FleetOps Storefront: catalogue, cart and checkout, with delivery or pickup quoted at checkout and each paid order landing as a delivery order.',
+    sections: [
+      {
+        heading: 'What you get',
+        points: [
+          'Catalogue, search, cart and checkout on a hosted storefront',
+          'Delivery quotes at checkout, and orders dispatched to your drivers',
+          'Or connect your existing shop to FleetOps through the API',
+        ],
+      },
     ],
-    solutions: [
-      'Automated transaction processing',
-      'Multi-payment gateway support',
-      'Global sales management',
-      'Integrated inventory accounting',
+    product: 'fleet',
+    faqs: [],
+    related: [
+      { label: 'Storefront docs', href: '/logistics/docs/storefront' },
+      { label: 'FleetOps', href: '/features/fleetops-logistics' },
     ],
-    keywords: ['ecommerce erp', 'online store finance', 'ecommerce accounting', 'online retail'],
-    relatedFeatures: ['payment-processing', 'multi-currency-support', 'inventory-management'],
-  },
-  {
-    slug: 'crypto',
-    name: 'Crypto & Web3',
-    description: 'ERP built for crypto and Web3 companies.',
-    challenges: [
-      'Crypto transaction accounting',
-      'DeFi activity tracking',
-      'Regulatory compliance',
-      'Multi-chain operations',
-    ],
-    solutions: [
-      'Native crypto support',
-      'DeFi integration',
-      'Compliance automation',
-      'Multi-chain tracking',
-    ],
-    keywords: ['crypto erp', 'web3 erp', 'blockchain accounting', 'crypto business software'],
-    relatedFeatures: ['crypto-payroll', 'web3-integrations', 'defi-accounting'],
+    keywords: ['ecommerce delivery Kenya', 'online shop with delivery', 'storefront'],
   },
   {
     slug: 'consulting',
-    name: 'Consulting',
-    description: 'Financial management for consulting firms.',
-    challenges: [
-      'Project-based billing',
-      'Time tracking integration',
-      'Expense management',
-      'Multi-client invoicing',
+    name: 'Agencies and services',
+    eyebrow: 'Services',
+    title: 'For agencies, consultancies and freelancers',
+    description: 'Invoices in 50+ currencies with a pay link, payroll for a small team, and supplier bills, without a full ERP.',
+    lead:
+      'Service businesses mostly need to bill clients and pay people. Start with invoices or payroll on their own and add the rest later.',
+    sections: [
+      {
+        heading: 'What service businesses use',
+        points: [
+          'Invoices in the client’s currency, sent by email or WhatsApp with a private pay link',
+          'M-Pesa Pay now for Kenyan clients; bank details for clients abroad',
+          'Payroll for the team in one approval',
+        ],
+      },
     ],
-    solutions: [
-      'Project billing automation',
-      'Time tracking integration',
-      'Expense management',
-      'Client portal',
+    product: 'erp',
+    faqs: [],
+    related: [
+      { label: 'Invoices', href: '/features/global-invoicing' },
+      { label: 'Getting paid', href: '/features/cross-border-payments' },
     ],
-    keywords: ['consulting erp', 'consulting software', 'professional services', 'consulting finance'],
-    relatedFeatures: ['project-billing', 'time-tracking', 'expense-management'],
+    keywords: ['invoicing for consultants Kenya', 'agency invoicing', 'freelancer invoices'],
   },
 ];

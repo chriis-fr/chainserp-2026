@@ -1,38 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import FeaturePageTemplate from 'components/templates/FeaturePageTemplate';
-import { features, Feature } from 'data/features';
+import SitePageTemplate from 'components/templates/SitePageTemplate';
+import { features } from 'data/features';
+import type { SitePage } from 'data/site-page';
 
-interface FeaturePageProps {
-  feature: Feature;
+export default function Page({ page }: { page: SitePage }) {
+  return <SitePageTemplate page={page} section="Features" sectionHref="/features" />;
 }
 
-export default function FeaturePage({ feature }: FeaturePageProps) {
-  return <FeaturePageTemplate feature={feature} />;
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = features.map((feature) => ({
-    params: { slug: feature.slug },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: features.map((p) => ({ params: { slug: p.slug } })),
+  fallback: false,
+});
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const feature = features.find((f) => f.slug === params?.slug);
-
-  if (!feature) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      feature,
-    },
-  };
+  const page = features.find((p) => p.slug === params?.slug);
+  return page ? { props: { page } } : { notFound: true };
 };

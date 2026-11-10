@@ -1,38 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import IndustryPageTemplate from 'components/templates/IndustryPageTemplate';
-import { industries, Industry } from 'data/industries';
+import SitePageTemplate from 'components/templates/SitePageTemplate';
+import { industries } from 'data/industries';
+import type { SitePage } from 'data/site-page';
 
-interface IndustryPageProps {
-  industry: Industry;
+export default function Page({ page }: { page: SitePage }) {
+  return <SitePageTemplate page={page} section="Industries" sectionHref="/industries" />;
 }
 
-export default function IndustryPage({ industry }: IndustryPageProps) {
-  return <IndustryPageTemplate industry={industry} />;
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = industries.map((industry) => ({
-    params: { slug: industry.slug },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: industries.map((p) => ({ params: { slug: p.slug } })),
+  fallback: false,
+});
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const industry = industries.find((i) => i.slug === params?.slug);
-
-  if (!industry) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      industry,
-    },
-  };
+  const page = industries.find((p) => p.slug === params?.slug);
+  return page ? { props: { page } } : { notFound: true };
 };
