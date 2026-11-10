@@ -20,6 +20,7 @@ const COLUMNS: { title: string; links: { label: string; href: string; internal?:
       { label: 'Invoices', href: LINKS.appInvoices },
       { label: 'Treasury', href: LINKS.appTreasury },
       { label: 'All features', href: '/features', internal: true },
+      { label: 'Logistics API docs', href: '/logistics/docs', internal: true },
     ],
   },
   {

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
+import NextLink from 'next/link';
 import { Icon, IconName, WhatsAppIcon } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
 
@@ -67,7 +68,12 @@ export default function LogisticsScene() {
               Open FleetOps <Icon name="ext" />
             </a>
           </div>
-          <p className="cx-logi-fine">Customers track orders in the FleetOps customer portal.</p>
+          <p className="cx-logi-fine">
+            Customers track orders in the FleetOps customer portal. Have your own system?{' '}
+            <NextLink href="/logistics/docs" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              Read the integration docs
+            </NextLink>
+          </p>
         </div>
 
         <div className="cx-iso" aria-label="Illustration: a delivery map with a depot, two routes, vans and drop-offs">

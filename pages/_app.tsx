@@ -1,6 +1,7 @@
 import 'styles/globals.css';
 import 'styles/site.css';
 import 'styles/site-3d.css';
+import 'styles/docs.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';

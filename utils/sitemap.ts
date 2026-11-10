@@ -29,6 +29,13 @@ export function generateSitemapUrls(): SitemapUrl[] {
     { loc: `${baseUrl}/industries`, changefreq: 'weekly', priority: 0.8 },
     { loc: `${baseUrl}/regions`, changefreq: 'weekly', priority: 0.8 },
 
+    // Logistics developer docs
+    ...['', '/integrate', '/storefront', '/api', '/webhooks', '/sdk'].map((p) => ({
+      loc: `${baseUrl}/logistics/docs${p}`,
+      changefreq: 'monthly' as const,
+      priority: p ? 0.6 : 0.8,
+    })),
+
     // Feature pages
     ...features.map((feature) => ({
       loc: `${baseUrl}/features/${feature.slug}`,

@@ -1,0 +1,39 @@
+{
+  "name": "@chains-erp/logistics",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Chains FleetOps logistics and Storefront APIs (api.progressusmavericks.co.ke).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/webhooks.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "keywords": [
+    "chains-erp",
+    "fleetops",
+    "logistics",
+    "delivery",
+    "storefront",
+    "fleetbase",
+    "sdk"
+  ]
+}
