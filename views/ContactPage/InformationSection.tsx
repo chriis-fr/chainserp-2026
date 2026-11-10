@@ -5,7 +5,7 @@ export default function InformationSection() {
     <Wrapper>
       <h3>Contact Info</h3>
       <p>
-        <span>Email:</span> info@chains-erp.com
+        <span>Email:</span> hello@chains-erp.com
       </p>
     </Wrapper>
   );

@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           sameAs: ['https://twitter.com/chains_erp'],
           contactPoint: {
             contactType: 'Customer Service',
-            email: 'support@chains-erp.com',
+            email: 'hello@chains-erp.com',
           },
         }}
       />
