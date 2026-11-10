@@ -74,10 +74,14 @@ export class Orders extends Collection<Order, OrderInput> {
     return this.http.request<Order>('DELETE', `orders/${enc(id)}/cancel`);
   }
 
-  /** Reschedule. `scheduledAt` is ISO 8601. */
-  schedule(id: Id, scheduledAt: string, timezone?: string): Promise<Order> {
+  /**
+   * Schedule or reschedule. FleetOps reads `date` (any parseable date, e.g. `2026-11-12` or an ISO 8601
+   * date-time), an optional `time` (`09:00`) and an optional `timezone` (IANA name; defaults to your
+   * organization's timezone).
+   */
+  schedule(id: Id, date: string, options: { time?: string; timezone?: string } = {}): Promise<Order> {
     return this.http.request<Order>('POST', `orders/${enc(id)}/schedule`, {
-      body: { scheduled_at: scheduledAt, ...(timezone ? { timezone } : {}) },
+      body: { date, ...(options.time ? { time: options.time } : {}), ...(options.timezone ? { timezone: options.timezone } : {}) },
     });
   }
 

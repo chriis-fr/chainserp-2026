@@ -18,6 +18,7 @@ export interface Resource {
 export interface ListParams {
   limit?: number;
   page?: number;
+  offset?: number;
   /** e.g. `created_at` or `-created_at` */
   sort?: string;
   /** free-text search */
