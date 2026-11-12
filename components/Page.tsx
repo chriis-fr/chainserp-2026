@@ -15,7 +15,7 @@ export default function Page({ title, description, eyebrow, children }: PropsWit
   return (
     <>
       <SEO title={title} description={description} url={router.asPath} />
-      <Wrapper>
+      <Wrapper className="cx-page">
         <header className="cx cx-page-head cx-grid-bg">
           <div className="cx-wrap">
             <span className="cx-eyebrow">{eyebrow ?? 'Chains ERP'}</span>
@@ -32,7 +32,7 @@ export default function Page({ title, description, eyebrow, children }: PropsWit
 }
 
 const Wrapper = styled.div`
-  background: rgb(var(--background));
+  background: #fff;
 `;
 
 const ChildrenWrapper = styled.div`

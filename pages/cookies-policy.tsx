@@ -6,7 +6,7 @@ export default function ContactPage() {
   return (
     <Page title="Cookies policy">
       <CookiesPolicyContainer>
-      <RichText>
+      <RichText className="cx-legal">
   <p>
     Our ERP is built to simplify how modern organizations manage finance, operations, and growth. 
     It replaces fragmented tools with a single, unified platform designed for clarity, control, 

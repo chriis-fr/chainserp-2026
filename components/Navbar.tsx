@@ -53,9 +53,11 @@ export default function Navbar(_props: NavbarProps) {
   }, [router.events]);
 
   const here = (path: string) => (router.pathname === path ? 'page' : undefined);
+  // Only the homepage is dark; every other page gets the light version of the same pill.
+  const light = router.pathname !== '/';
 
   return (
-    <div className={`cx nx-nav-shell${scrolled ? ' scrolled' : ''}`}>
+    <div className={`cx nx-nav-shell${scrolled ? ' scrolled' : ''}${light ? ' light' : ''}`}>
       <header className="nx-nav">
         <NextLink className="nx-brand" href="/">
           {/* eslint-disable-next-line @next/next/no-img-element -- 26px static mark */}
