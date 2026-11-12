@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
   return (
     <Page title="Privacy Policy">
       <PrivacyPolicyContainer>
-        <RichText>
+        <RichText className="cx-legal">
           <h2>Privacy Policy — {EnvVars.SITE_NAME}</h2>
 
           <p>

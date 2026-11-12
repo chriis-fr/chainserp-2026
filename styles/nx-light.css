@@ -1,0 +1,180 @@
+/* The nx look on white: every page except the homepage and the docs. Same ideas as the dark homepage (soft colour
+   glows, mono eyebrows with a gradient dot, pill buttons, rounded cards that glow under the pointer, a serif closing
+   statement), kept light so long pages stay easy to read. Loaded after site.css and nx.css, so it only restyles. */
+:root {
+  --cx-ultra: #3f37c9;
+  --cx-azure: #5b5bf0;
+  --cx-azure-50: #f3f2ff;
+  --cx-azure-100: #e5e3ff;
+  --lx-ink: #0b0d14;
+  --lx-ink-2: #3b4357;
+  --lx-ink-3: #6b7489;
+  --lx-line: rgba(11, 13, 20, 0.08);
+  --lx-line-2: rgba(11, 13, 20, 0.15);
+  --lx-soft: #f6f7fb;
+  --lx-shadow: 0 1px 2px rgba(11, 13, 20, 0.04), 0 24px 48px -32px rgba(40, 36, 120, 0.28);
+  --lx-spot: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(139, 92, 246, 0.09), transparent 45%);
+}
+
+/* ---------- Page header: centred promise over soft glows ---------- */
+.cx-page-head {
+  position: relative; isolation: isolate; overflow: hidden; margin-top: -68px; text-align: center;
+  padding: clamp(128px, 14vw, 168px) 0 clamp(52px, 7vw, 88px); background: #fff !important; border-bottom: 1px solid var(--lx-line);
+}
+.cx-page-head::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background-image: linear-gradient(rgba(11, 13, 20, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(11, 13, 20, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px; mask-image: radial-gradient(ellipse 65% 70% at 50% 35%, #000 25%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 65% 70% at 50% 35%, #000 25%, transparent 75%);
+}
+.cx-page-head::after {
+  content: ''; position: absolute; inset: -20% -10% auto; height: 120%; z-index: -2; filter: blur(40px);
+  background:
+    radial-gradient(38% 46% at 22% 30%, rgba(226, 69, 155, 0.16), transparent 70%),
+    radial-gradient(40% 50% at 52% 18%, rgba(139, 92, 246, 0.2), transparent 70%),
+    radial-gradient(40% 50% at 82% 34%, rgba(61, 123, 255, 0.18), transparent 70%);
+}
+.cx-page-head .cx-wrap { display: grid; justify-items: center; }
+.cx-page-head h1 { color: var(--lx-ink); font-size: clamp(38px, 6vw, 72px); line-height: 1.02; letter-spacing: -0.045em; font-weight: 600; margin: 16px auto 0; max-width: 900px; }
+.cx-page-head p { margin: 18px auto 0; color: var(--lx-ink-2); max-width: 680px; font-size: clamp(16px, 1.5vw, 19px); }
+
+/* ---------- Labels ---------- */
+.cx-eyebrow { color: var(--lx-ink-3); letter-spacing: 0.12em; }
+.cx-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 99px; background: var(--nx-grad); flex: none; }
+.cx-close-card .cx-eyebrow { color: #a9b2c8 !important; }
+.cx-crumbs { display: inline-flex; align-items: center; padding: 6px 14px; border: 1px solid var(--lx-line); border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgba(11, 13, 20, 0.04); }
+.cx-crumbs a { color: var(--lx-ink-2); font-weight: 500; }
+.cx-crumbs a:hover { color: var(--cx-ultra); }
+.cx-crumbs > span:last-child { color: var(--lx-ink); font-weight: 500; }
+
+/* ---------- Buttons: pills, like the homepage ---------- */
+.cx-btn { height: 46px; border-radius: 999px; padding: 0 20px; letter-spacing: -0.01em; }
+.cx-btn-sm { height: 38px; border-radius: 999px; }
+.cx-btn-primary { background: var(--lx-ink); box-shadow: 0 10px 28px -12px rgba(11, 13, 20, 0.55); }
+.cx-btn-primary:hover { background: #1c2030; }
+.cx-btn-quiet { background: #fff; border-color: var(--lx-line-2); }
+.cx-btn-quiet:hover { border-color: var(--lx-ink); }
+.cx-link { color: var(--cx-ultra) !important; }
+
+/* ---------- Headings and text ---------- */
+.cx-head h2, .cx-tpl-sec h2 { color: var(--lx-ink); }
+.cx-tpl-sec h2 { letter-spacing: -0.03em; font-weight: 600; }
+.cx-tpl-lead { font-size: clamp(18px, 1.7vw, 21px); color: var(--lx-ink); letter-spacing: -0.01em; }
+.cx-tpl-sec { margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--lx-line); }
+.cx-tpl-sec li .cx-ic, .cx-plan li .cx-ic, .cx-prod li .cx-ic { color: var(--cx-ultra); }
+.cx-fact b { color: var(--lx-ink); }
+
+/* ---------- Cards: rounded, soft shadow, glow under the pointer ---------- */
+.cx-plan, .cx-idx-card, .cx-quote, .cx-step, .cx-prod {
+  border-radius: 22px; border: 1px solid var(--lx-line); background: #fff; box-shadow: var(--lx-shadow);
+  transition: border-color 0.25s, transform 0.3s var(--cx-ease), box-shadow 0.3s;
+}
+.cx-plan, .cx-idx-card, .cx-quote { padding: 26px; }
+.cx-idx-card:hover, .cx-plan:not(.hl):hover, .cx-quote:hover, .cx-prod:hover {
+  background: var(--lx-spot), #fff; border-color: var(--lx-line-2); transform: translateY(-2px);
+  box-shadow: 0 1px 2px rgba(11, 13, 20, 0.04), 0 30px 60px -34px rgba(40, 36, 120, 0.38);
+}
+.cx-idx-card h2 { font-size: 21px; letter-spacing: -0.025em; font-weight: 600; color: var(--lx-ink); }
+.cx-plan h3 { color: var(--lx-ink); }
+.cx-plan .cx-amt { color: var(--lx-ink); font-weight: 600; letter-spacing: -0.04em; }
+/* The highlighted plan or call-out gets the homepage gradient as its border. */
+.cx-plan.hl {
+  border: 1px solid transparent;
+  background: linear-gradient(#fff, #fff) padding-box, var(--nx-grad) border-box;
+  box-shadow: 0 30px 60px -30px rgba(139, 92, 246, 0.45);
+}
+.cx-quote blockquote { font-family: var(--nx-serif); font-size: 23px; line-height: 1.3; letter-spacing: -0.005em; color: var(--lx-ink); }
+.cx-av { background: var(--nx-grad); color: #fff; }
+.cx-facts { border-radius: 22px; border-color: var(--lx-line); background: var(--lx-line); box-shadow: var(--lx-shadow); }
+
+/* ---------- Questions ---------- */
+.cx-faq details { border-radius: 18px; border-color: var(--lx-line); padding: 4px 22px; transition: border-color 0.2s, box-shadow 0.2s; }
+.cx-faq details:hover { border-color: var(--lx-line-2); }
+.cx-faq details[open] { box-shadow: var(--lx-shadow); }
+.cx-faq summary { color: var(--lx-ink); }
+.cx-faq summary::after { content: '+'; display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 99px; background: var(--cx-azure-50); color: var(--cx-ultra); font-size: 16px; }
+
+/* ---------- Pricing controls ---------- */
+.cx-cur { border-color: var(--lx-line-2); }
+.cx-cur button[aria-pressed='true'] { background: var(--lx-ink); }
+.cx-note { border-radius: 16px; }
+
+/* ---------- Closing call to action: the homepage's dark statement, as a card ---------- */
+.cx-close-card {
+  justify-items: center; text-align: center; gap: 22px; border-radius: 28px; background: #07080f; isolation: isolate;
+  padding: clamp(44px, 8vw, 96px) clamp(22px, 5vw, 56px); box-shadow: 0 40px 80px -40px rgba(40, 36, 120, 0.6);
+}
+.cx-close-card::before {
+  background-image:
+    radial-gradient(50% 60% at 18% 0%, rgba(139, 92, 246, 0.42), transparent 70%),
+    radial-gradient(50% 60% at 88% 100%, rgba(61, 123, 255, 0.36), transparent 70%),
+    radial-gradient(30% 40% at 55% 55%, rgba(226, 69, 155, 0.16), transparent 70%);
+  background-size: auto; z-index: -1;
+}
+.cx-close-card h2 { font-family: var(--nx-serif); font-weight: 400; font-size: clamp(36px, 5.4vw, 64px); line-height: 1.02; letter-spacing: -0.015em; max-width: 820px; }
+.cx-close-card p { margin-inline: auto; color: #b7bfd3; }
+.cx-close-card .cx-cta { justify-content: center; }
+.cx-close-card .cx-btn-primary { background: #fff; box-shadow: 0 8px 30px -10px rgba(255, 255, 255, 0.45); }
+.cx-close-card .cx-btn-quiet { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.18); }
+.cx-close-links { justify-content: center; color: #a9b2c8; }
+
+/* ---------- The floating pill navbar, light version ---------- */
+.nx-nav-shell.light .nx-nav {
+  background: rgba(255, 255, 255, 0.74); border-color: var(--lx-line);
+  box-shadow: 0 12px 40px -22px rgba(40, 36, 120, 0.45), inset 0 1px 0 #fff;
+}
+.nx-nav-shell.light .nx-brand { color: var(--lx-ink) !important; }
+.nx-nav-shell.light .nx-brand img { filter: brightness(0); }
+.nx-nav-shell.light .nx-links a, .nx-nav-shell.light .nx-links button, .nx-nav-shell.light .nx-signin { color: var(--lx-ink-2) !important; }
+.nx-nav-shell.light .nx-links a:hover, .nx-nav-shell.light .nx-links button:hover, .nx-nav-shell.light .nx-links a[aria-current='page'],
+.nx-nav-shell.light .nx-dd.open > button { color: var(--lx-ink) !important; background: rgba(11, 13, 20, 0.05); }
+.nx-nav-shell.light .nx-signin:hover { color: var(--lx-ink) !important; }
+.nx-nav-shell.light .nx-btn-light { background: var(--lx-ink); color: #fff !important; box-shadow: 0 8px 24px -10px rgba(11, 13, 20, 0.55); }
+.nx-nav-shell.light .nx-btn-ghost { background: #fff; color: var(--lx-ink) !important; border-color: var(--lx-line-2); }
+.nx-nav-shell.light .nx-burger { background: rgba(11, 13, 20, 0.03); border-color: var(--lx-line); color: var(--lx-ink); }
+.nx-nav-shell.light .nx-dd-p, .nx-nav-shell.light .nx-sheet { background: rgba(255, 255, 255, 0.98); border-color: var(--lx-line); box-shadow: 0 30px 60px -24px rgba(40, 36, 120, 0.35); }
+.nx-nav-shell.light .nx-dd-p a:hover { background: var(--lx-soft) !important; }
+.nx-nav-shell.light .nx-dd-p a > span { background: var(--cx-azure-50); color: var(--cx-ultra); }
+.nx-nav-shell.light .nx-dd-p b { color: var(--lx-ink); }
+.nx-nav-shell.light .nx-dd-p small { color: var(--lx-ink-3); }
+.nx-nav-shell.light .nx-sheet-grid a { background: var(--lx-soft); border-color: var(--lx-line); color: var(--lx-ink); }
+.nx-nav-shell.light .nx-sheet-grid a .cx-ic { color: var(--cx-ultra); }
+.nx-nav-shell.light .nx-sheet-links a { color: var(--lx-ink-2); }
+
+/* ---------- Contact ---------- */
+.cx-contact { display: grid; gap: 20px; align-items: start; }
+@media (min-width: 900px) { .cx-contact { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 28px; } }
+.cx-reach { display: grid; gap: 10px; }
+.cx-reach .cx-eyebrow { margin-bottom: 4px; }
+.cx-reach-card { display: grid; grid-template-columns: 44px 1fr 16px; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 20px; border: 1px solid var(--lx-line); background: #fff; box-shadow: var(--lx-shadow); color: var(--lx-ink-3); transition: border-color 0.2s, transform 0.3s var(--cx-ease); }
+.cx-reach-card:hover { border-color: var(--lx-line-2); transform: translateY(-2px); }
+.cx-reach-card b { display: block; color: var(--lx-ink); font-size: 15.5px; font-weight: 600; }
+.cx-reach-card small { display: block; font-size: 13.5px; }
+.cx-reach-card > .cx-ic { color: var(--lx-ink-3); }
+.cx-reach-i { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--cx-azure-50); color: var(--cx-ultra); font-size: 20px; }
+.cx-reach-i.wa { background: #e9f9f0; color: var(--cx-wa); }
+.cx-form-card { display: grid; gap: 14px; padding: clamp(20px, 3vw, 30px); border-radius: 24px; border: 1px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--nx-grad) border-box; box-shadow: 0 30px 60px -34px rgba(139, 92, 246, 0.45); font-family: var(--cx-sans); }
+.cx-form input, .cx-form textarea { width: 100%; font: 400 15.5px var(--cx-sans); color: var(--lx-ink); background: var(--lx-soft); border: 1px solid var(--lx-line); border-radius: 14px; padding: 14px 16px; box-shadow: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; }
+.cx-form textarea { min-height: 170px; resize: vertical; }
+.cx-form input::placeholder, .cx-form textarea::placeholder { color: #8e96a8; }
+.cx-form input:focus, .cx-form textarea:focus { outline: none; background: #fff; border-color: var(--cx-azure); box-shadow: 0 0 0 4px var(--cx-azure-100); }
+.cx-form > * { margin-bottom: 14px !important; }
+.cx-form > div { align-items: stretch; }
+.cx-form button[type="submit"] { height: 48px; padding: 0 24px; border-radius: 999px; border: 0; background: var(--lx-ink); color: #fff; font: 600 15px var(--cx-sans); letter-spacing: -0.01em; text-transform: none; box-shadow: 0 10px 28px -12px rgba(11, 13, 20, 0.55); cursor: pointer; }
+.cx-form button[type="submit"]:disabled { opacity: 0.5; cursor: default; }
+.cx-form p { font-size: 13.5px; }
+
+/* ---------- Legal pages: a readable column ---------- */
+.cx-legal { max-width: 760px; margin: 0 auto; font-family: var(--cx-sans); font-size: 16px !important; line-height: 1.75; color: var(--lx-ink-2); opacity: 1 !important; }
+.cx-legal h2 { font-size: clamp(20px, 2vw, 24px); line-height: 1.25; letter-spacing: -0.025em; font-weight: 600; color: var(--lx-ink); margin: 44px 0 12px; padding-top: 28px; border-top: 1px solid var(--lx-line); }
+.cx-legal h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.cx-legal h3 { font-size: 17px; color: var(--lx-ink); font-weight: 600; margin: 24px 0 8px; }
+.cx-legal p, .cx-legal ul, .cx-legal ol { margin: 0 0 14px; }
+.cx-legal strong { color: var(--lx-ink); font-weight: 600; }
+.cx-legal a { color: var(--cx-ultra); text-decoration: underline; text-underline-offset: 3px; }
+.cx-legal table { width: 100%; margin: 12px 0 20px; border: 1px solid var(--lx-line); border-radius: 16px; overflow: hidden; font-size: 14.5px; }
+.cx-legal th { background: var(--lx-soft) !important; color: var(--lx-ink); font-weight: 600; text-align: left; }
+.cx-legal th, .cx-legal td { border: 0 !important; border-bottom: 1px solid var(--lx-line) !important; padding: 12px 14px !important; }
+.cx-legal tbody tr:nth-child(even) { background: #fbfbfd !important; }
+.cx-legal tbody tr:last-child td { border-bottom: 0 !important; }
+
+@media (prefers-reduced-motion: reduce) { .cx-idx-card:hover, .cx-plan:hover, .cx-quote:hover, .cx-prod:hover { transform: none; } }

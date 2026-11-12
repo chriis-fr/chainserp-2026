@@ -7,11 +7,11 @@ export default function WaveCta() {
     <section className="cx cx-close">
       <div className="cx-wrap">
         <div className="cx-close-card">
-          <span className="cx-eyebrow" style={{ color: '#a8b6de' }}>
+          <span className="cx-eyebrow">
             Get started
           </span>
-          <h2>Send us your business name. We'll set up the rest with you.</h2>
-          <p>Start free for 15 days with no card, or message us on WhatsApp and we'll connect Chains POS to your existing M-Pesa paybill or till.</p>
+          <h2>Tell us what you run. We'll set up the rest with you.</h2>
+          <p>Start free for 15 days with no card, or message us on WhatsApp and we'll switch on the parts you need: the till, your online store, deliveries, payroll or invoices.</p>
           <div className="cx-cta">
             <a className="cx-btn cx-btn-primary" href={LINKS.whatsapp} target="_blank" rel="noopener">
               <WhatsAppIcon /> Set up on WhatsApp

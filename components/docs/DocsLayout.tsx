@@ -1,8 +1,8 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import SEO from 'components/SEO';
-import { Icon, IconName, WhatsAppIcon } from 'components/site/Icon';
+import { Icon, IconName } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
 
 export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
@@ -12,11 +12,16 @@ export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
   { href: '/logistics/docs/api', title: 'API reference', icon: 'file' },
   { href: '/logistics/docs/webhooks', title: 'Webhooks', icon: 'spark' },
   { href: '/logistics/docs/typescript', title: 'TypeScript quickstart', icon: 'receipt' },
+  { href: '/logistics/docs/security', title: 'Security and limits', icon: 'lock' },
+  { href: '/logistics/docs/request-access', title: 'Request access', icon: 'chat' },
 ];
 
 export const API_BASE = 'https://api.progressusmavericks.co.ke/v1';
 export const STOREFRONT_BASE = 'https://api.progressusmavericks.co.ke/storefront/v1';
-export const ACCESS_LINK = `https://wa.me/254705343984?text=${encodeURIComponent(
+/** Where every "Request access" and "Get API keys" button goes: the request form in these docs. */
+export const ACCESS_LINK = '/logistics/docs/request-access';
+/** The WhatsApp alternative, offered on the request page. */
+export const WHATSAPP_ACCESS = `https://wa.me/254705343984?text=${encodeURIComponent(
   'Hi Chains, I would like API access to Chains FleetOps logistics. Company name: ',
 )}`;
 
@@ -28,38 +33,76 @@ type Props = PropsWithChildren<{
   keywords?: string[];
 }>;
 
+type Toc = { id: string; text: string };
+
+/** A docs page: its own top bar, a section sidebar, the article and an "On this page" list. No marketing chrome. */
 export default function DocsLayout({ title, seoTitle, description, lead, keywords, children }: Props) {
   const router = useRouter();
   const path = router.pathname;
   const idx = DOCS_NAV.findIndex((n) => n.href === path);
   const prev = idx > 0 ? DOCS_NAV[idx - 1] : undefined;
   const next = idx >= 0 && idx < DOCS_NAV.length - 1 ? DOCS_NAV[idx + 1] : undefined;
+  const articleRef = useRef<HTMLElement>(null);
+  const [toc, setToc] = useState<Toc[]>([]);
+  const [active, setActive] = useState('');
+  const [navOpen, setNavOpen] = useState(false);
+
+  // Build "On this page" from the article's h2s, giving each a stable id.
+  useEffect(() => {
+    const el = articleRef.current;
+    if (!el) return;
+    const hs = Array.from(el.querySelectorAll('h2'));
+    const items = hs.map((h) => {
+      if (!h.id) h.id = (h.textContent || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return { id: h.id, text: h.textContent || '' };
+    });
+    setToc(items);
+    setNavOpen(false);
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-80px 0px -70% 0px' },
+    );
+    hs.forEach((h) => io.observe(h));
+    return () => io.disconnect();
+  }, [path]);
+
+  const current = DOCS_NAV[idx]?.title ?? title;
 
   return (
     <>
       <SEO title={seoTitle} description={description} url={path} keywords={keywords} />
-      <div className="cx cx-docs">
-        <header className="cx-docs-head cx-grid-bg">
-          <div className="cx-wrap">
-            <nav className="cx-crumbs" aria-label="Breadcrumb">
-              <NextLink href="/">Home</NextLink>
-              <span aria-hidden="true">/</span>
-              <NextLink href="/logistics/docs">Logistics docs</NextLink>
-              {path !== '/logistics/docs' && (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <span>{DOCS_NAV[idx]?.title ?? title}</span>
-                </>
-              )}
-            </nav>
-            <span className="cx-eyebrow">Chains FleetOps · developer docs</span>
-            <h1>{title}</h1>
-            {lead && <p>{lead}</p>}
+      <div className="cx dx">
+        <header className="dx-top">
+          <div className="dx-top-in">
+            <NextLink className="dx-brand" href="/logistics/docs">
+              {/* eslint-disable-next-line @next/next/no-img-element -- 24px static mark */}
+              <img src="/chainsnobgnologo.PNG" alt="" width={24} height={24} />
+              <span>
+                Chains <b>Docs</b>
+              </span>
+            </NextLink>
+            <span className="dx-product">FleetOps API</span>
+            <div className="dx-top-act">
+              <NextLink className="dx-back" href="/">
+                chains-erp.com
+              </NextLink>
+              <a className="nx-btn nx-btn-sm dx-key" href={ACCESS_LINK}>
+                Get API keys
+              </a>
+            </div>
           </div>
+          <button className="dx-mnav" type="button" aria-expanded={navOpen} onClick={() => setNavOpen((v) => !v)}>
+            <span>
+              <small>Docs</small> {current}
+            </span>
+            <Icon name={navOpen ? 'close' : 'down'} />
+          </button>
         </header>
 
-        <div className="cx-wrap cx-docs-grid">
-          <aside className="cx-docs-nav" aria-label="Docs sections">
+        <div className="dx-grid">
+          <aside className={`dx-side${navOpen ? ' open' : ''}`} aria-label="Docs sections">
+            <h4>Get started</h4>
             <ul>
               {DOCS_NAV.map((n) => (
                 <li key={n.href}>
@@ -70,35 +113,70 @@ export default function DocsLayout({ title, seoTitle, description, lead, keyword
                 </li>
               ))}
             </ul>
-            <div className="cx-docs-access">
+            <div className="dx-help">
               <b>Need keys?</b>
               <p>Chains issues every API and Store key. Ask us and we&apos;ll set you up.</p>
-              <a className="cx-btn cx-btn-primary cx-btn-sm" href={ACCESS_LINK} target="_blank" rel="noopener">
-                <WhatsAppIcon /> Request access
+              <a href={ACCESS_LINK}>
+                Request access <Icon name="arrow" />
               </a>
             </div>
           </aside>
 
-          <article className="cx-prose">
-            {children}
-            <nav className="cx-docs-pager" aria-label="Next and previous">
-              {prev ? (
-                <NextLink href={prev.href}>
-                  <small>Previous</small>
-                  {prev.title}
-                </NextLink>
-              ) : (
-                <span />
-              )}
-              {next && (
-                <NextLink href={next.href} className="next">
-                  <small>Next</small>
-                  {next.title}
-                </NextLink>
+          <main className="dx-main">
+            <nav className="dx-crumbs" aria-label="Breadcrumb">
+              <NextLink href="/logistics/docs">Docs</NextLink>
+              {path !== '/logistics/docs' && (
+                <>
+                  <span aria-hidden="true">/</span>
+                  <span>{current}</span>
+                </>
               )}
             </nav>
-          </article>
+            <h1>{title}</h1>
+            {lead && <p className="dx-lead">{lead}</p>}
+            <article className="cx-prose" ref={articleRef}>
+              {children}
+              <nav className="cx-docs-pager" aria-label="Next and previous">
+                {prev ? (
+                  <NextLink href={prev.href}>
+                    <small>Previous</small>
+                    {prev.title}
+                  </NextLink>
+                ) : (
+                  <span />
+                )}
+                {next && (
+                  <NextLink href={next.href} className="next">
+                    <small>Next</small>
+                    {next.title}
+                  </NextLink>
+                )}
+              </nav>
+            </article>
+          </main>
+
+          {toc.length > 1 && (
+            <aside className="dx-toc" aria-label="On this page">
+              <h4>On this page</h4>
+              <ul>
+                {toc.map((t) => (
+                  <li key={t.id}>
+                    <a href={`#${t.id}`} aria-current={active === t.id ? 'true' : undefined}>
+                      {t.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
         </div>
+
+        <footer className="dx-foot">
+          <span>© {new Date().getFullYear()} Chains ERP · FleetOps developer docs</span>
+          <span>
+            <NextLink href="/">Home</NextLink> · <NextLink href="/contact">Support</NextLink> · <a href={LINKS.email}>hello@chains-erp.com</a>
+          </span>
+        </footer>
       </div>
     </>
   );

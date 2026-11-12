@@ -1,257 +1,242 @@
 /* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
 import NextLink from 'next/link';
+import { MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import SEO from 'components/SEO';
 import { Icon, IconName, WhatsAppIcon } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
-import LogisticsScene from 'views/HomePage/LogisticsScene';
-import PosOperations from 'views/HomePage/PosOperations';
 
-// Every claim on this page has to match what the products do today (see the app site at app.chains-erp.com,
-// whose wording was checked against the code): money moves by M-Pesa in Kenya, invoices go out in 50+ currencies,
-// the POS is switched on by the Chains team, Chains AI is in beta and sold separately, 15 days free with no card.
+// chains-erp.com is the front door to the whole Chains system. It must not repeat app.chains-erp.com (the finance
+// app for hospitality): it names every part briefly and sends people to the right app. Claims must match what the
+// products do today: money moves by M-Pesa and Kenyan banks, invoices in 50+ currencies or USDC on Base, the POS
+// and the online store are switched on by the Chains team, Chains AI is in beta. Figures in the window are illustrative.
 
-type ProductCard = {
-  id: string;
-  icon: IconName;
-  name: string;
-  status?: string;
-  host: string;
-  line: string;
-  points: string[];
-  primary: { label: string; href: string; wa?: boolean };
-  secondary: { label: string; href: string };
-};
+const WA_NUMBER = 'https://wa.me/254705343984';
+const ROLL = ['shop', 'restaurant', 'online store', 'deliveries', 'hotel', 'business'];
+const PROMPTS = [
+  'Take M-Pesa at my counter…',
+  'Put my shop online with delivery…',
+  'Track my riders on a map…',
+  'Pay 18 staff on Friday in one approval…',
+  'Invoice a client in US dollars…',
+];
 
-const PRODUCTS: ProductCard[] = [
+const CHIPS: { icon: IconName; label: string; href: string }[] = [
+  { icon: 'till', label: 'Sell', href: '#sell' },
+  { icon: 'truck', label: 'Deliver', href: '#deliver' },
+  { icon: 'wallet', label: 'Pay', href: '#pay' },
+  { icon: 'chart', label: 'Know', href: '#know' },
+];
+
+type Item = { icon: IconName; name: string; line: string; href: string; tag?: string; external?: boolean };
+type Pillar = { id: string; icon: IconName; verb: string; title: string; items: Item[] };
+
+// The whole system, grouped by what a business does all day.
+const PILLARS: Pillar[] = [
   {
-    id: 'erp',
-    icon: 'layers',
-    name: 'Chains ERP',
-    host: 'app.chains-erp.com',
-    line: 'The back office: pay staff, approve suppliers, send invoices and keep the money in one treasury.',
-    points: [
-      'Payroll weekly to monthly, everyone paid by M-Pesa in one approval',
-      'Supplier bills: approve, then pay',
-      'Invoices in 50+ currencies with a Pay now button',
-    ],
-    primary: { label: 'Start free', href: LINKS.signUp },
-    secondary: { label: 'See every module', href: LINKS.appProducts },
-  },
-  {
-    id: 'pos',
+    id: 'sell',
     icon: 'till',
-    name: 'Chains POS',
-    host: 'pos.chains-erp.com',
-    line: 'Point of sale operations for bars, restaurants, cafés and hotels, connected to the M-Pesa, printers and tablets you already have.',
-    points: [
-      'Orders, tables, kitchen and bar screens, QR ordering',
-      'Recipes and stock, shifts and cash-up, credit tabs',
-      'M-Pesa records, sales and reconciliation, audit',
+    verb: 'Sell',
+    title: 'At the counter, online and on invoice.',
+    items: [
+      { icon: 'till', name: 'Point of sale', line: 'Tables, menus, kitchen and bar screens, stock and customer tabs. Paid to your own M-Pesa till.', href: LINKS.pos, external: true },
+      { icon: 'cart', name: 'Online store', line: 'Your shop online with delivery or pickup checkout, a live delivery price and order tracking.', href: LINKS.whatsappStore, external: true },
+      { icon: 'file', name: 'Invoices and pay links', line: 'Bill clients in 50+ currencies, USDC or Bitcoin. A Pay now link marks the invoice paid.', href: LINKS.appInvoices },
     ],
-    primary: { label: 'Explore Chains POS', href: LINKS.pos },
-    secondary: { label: 'See POS operations', href: '#pos-operations' },
   },
   {
-    id: 'logistics',
+    id: 'deliver',
     icon: 'truck',
-    name: 'FleetOps',
-    host: 'progressusmavericks.co.ke',
-    line: 'Logistics for businesses that move goods: orders, drivers, vehicles and deliveries on one live map.',
-    points: ['Orders, dispatch, drivers and vehicles', 'Every vehicle live on the map', 'Customers track their own order'],
-    primary: { label: 'Ask about FleetOps', href: LINKS.whatsappLogistics, wa: true },
-    secondary: { label: 'See it on the map', href: '#logistics-3d' },
+    verb: 'Deliver',
+    title: 'Every order to the right door.',
+    items: [
+      { icon: 'truck', name: 'FleetOps', line: 'Orders, drivers and vehicles on one live map. Dispatch in a tap.', href: LINKS.logistics, external: true },
+      { icon: 'pin', name: 'Customer tracking', line: 'Customers follow their own order from pickup to their door.', href: LINKS.whatsappLogistics, external: true },
+      { icon: 'code', name: 'Delivery API', line: 'Book and track deliveries from your own shop, app or website.', href: '/logistics/docs' },
+    ],
   },
   {
-    id: 'ai',
-    icon: 'chat',
-    name: 'Chains AI',
-    status: 'Beta',
-    host: 'app.chains-erp.com/ai',
-    line: 'Tell your ERP what to do on WhatsApp. The assistant prepares it, you approve it.',
-    points: ['"How are sales today?" answered from the POS', 'Payments out always need your passcode', 'Sold separately, on top of a paid plan'],
-    primary: { label: 'See Chains AI', href: LINKS.ai },
-    secondary: { label: 'How approvals work', href: LINKS.security },
+    id: 'pay',
+    icon: 'wallet',
+    verb: 'Pay',
+    title: 'Your people, your suppliers, your branches.',
+    items: [
+      { icon: 'users', name: 'Payroll', line: 'Weekly or monthly, tips included. Everyone paid by M-Pesa in one approval.', href: LINKS.appPayroll },
+      { icon: 'receipt', name: 'Supplier bills', line: 'Bills wait for a yes, then go to M-Pesa, a paybill, a till or a bank.', href: LINKS.appBills },
+      { icon: 'bank', name: 'Treasury', line: 'A wallet for each business or branch, one pool above them.', href: LINKS.appTreasury },
+    ],
+  },
+  {
+    id: 'know',
+    icon: 'chart',
+    verb: 'Know',
+    title: 'Where you stand, any time you ask.',
+    items: [
+      { icon: 'chart', name: 'Sales and cash flow', line: 'Takings by M-Pesa, bank and cash, what is running low, and what is owed both ways.', href: LINKS.app },
+      { icon: 'chat', name: 'Chains AI', tag: 'Beta', line: 'Ask on WhatsApp. It prepares the work; money only moves with your passcode.', href: LINKS.ai },
+      { icon: 'lock', name: 'Every action on record', line: 'Who sold, who approved, who was paid. Nothing disappears.', href: LINKS.security },
+    ],
   },
 ];
 
-const FLOW: { icon: IconName; k: string; title: string; text: string; chip: string }[] = [
-  { icon: 'till', k: '01 · POS', title: 'A sale is rung up', text: 'The customer pays by M-Pesa to your own number. The code lands on the order.', chip: 'Table 4 · paid' },
-  { icon: 'users', k: '02 · Payroll', title: 'Staff are paid', text: 'Shifts and tips are there when you run payroll. One approval pays everyone.', chip: '18 staff · 1 approval' },
-  { icon: 'receipt', k: '03 · Bills', title: 'Suppliers are settled', text: 'Bills wait for approval, then go out from the treasury.', chip: '3 awaiting approval' },
-  { icon: 'file', k: '04 · Invoices', title: 'Clients pay you', text: 'Invoices go out in their currency and mark themselves paid.', chip: 'INV-0142 · paid' },
+const FLOW: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'cart', title: 'Ordered', text: 'At the counter, on your online store or from an invoice.' },
+  { icon: 'truck', title: 'Delivered', text: 'A rider is dispatched and the customer watches it arrive.' },
+  { icon: 'wallet', title: 'Paid', text: 'To your own M-Pesa number, a bank or a pay link.' },
+  { icon: 'chart', title: 'On record', text: 'Sales, stock and cash flow are up to date. Nothing typed twice.' },
+  { icon: 'users', title: 'Paid out', text: 'Staff and suppliers settled from the treasury, with your approval.' },
 ];
 
-const FACTS = [
-  { b: 'Your own number', s: 'M-Pesa paybill or till at the counter' },
-  { b: '50+ currencies', s: 'on the invoices you send' },
-  { b: 'Your passcode', s: 'needed for every payment out' },
+const WHO: { icon: IconName; name: string; line: string; slug: string }[] = [
+  { icon: 'table', name: 'Bars, restaurants and cafés', line: 'Tables, kitchen tickets, tips and the night’s takings.', slug: 'hospitality' },
+  { icon: 'calendar', name: 'Hotels and lodges', line: 'Restaurant, bar and staff in one place.', slug: 'hotels' },
+  { icon: 'cart', name: 'Shops and online sellers', line: 'Sell in store and online, deliver the same day.', slug: 'ecommerce' },
+  { icon: 'truck', name: 'Delivery and logistics', line: 'Riders, vehicles and customers on one map.', slug: 'logistics' },
+  { icon: 'globe', name: 'Agencies and services', line: 'Invoice abroad, pay the team at home.', slug: 'consulting' },
+];
+
+const DOORS: { icon: IconName; name: string; host: string; line: string; href: string }[] = [
+  { icon: 'layers', name: 'Chains ERP', host: 'app.chains-erp.com', line: 'Payroll, bills, invoices, treasury and Chains AI.', href: LINKS.app },
+  { icon: 'till', name: 'Chains POS', host: 'pos.chains-erp.com', line: 'For cashiers, waiters and managers on the floor.', href: LINKS.posSignIn },
+  { icon: 'truck', name: 'FleetOps', host: 'Logistics console', line: 'Dispatch, drivers, vehicles and the live map.', href: LINKS.logistics },
+  { icon: 'code', name: 'Developers', host: 'chains-erp.com/logistics/docs', line: 'API, store and webhook docs.', href: '/logistics/docs' },
+];
+
+const TRUST = [
+  { b: 'Your own number', s: 'M-Pesa paybill or till, and Kenyan banks' },
+  { b: '50+ currencies', s: 'plus USDC on Base and Bitcoin' },
+  { b: 'Your passcode', s: 'on every payment that leaves' },
   { b: '15 days free', s: 'no card to start' },
 ];
 
 const QUOTES = [
-  { text: 'Saved the whole team time to process our payroll on time, and no more errors compared to working by hand.', name: 'Damaris', role: 'Finance Manager, Young Toon Studios' },
-  { text: 'Very convenient and easy to use. I love how straightforward it is, with no hiccups.', name: 'Ashley', role: 'Finance Manager, Metastic Digital' },
-  { text: 'Kept my records clean and professional. Took my business up a notch with professional invoicing.', name: 'Marion', role: 'SME owner' },
+  { text: 'Saved the whole team time to process our payroll on time, and no more errors.', name: 'Damaris', role: 'Finance Manager, Young Toon Studios' },
+  { text: 'Very convenient and easy to use. Straightforward, with no hiccups.', name: 'Ashley', role: 'Finance Manager, Metastic Digital' },
+  { text: 'Kept my records clean and professional. Took my business up a notch.', name: 'Marion', role: 'SME owner' },
 ];
 
 export default function Homepage() {
+  useReveal();
   return (
     <>
       <SEO
         url="/"
-        title="Chains ERP — POS, payroll, bills, invoices and logistics in one place"
-        description="Chains ERP runs a business from the point of sale to payroll: POS operations connected to your own M-Pesa paybill or till, payroll in one approval, supplier bills, invoices in 50+ currencies, FleetOps logistics with live tracking, and the Chains AI assistant. Start free for 15 days."
+        title="Chains ERP — sell, deliver, pay and get paid on one system"
+        description="Chains is one system for the whole business: point of sale, an online store with delivery, FleetOps logistics, invoices in 50+ currencies, payroll and supplier bills by M-Pesa, treasury and the Chains AI assistant. Start free for 15 days."
       />
-      <div className="cx">
-        {/* ---------- Hero ---------- */}
-        <section className="cx-hero cx-grid-bg">
-          <div className="cx-wrap cx-hero-grid">
-            <div>
-              <a className="cx-badge" href={LINKS.ai}>
-                <b>New</b> Chains AI on WhatsApp, in beta <Icon name="arrow" />
-              </a>
-              <h1>
-                Run the whole business from <span className="cx-grad">one place.</span>
-              </h1>
-              <p className="cx-lead">
-                Point of sale, payroll, supplier bills, invoices and deliveries, in products that share the same records. Built
-                for bars, restaurants, hotels and growing businesses; money moves by M-Pesa in Kenya today.
-              </p>
-              <div className="cx-cta">
-                <a className="cx-btn cx-btn-primary" href={LINKS.signUp}>
-                  Start free <Icon name="arrow" />
-                </a>
-                <a className="cx-btn cx-btn-quiet" href={LINKS.whatsapp} target="_blank" rel="noopener">
-                  <WhatsAppIcon /> Set up on WhatsApp
-                </a>
-              </div>
-              <p className="cx-fine">
-                15 days free, no card. Already a customer? <a href={LINKS.signIn}>Sign in</a> or open the{' '}
-                <a href={LINKS.posSignIn}>POS</a>.
-              </p>
-              <div className="cx-jump" aria-label="Go straight to a product">
-                <a href="#pos">
-                  <Icon name="till" /> Point of sale
-                </a>
-                <a href="#erp">
-                  <Icon name="users" /> Payroll and bills
-                </a>
-                <a href="#logistics">
-                  <Icon name="truck" /> Logistics
-                </a>
-                <a href="#ai">
-                  <Icon name="chat" /> Chains AI
-                </a>
-              </div>
-            </div>
+      <div className="cx nx">
+        <Hero />
 
-            <HeroBoard />
-          </div>
-        </section>
-
-        {/* ---------- Product router ---------- */}
-        <section className="cx-sec mist" id="products">
+        {/* The whole system */}
+        <section className="nx-sec" id="system">
           <div className="cx-wrap">
-            <div className="cx-head">
-              <span className="cx-eyebrow">Products</span>
-              <h2>Start with the one you need. Add the rest when you're ready.</h2>
-              <p>Each product works on its own and they share the same records, so a sale at the POS is already there when you run payroll.</p>
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">What Chains is</span>
+              <h2>
+                One system for the <span className="nx-grad-text">whole business</span>.
+              </h2>
+              <p>Most businesses run on five apps, a notebook and a pile of M-Pesa messages. Chains does four jobs in one place, and every part shares the same records.</p>
             </div>
-            <div className="cx-prods">
-              {PRODUCTS.map((p, i) => (
-                <article className="cx-prod" id={p.id} key={p.id}>
-                  <span className="cx-prod-num" aria-hidden="true">
-                    0{i + 1}
-                  </span>
-                  <span className="cx-prod-i">
-                    <Icon name={p.icon} />
-                  </span>
-                  <div>
-                    <h3>
-                      {p.name} {p.status && <span className="cx-st wait">{p.status}</span>}
-                    </h3>
-                    <span className="cx-prod-host">{p.host}</span>
+            <div className="nx-pillars">
+              {PILLARS.map((p, n) => (
+                <SpotBox key={p.id} id={p.id} className="nx-pillar nx-rv">
+                  <div className="nx-pillar-h">
+                    <span className="nx-card-i">
+                      <Icon name={p.icon} />
+                    </span>
+                    <span className="nx-pillar-n">0{n + 1}</span>
                   </div>
-                  <p>{p.line}</p>
+                  <h3>
+                    <span className="nx-pillar-v">{p.verb}.</span> {p.title}
+                  </h3>
                   <ul>
-                    {p.points.map((pt) => (
-                      <li key={pt}>
-                        <Icon name="check" />
-                        <span>{pt}</span>
+                    {p.items.map((it) => (
+                      <li key={it.name}>
+                        <a href={it.href} {...(it.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                          <Icon name={it.icon} />
+                          <span>
+                            <b>
+                              {it.name} {it.tag && <span className="nx-st info">{it.tag}</span>}
+                            </b>
+                            {it.line}
+                          </span>
+                          <Icon name="arrow" className="nx-go" />
+                        </a>
                       </li>
                     ))}
                   </ul>
-                  <div className="cx-prod-act">
-                    <a
-                      className="cx-btn cx-btn-primary"
-                      href={p.primary.href}
-                      {...(p.primary.wa ? { target: '_blank', rel: 'noopener' } : {})}
-                    >
-                      {p.primary.wa && <WhatsAppIcon />} {p.primary.label}
-                    </a>
-                    <a className="cx-link" href={p.secondary.href}>
-                      {p.secondary.label} <Icon name="arrow" />
-                    </a>
-                  </div>
-                </article>
+                </SpotBox>
               ))}
             </div>
           </div>
         </section>
 
-        <PosOperations />
-
-        <LogisticsScene />
-
-        {/* ---------- How it connects ---------- */}
-        <section className="cx-sec">
+        {/* One order, end to end */}
+        <section className="nx-sec">
           <div className="cx-wrap">
-            <div className="cx-head">
-              <span className="cx-eyebrow">How it fits together</span>
-              <h2>From the point of sale to payroll, without copying anything across.</h2>
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">How it fits together</span>
+              <h2>One order, start to finish.</h2>
+              <p>Follow a single sale through Chains. Each step picks up where the last one left off.</p>
             </div>
-            <ol className="cx-flow">
+            <ol className="nx-flow nx-flow-5 nx-rv">
               {FLOW.map((s) => (
-                <li className="cx-step" key={s.k}>
-                  <div className="cx-step-k">
-                    <span>{s.k}</span>
+                <li className="nx-step" key={s.title}>
+                  <span className="nx-step-n">
                     <Icon name={s.icon} />
-                  </div>
+                  </span>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
-                  <span className="cx-chip">{s.chip}</span>
                 </li>
               ))}
             </ol>
-            <div className="cx-facts" style={{ marginTop: 24 }}>
-              {FACTS.map((f) => (
-                <div className="cx-fact" key={f.b}>
+          </div>
+        </section>
+
+        {/* Who it is for */}
+        <section className="nx-sec">
+          <div className="cx-wrap">
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">Who it's for</span>
+              <h2>Built for businesses that sell, serve and deliver.</h2>
+            </div>
+            <div className="nx-who nx-rv">
+              {WHO.map((w) => (
+                <NextLink key={w.slug} href={`/industries/${w.slug}`} className="nx-who-i">
+                  <Icon name={w.icon} />
+                  <b>{w.name}</b>
+                  <span>{w.line}</span>
+                </NextLink>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Trust */}
+        <section className="nx-sec">
+          <div className="cx-wrap">
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">Trusted with the money</span>
+              <h2>Less admin. Fewer mistakes.</h2>
+            </div>
+            <div className="nx-facts nx-rv">
+              {TRUST.map((f) => (
+                <div className="nx-fact" key={f.b}>
                   <b>{f.b}</b>
                   <span>{f.s}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* ---------- Words from customers (the quotes the site already carried) ---------- */}
-        <section className="cx-sec mist">
-          <div className="cx-wrap">
-            <div className="cx-head">
-              <span className="cx-eyebrow">From teams using Chains</span>
-              <h2>Less time on admin, fewer mistakes.</h2>
-            </div>
-            <div className="cx-quotes">
+            <div className="nx-quotes nx-rv">
               {QUOTES.map((q) => (
-                <figure className="cx-quote" key={q.name}>
+                <figure className="nx-quote" key={q.name}>
                   <blockquote>“{q.text}”</blockquote>
                   <figcaption>
-                    <span className="cx-av" aria-hidden="true">
+                    <span className="nx-av" aria-hidden="true">
                       {q.name[0]}
                     </span>
                     <span>
                       <b>{q.name}</b>
-                      <small>{q.role}</small>
+                      {q.role}
                     </span>
                   </figcaption>
                 </figure>
@@ -260,48 +245,53 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* ---------- Pricing teaser ---------- */}
-        <section className="cx-sec">
+        {/* Doors into each app */}
+        <section className="nx-sec">
           <div className="cx-wrap">
-            <div className="cx-head">
-              <span className="cx-eyebrow">Pricing</span>
-              <h2>Pay for what you use.</h2>
-              <p>Prices are set in US dollars; the shilling figures are approximate.</p>
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">Already on Chains?</span>
+              <h2>Open the right app.</h2>
             </div>
-            <div className="cx-price">
-              <div className="cx-plan hl">
-                <h3>
-                  Full Suite <span className="cx-st info">For a bar or restaurant</span>
-                </h3>
-                <div className="cx-amt">
-                  $125 <small>/ month · about KES 16,200</small>
-                </div>
-                <p>Invoices, bills, treasury and payroll for all your staff, with 5 log-ins.</p>
-                <a className="cx-btn cx-btn-primary cx-btn-sm" href={LINKS.signUp}>
-                  Start free
+            <div className="nx-doors nx-rv">
+              {DOORS.map((d) => (
+                <a key={d.name} className="nx-door" href={d.href} {...(d.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+                  <span className="nx-card-i">
+                    <Icon name={d.icon} />
+                  </span>
+                  <span>
+                    <b>{d.name}</b>
+                    <code>{d.host}</code>
+                    <small>{d.line}</small>
+                  </span>
+                  <Icon name="arrow" className="nx-go" />
                 </a>
-              </div>
-              <div className="cx-plan">
-                <h3>Point of sale</h3>
-                <div className="cx-amt">
-                  Ask us <small>switched on by request</small>
-                </div>
-                <p>We connect your existing M-Pesa paybill or till, printers and tablets, and switch Chains POS on for your workspace.</p>
-                <a className="cx-btn cx-btn-quiet cx-btn-sm" href={LINKS.whatsappTill} target="_blank" rel="noopener">
-                  <WhatsAppIcon /> Ask on WhatsApp
-                </a>
-              </div>
-              <div className="cx-plan">
-                <h3>Single modules</h3>
-                <div className="cx-amt">
-                  from $14 <small>/ month</small>
-                </div>
-                <p>Payroll from $29, Treasury from $27, Invoices from $14. Chains AI adds $20.</p>
-                <NextLink className="cx-btn cx-btn-quiet cx-btn-sm" href="/pricing">
-                  See all prices
-                </NextLink>
-              </div>
+              ))}
             </div>
+          </div>
+        </section>
+
+        {/* Closing statement */}
+        <section className="nx-final">
+          <span className="nx-glow g1" aria-hidden="true" />
+          <span className="nx-glow g2" aria-hidden="true" />
+          <div className="cx-wrap nx-rv">
+            <h2>
+              Less admin.
+              <br />
+              <span className="nx-grad-text">More business.</span>
+            </h2>
+            <p>Tell us what you run. We'll set Chains up with you, from the till to the delivery van.</p>
+            <div className="nx-cta">
+              <a className="nx-btn nx-btn-light" href={LINKS.signUp}>
+                Start free for 15 days <Icon name="arrow" />
+              </a>
+              <a className="nx-btn nx-btn-ghost" href={LINKS.whatsapp} target="_blank" rel="noopener">
+                <WhatsAppIcon /> Set up on WhatsApp
+              </a>
+            </div>
+            <p className="nx-fine">
+              <NextLink href="/pricing">See pricing</NextLink> · Prefer a call? <a href={LINKS.calendly}>Book 30 minutes</a>
+            </p>
           </div>
         </section>
       </div>
@@ -309,88 +299,193 @@ export default function Homepage() {
   );
 }
 
-/** The four products as live tiles: what an owner sees on a normal evening. Illustrative figures. */
-function HeroBoard() {
+function Hero() {
+  const word = useCycle(ROLL.length, 2400);
+  const prompt = useCycle(PROMPTS.length, 3200);
+  const [text, setText] = useState('');
+  const winRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => winRef.current?.classList.add('in'), 400);
+    return () => clearTimeout(t);
+  }, []);
+
+  // The ask box hands the question to a person on WhatsApp: the fastest way from "interested" to "set up".
+  const ask = () => {
+    const q = text.trim() || PROMPTS[prompt].replace('…', '');
+    window.open(`${WA_NUMBER}?text=${encodeURIComponent(`Hi Chains, ${q}`)}`, '_blank', 'noopener');
+  };
+
   return (
-    <div className="cx-board-3d">
-      <div className="cx-float f1" aria-hidden="true">
-        <Icon name="check" />
-        <span>
-          <b>KES 2,350 received</b>
-          <small>M-Pesa · Table 4</small>
-        </span>
-      </div>
-      <div className="cx-float f2" aria-hidden="true">
-        <Icon name="truck" />
-        <span>
-          <b>Order #1042 arriving</b>
-          <small>FleetOps · 12 min</small>
-        </span>
-      </div>
-    <div className="cx-board" aria-label="Example: the Chains products on one evening">
-      <div className="cx-board-top">
-        <div className="cx-dots" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </div>
-        <b>Tonight at your bar</b>
-        <span className="cx-st ok">Live</span>
-      </div>
-      <div className="cx-board-grid">
-        <a className="cx-tile" href="#pos">
-          <div className="cx-tile-h">
-            <span>
-              <Icon name="till" /> POS
-            </span>
-            <span className="cx-st ok">Paid</span>
-          </div>
-          <div className="cx-tile-v">KES 2,350</div>
-          <div className="cx-row">
-            <span>Table 4 · M-Pesa</span>
-            <span>QK7…3F</span>
-          </div>
+    <section className="nx-hero">
+      <span className="nx-glow g1" aria-hidden="true" />
+      <span className="nx-glow g2" aria-hidden="true" />
+      <span className="nx-glow g3" aria-hidden="true" />
+      <div className="cx-wrap">
+        <a className="nx-badge" href={LINKS.ai}>
+          <b>New</b> Chains AI on WhatsApp <Icon name="arrow" />
         </a>
-        <a className="cx-tile" href="#erp">
-          <div className="cx-tile-h">
-            <span>
-              <Icon name="users" /> Payroll
+        <h1>
+          Run your{' '}
+          <span className="nx-frame">
+            <i />
+            <i />
+            <i />
+            <i />
+            <span className="nx-word" key={ROLL[word]} aria-live="polite">
+              {ROLL[word]}
             </span>
-            <span className="cx-st wait">Approve</span>
-          </div>
-          <div className="cx-tile-v">18 staff</div>
-          <div className="cx-tile-s">Friday run ready, tips included</div>
-        </a>
-        <a className="cx-tile" href="#erp">
-          <div className="cx-tile-h">
-            <span>
-              <Icon name="receipt" /> Bills
-            </span>
-            <span className="cx-st info">3 waiting</span>
-          </div>
-          <div className="cx-tile-v">Suppliers</div>
-          <div className="cx-tile-s">Approve, then pay from treasury</div>
-        </a>
-        <a className="cx-tile" href="#logistics">
-          <div className="cx-tile-h">
-            <span>
-              <Icon name="truck" /> FleetOps
-            </span>
-            <span className="cx-st ok">On route</span>
-          </div>
-          <div className="cx-tile-v">6 deliveries</div>
-          <div className="cx-tile-s">Driver, vehicle and drop-off</div>
-        </a>
-      </div>
-      <div className="cx-board-foot">
-        <Icon name="chat" />
-        <span>
-          <code>Manager · on WhatsApp</code>
+          </span>
           <br />
-          “How are sales today?”
-        </span>
+          <span className="muted">on one system.</span>
+        </h1>
+        <p className="nx-lead">Sell in store and online, deliver, pay your people and suppliers, and get paid in any currency. Every record in one place.</p>
+
+        <form
+          className="nx-ask"
+          onSubmit={(e) => {
+            e.preventDefault();
+            ask();
+          }}
+        >
+          <div className="nx-ask-in">
+            <label className="sr-only" htmlFor="nx-ask-q">
+              What do you want Chains to do?
+            </label>
+            <textarea
+              id="nx-ask-q"
+              rows={2}
+              value={text}
+              placeholder={PROMPTS[prompt]}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  ask();
+                }
+              }}
+            />
+            <div className="nx-ask-row">
+              <small>
+                <WhatsAppIcon /> A person replies on WhatsApp, usually within the hour
+              </small>
+              <button className="nx-send" type="submit" aria-label="Ask on WhatsApp">
+                <Icon name="arrow" />
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div className="nx-chips" aria-label="Jump to a part of Chains">
+          {CHIPS.map((c) => (
+            <a key={c.label} href={c.href}>
+              <Icon name={c.icon} /> {c.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="nx-cta">
+          <a className="nx-btn nx-btn-light" href={LINKS.signUp}>
+            Start free <Icon name="arrow" />
+          </a>
+          <a className="nx-btn nx-btn-ghost" href={LINKS.calendly}>
+            Book a 30-minute demo
+          </a>
+        </div>
+        <p className="nx-fine">15 days free, no card.</p>
+
+        <div className="nx-window-wrap">
+          <div className="nx-window" ref={winRef} aria-label="Example: one day across a business on Chains (illustrative figures)">
+            <div className="nx-win-top">
+              <span className="dots" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
+              <b>Today across the business</b>
+              <span className="nx-live">Live</span>
+            </div>
+            <div className="nx-win-body nx-win-6">
+              <Tile icon="till" label="In store" st={['ok', 'Paid']} v="KES 48,200" s="62 sales · M-Pesa, bank, cash" />
+              <Tile icon="cart" label="Online" st={['info', 'New']} v="23 orders" s="18 delivery · 5 pickup" />
+              <Tile icon="truck" label="Deliveries" st={['ok', 'On route']} v="6 riders" s="Customers tracking live" />
+              <Tile icon="file" label="Invoices" st={['ok', 'Paid']} v="USD 1,200" s="Client abroad · pay link" />
+              <Tile icon="users" label="Payroll" st={['wait', 'Approve']} v="18 staff" s="Friday run, tips included" />
+              <Tile icon="receipt" label="Bills" st={['info', '3 waiting']} v="Suppliers" s="Approve, then pay" />
+              <div className="nx-win-ai">
+                <Icon name="chat" />
+                <span>
+                  <code>Owner · WhatsApp</code>
+                  <br />
+                  “How did we do today?” — KES 48,200 in store and 23 online orders, 12% up on last Friday.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+  );
+}
+
+function Tile({ icon, label, st, v, s }: { icon: IconName; label: string; st: [string, string]; v: string; s: string }) {
+  return (
+    <div className="nx-tile">
+      <div className="nx-tile-h">
+        <span>
+          <Icon name={icon} /> {label}
+        </span>
+        <span className={`nx-st ${st[0]}`}>{st[1]}</span>
+      </div>
+      <div className="nx-tile-v">{v}</div>
+      <div className="nx-tile-s">{s}</div>
     </div>
   );
+}
+
+/** A panel with a glow that follows the pointer. */
+function SpotBox({ className, id, children }: { className: string; id: string; children: ReactNode }) {
+  const move = (e: MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+  return (
+    <article className={className} id={id} onMouseMove={move}>
+      {children}
+    </article>
+  );
+}
+
+function useCycle(n: number, ms: number) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(() => setI((v) => (v + 1) % n), ms);
+    return () => clearInterval(t);
+  }, [n, ms]);
+  return i;
+}
+
+/** Fade sections in as they scroll into view. */
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.nx-rv');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((e) => e.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        }),
+      { rootMargin: '0px 0px -8% 0px' },
+    );
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
 }

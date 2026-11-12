@@ -49,30 +49,30 @@ export default function FormSection() {
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form className="cx-form" onSubmit={handleSubmit(onSubmit)}>
         {hasErrored && <ErrorMessage>Couldn&apos;t send email. Please try again.</ErrorMessage>}
         <InputGroup>
           <InputStack>
             {errors.name && <ErrorMessage>Name is required</ErrorMessage>}
-            <Input placeholder="Your Name" id="name" disabled={isDisabled} {...register('name', { required: true })} />
+            <Input placeholder="Your name" id="name" disabled={isDisabled} {...register('name', { required: true })} />
           </InputStack>
           <InputStack>
             {errors.email && <ErrorMessage>Email is required</ErrorMessage>}
-            <Input placeholder="Your Email" id="email" disabled={isDisabled} {...register('email', { required: true })} />
+            <Input placeholder="Your email" id="email" disabled={isDisabled} {...register('email', { required: true })} />
           </InputStack>
         </InputGroup>
         <InputStack>
           {errors.description && <ErrorMessage>Description is required</ErrorMessage>}
           <Textarea
             as="textarea"
-            placeholder="Enter Your Message..."
+            placeholder="What do you run, and what would you like Chains to do?"
             id="description"
             disabled={isDisabled}
             {...register('description', { required: true })}
           />
         </InputStack>
         <Button as="button" type="submit" disabled={isSubmitDisabled}>
-          Send Message
+          Send message
         </Button>
       </Form>
     </Wrapper>
@@ -80,7 +80,7 @@ export default function FormSection() {
 }
 
 const Wrapper = styled.div`
-  flex: 2;
+  min-width: 0;
 `;
 
 const Form = styled.form`

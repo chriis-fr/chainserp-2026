@@ -2,6 +2,8 @@ import 'styles/globals.css';
 import 'styles/site.css';
 import 'styles/site-3d.css';
 import 'styles/docs.css';
+import 'styles/nx.css';
+import 'styles/nx-light.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -10,7 +12,8 @@ import 'utils/suppressWarnings';
 
 import { AppProps } from 'next/dist/shared/lib/router/router';
 import Head from 'next/head';
-import React, { PropsWithChildren } from 'react';
+import { useRouter } from 'next/router';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Analytics } from '@vercel/analytics/next';
 import Footer from 'components/Footer';
@@ -23,6 +26,11 @@ import { EnvVars } from 'env';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter();
+  // Docs have their own shell (top bar, sidebar, contents); the homepage ends on its own call to action.
+  const isDocs = pathname.startsWith('/logistics/docs');
+  const isHome = pathname === '/';
+  useCardGlow();
   return (
     <>
       <SEO />
@@ -59,13 +67,34 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
 
       <Providers>
-        <Navbar />
-        <Component {...pageProps} />
-        <WaveCta />
-        <Footer />
+        {isDocs ? (
+          <Component {...pageProps} />
+        ) : (
+          <>
+            <Navbar />
+            <Component {...pageProps} />
+            {!isHome && <WaveCta />}
+            <Footer />
+          </>
+        )}
       </Providers>
     </>
   );
+}
+
+/** Cards on the light pages glow where the pointer is (the --mx/--my spot in nx-light.css). */
+function useCardGlow() {
+  useEffect(() => {
+    const move = (e: PointerEvent) => {
+      const el = (e.target as Element | null)?.closest?.('.cx-idx-card, .cx-plan, .cx-quote, .cx-prod') as HTMLElement | null;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      el.style.setProperty('--my', `${e.clientY - r.top}px`);
+    };
+    document.addEventListener('pointermove', move, { passive: true });
+    return () => document.removeEventListener('pointermove', move);
+  }, []);
 }
 
 // The site is light-only, like app.chains-erp.com; the mobile menu lives in the Navbar.

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
 import NextLink from 'next/link';
 import DocsLayout, { ACCESS_LINK, API_BASE, Callout, Code } from 'components/docs/DocsLayout';
-import { Icon, WhatsAppIcon } from 'components/site/Icon';
+import { Icon } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
 
 const NEED: { title: string; detail: string }[] = [
@@ -143,8 +143,8 @@ curl -X POST ${API_BASE}/orders \\
       </ul>
 
       <div className="cx-cta">
-        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK} target="_blank" rel="noopener">
-          <WhatsAppIcon /> Request a test key
+        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK}>
+          Request a test key <Icon name="arrow" />
         </a>
         <a className="cx-btn cx-btn-quiet" href={LINKS.calendly} target="_blank" rel="noopener">
           Book a 30-minute call

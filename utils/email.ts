@@ -6,6 +6,7 @@ interface SendEmailOptions {
   subject: string;
   text?: string;
   html?: string;
+  replyTo?: string;
 }
 
 // Create reusable transporter
@@ -59,6 +60,7 @@ export async function sendEmail(options: SendEmailOptions) {
       subject: options.subject,
       text: options.text,
       html: options.html,
+      replyTo: options.replyTo,
     });
 
     return { success: true, messageId: info.messageId };
