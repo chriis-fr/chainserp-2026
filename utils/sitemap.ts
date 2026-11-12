@@ -30,7 +30,7 @@ export function generateSitemapUrls(): SitemapUrl[] {
     { loc: `${baseUrl}/regions`, changefreq: 'weekly', priority: 0.8 },
 
     // Logistics developer docs
-    ...['', '/integrate', '/storefront', '/api', '/webhooks', '/typescript'].map((p) => ({
+    ...['', '/integrate', '/storefront', '/api', '/webhooks', '/typescript', '/security'].map((p) => ({
       loc: `${baseUrl}/logistics/docs${p}`,
       changefreq: 'monthly' as const,
       priority: p ? 0.6 : 0.8,
