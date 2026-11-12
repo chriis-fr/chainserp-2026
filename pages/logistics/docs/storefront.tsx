@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
 import DocsLayout, { ACCESS_LINK, Callout, Code, STOREFRONT_BASE } from 'components/docs/DocsLayout';
-import { Icon, WhatsAppIcon } from 'components/site/Icon';
+import { Icon } from 'components/site/Icon';
 
 const ROUTES: [string, string, string][] = [
   ['GET', '/about', 'Your store or network details'],
@@ -114,8 +114,8 @@ curl ${STOREFRONT_BASE}/products?limit=12 \\
 `}</Code>
 
       <div className="cx-cta">
-        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK} target="_blank" rel="noopener">
-          <WhatsAppIcon /> Ask for a Storefront
+        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK}>
+          Ask for a Storefront <Icon name="arrow" />
         </a>
       </div>
     </DocsLayout>

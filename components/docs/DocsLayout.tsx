@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import SEO from 'components/SEO';
-import { Icon, IconName, WhatsAppIcon } from 'components/site/Icon';
+import { Icon, IconName } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
 
 export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
@@ -13,11 +13,15 @@ export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
   { href: '/logistics/docs/webhooks', title: 'Webhooks', icon: 'spark' },
   { href: '/logistics/docs/typescript', title: 'TypeScript quickstart', icon: 'receipt' },
   { href: '/logistics/docs/security', title: 'Security and limits', icon: 'lock' },
+  { href: '/logistics/docs/request-access', title: 'Request access', icon: 'chat' },
 ];
 
 export const API_BASE = 'https://api.progressusmavericks.co.ke/v1';
 export const STOREFRONT_BASE = 'https://api.progressusmavericks.co.ke/storefront/v1';
-export const ACCESS_LINK = `https://wa.me/254705343984?text=${encodeURIComponent(
+/** Where every "Request access" and "Get API keys" button goes: the request form in these docs. */
+export const ACCESS_LINK = '/logistics/docs/request-access';
+/** The WhatsApp alternative, offered on the request page. */
+export const WHATSAPP_ACCESS = `https://wa.me/254705343984?text=${encodeURIComponent(
   'Hi Chains, I would like API access to Chains FleetOps logistics. Company name: ',
 )}`;
 
@@ -83,7 +87,7 @@ export default function DocsLayout({ title, seoTitle, description, lead, keyword
               <NextLink className="dx-back" href="/">
                 chains-erp.com
               </NextLink>
-              <a className="nx-btn nx-btn-sm dx-key" href={ACCESS_LINK} target="_blank" rel="noopener">
+              <a className="nx-btn nx-btn-sm dx-key" href={ACCESS_LINK}>
                 Get API keys
               </a>
             </div>
@@ -112,8 +116,8 @@ export default function DocsLayout({ title, seoTitle, description, lead, keyword
             <div className="dx-help">
               <b>Need keys?</b>
               <p>Chains issues every API and Store key. Ask us and we&apos;ll set you up.</p>
-              <a href={ACCESS_LINK} target="_blank" rel="noopener">
-                <WhatsAppIcon /> Request access
+              <a href={ACCESS_LINK}>
+                Request access <Icon name="arrow" />
               </a>
             </div>
           </aside>

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities -- apostrophes in the copy */
 import NextLink from 'next/link';
 import DocsLayout, { ACCESS_LINK, API_BASE, Callout, Code } from 'components/docs/DocsLayout';
-import { Icon, WhatsAppIcon } from 'components/site/Icon';
+import { Icon } from 'components/site/Icon';
 import { LINKS } from 'components/site/links';
 
 export default function LogisticsDocsHome() {
@@ -66,8 +66,8 @@ export default function LogisticsDocsHome() {
         </li>
       </ol>
       <div className="cx-cta">
-        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK} target="_blank" rel="noopener">
-          <WhatsAppIcon /> Request access
+        <a className="cx-btn cx-btn-primary" href={ACCESS_LINK}>
+          Request access <Icon name="arrow" />
         </a>
         <a className="cx-btn cx-btn-quiet" href={LINKS.email}>
           hello@chains-erp.com

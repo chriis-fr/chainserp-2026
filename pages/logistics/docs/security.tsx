@@ -75,7 +75,7 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
         Every key works within a request limit, so one busy or broken client cannot slow the service for everyone. Each response tells
         you where you stand:
       </p>
-      <ul>
+      <ul className="cx-list">
         <li>
           <code>X-RateLimit-Limit</code>: how many requests you can make in the current window.
         </li>
@@ -125,7 +125,7 @@ async function withBackoff(call: () => Promise<Response>, tries = 4): Promise<Re
       </p>
 
       <h2>If a key leaks</h2>
-      <ol>
+      <ol className="cx-list">
         <li>Tell us straight away on WhatsApp or at hello@chains-erp.com.</li>
         <li>We revoke the key and issue a new one. The old key stops working at once.</li>
         <li>Update your server's environment variable and redeploy.</li>
@@ -133,7 +133,7 @@ async function withBackoff(call: () => Promise<Response>, tries = 4): Promise<Re
       </ol>
 
       <h2>Checklist before going live</h2>
-      <ul>
+      <ul className="cx-list">
         <li>Keys and secrets are in server environment variables, not in code.</li>
         <li>No key appears in your website, mobile app or repository.</li>
         <li>You retry 429s with backoff and use webhooks rather than polling.</li>
@@ -141,8 +141,8 @@ async function withBackoff(call: () => Promise<Response>, tries = 4): Promise<Re
         <li>You know who on your team holds the keys, and how to tell us if one leaks.</li>
       </ul>
       <p>
-        <a href={ACCESS_LINK} target="_blank" rel="noopener">
-          Ask us for keys or a higher limit on WhatsApp
+        <a href={ACCESS_LINK}>
+          Request keys or a higher limit
         </a>
         .
       </p>
