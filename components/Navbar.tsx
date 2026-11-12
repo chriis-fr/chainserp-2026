@@ -52,6 +52,19 @@ export default function Navbar(_props: NavbarProps) {
     };
   }, [router.events]);
 
+  // The Products menu waits a moment before closing, so the pointer can travel from the button to the panel
+  // (or slip off the edge briefly) without the menu vanishing.
+  const ddTimer = useRef<ReturnType<typeof setTimeout>>();
+  const openDd = () => {
+    clearTimeout(ddTimer.current);
+    setDdOpen(true);
+  };
+  const closeDdSoon = () => {
+    clearTimeout(ddTimer.current);
+    ddTimer.current = setTimeout(() => setDdOpen(false), 350);
+  };
+  useEffect(() => () => clearTimeout(ddTimer.current), []);
+
   const here = (path: string) => (router.pathname === path ? 'page' : undefined);
   // Only the homepage is dark; every other page gets the light version of the same pill.
   const light = router.pathname !== '/';
@@ -69,10 +82,10 @@ export default function Navbar(_props: NavbarProps) {
           <div
             className={`nx-dd${ddOpen ? ' open' : ''}`}
             ref={ddRef}
-            onMouseEnter={() => setDdOpen(true)}
-            onMouseLeave={() => setDdOpen(false)}
+            onMouseEnter={openDd}
+            onMouseLeave={closeDdSoon}
           >
-            <button type="button" aria-expanded={ddOpen} onClick={() => setDdOpen(true)}>
+            <button type="button" aria-expanded={ddOpen} onClick={openDd}>
               Products <Icon name="down" />
             </button>
             <div className="nx-dd-p">

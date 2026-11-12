@@ -55,6 +55,8 @@
   display: none;
 }
 .nx-dd.open .nx-dd-p { display: grid; animation: nx-drop 0.2s var(--cx-ease); }
+/* An invisible bridge over the gap between the button and the panel, so moving down never "leaves" the menu. */
+.nx-dd-p::before { content: ''; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
 .nx-dd-p a { height: auto !important; display: grid !important; grid-template-columns: 34px 1fr; gap: 2px 12px; padding: 10px 12px !important; border-radius: 14px !important; align-items: start !important; }
 .nx-dd-p a > span { grid-row: span 2; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--nx-card-2); color: #9fb7ff; }
 .nx-dd-p b { color: var(--nx-ink); font-size: 14px; font-weight: 600; }
