@@ -22,6 +22,7 @@ export const LINKS = {
   logistics: 'https://progressusmavericks.co.ke',
   whatsapp: `${WA}?text=${encodeURIComponent('Hi Chains, I would like to set up my business on Chains. It is called: ')}`,
   whatsappTill: `${WA}?text=${encodeURIComponent('Hi Chains, I would like Chains POS for my business.')}`,
+  whatsappStore: `${WA}?text=${encodeURIComponent('Hi Chains, I would like to sell online with a Chains store.')}`,
   whatsappLogistics: `${WA}?text=${encodeURIComponent('Hi Chains, I would like to see Chains FleetOps for my deliveries.')}`,
   calendly: 'https://calendly.com/caspianodhis/30min',
   email: 'mailto:hello@chains-erp.com',

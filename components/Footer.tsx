@@ -8,10 +8,11 @@ const COLUMNS: { title: string; links: L[] }[] = [
     title: 'Products',
     links: [
       { label: 'Chains POS', href: LINKS.pos },
-      { label: 'Payroll', href: LINKS.appPayroll },
-      { label: 'Bills & treasury', href: LINKS.appBills },
+      { label: 'Online store', href: LINKS.whatsappStore },
       { label: 'Invoices', href: LINKS.appInvoices },
       { label: 'FleetOps', href: LINKS.logistics },
+      { label: 'Payroll', href: LINKS.appPayroll },
+      { label: 'Bills & treasury', href: LINKS.appBills },
       { label: 'Chains AI', href: LINKS.ai },
     ],
   },
@@ -65,7 +66,7 @@ export default function Footer() {
               <img src="/chainsnobgnologo.PNG" alt="" width={26} height={26} />
               <span>Chains ERP</span>
             </NextLink>
-            <p>Point of sale, payroll, supplier bills, invoices and logistics for growing businesses. Made in Nairobi.</p>
+            <p>One system to sell, deliver, pay and get paid. Made in Nairobi.</p>
             <a href={LINKS.email}>hello@chains-erp.com</a>
           </div>
           {COLUMNS.map((col) => (

@@ -24,6 +24,11 @@ const PATHS = {
   bitcoin: 'M9 6h5a3 3 0 0 1 0 6H9zM9 12h6a3 3 0 0 1 0 6H9zM9 4v16M11 4v2M11 18v2M7 6h2M7 18h2',
   calendar: 'M4 6h16v14H4zM4 10h16M9 3v4M15 3v4',
   layers: 'M12 3l9 5-9 5-9-5zM3 13l9 5 9-5',
+  cart: 'M3 4h2l2.4 11h10.2L20 8H6.2M10 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z',
+  chart: 'M4 20h16M7 16v-5M12 16V6M17 16v-8',
+  code: 'M9 7l-5 5 5 5M15 7l5 5-5 5',
+  bank: 'M3 10l9-6 9 6M5 10v8M9.7 10v8M14.3 10v8M19 10v8M3 20h18',
+  box: 'M12 3l8 4.5v9L12 21l-8-4.5v-9zM4 7.5l8 4.5 8-4.5M12 12v9',
 } as const;
 
 export type IconName = keyof typeof PATHS;

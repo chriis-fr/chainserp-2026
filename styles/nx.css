@@ -115,11 +115,9 @@ html, body { overflow-x: clip; }
 .nx-frame i { position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #3d7bff; border-radius: 2px; }
 .nx-frame i:nth-child(1) { left: -5px; top: -5px; } .nx-frame i:nth-child(2) { right: -5px; top: -5px; }
 .nx-frame i:nth-child(3) { left: -5px; bottom: -5px; } .nx-frame i:nth-child(4) { right: -5px; bottom: -5px; }
-.nx-roll { display: inline-grid; justify-items: center; overflow: hidden; height: 1.02em; vertical-align: bottom; transition: width 0.5s var(--cx-ease); }
-.nx-roll > span { white-space: nowrap; }
-.nx-roll > span { grid-area: 1 / 1; display: block; transform: translateY(105%); opacity: 0; transition: transform 0.6s var(--cx-ease), opacity 0.4s; }
-.nx-roll > span.on { transform: none; opacity: 1; }
-.nx-roll > span.off { transform: translateY(-105%); opacity: 0; }
+.nx-word { display: inline-block; white-space: nowrap; animation: nx-word-in 0.55s var(--cx-ease); }
+@keyframes nx-word-in { from { transform: translateY(14%); } }
+@media (max-width: 900px) { .nx-hero h1 .nx-frame { display: table; margin: 0.08em auto 0.1em; } }
 
 /* Manus/Spline ask box */
 .nx-ask { position: relative; max-width: 660px; margin: 34px auto 0; text-align: left; padding: 6px; border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)); }
@@ -157,7 +155,7 @@ html, body { overflow-x: clip; }
 .nx-tile-h .cx-ic { color: #9fb7ff; }
 .nx-tile-v { font-size: 22px; font-weight: 600; color: var(--nx-ink); letter-spacing: -0.03em; }
 .nx-tile-s { font-size: 12.5px; color: var(--nx-ink-3); }
-.nx-st { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+.nx-st { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 600; white-space: nowrap; }
 .nx-st.ok { background: rgba(52,211,153,0.12); color: var(--nx-mint); }
 .nx-st.wait { background: rgba(251,191,36,0.12); color: var(--nx-amber); }
 .nx-st.info { background: rgba(61,123,255,0.15); color: #8fb0ff; }
@@ -230,7 +228,7 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .nx-rv, .nx-window { opacity: 1 !important; transform: none !important; }
   .nx-glow { animation: none; }
-  .nx-roll > span { transition: none; }
+  .nx-word { animation: none; }
 }
 
 /* ---------- Footer (dark, quiet) ---------- */
@@ -249,3 +247,52 @@ html, body { overflow-x: clip; }
 .nx-foot-mark { font-family: var(--nx-serif); font-style: italic; font-size: clamp(40px, 7vw, 84px); color: rgba(255,255,255,0.08); line-height: 1; margin-top: 36px; letter-spacing: -0.02em; user-select: none; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* ---------- Whole system: four pillars ---------- */
+.nx-pillars { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .nx-pillars { grid-template-columns: repeat(2, 1fr); } }
+.nx-pillar { --mx: 50%; --my: 50%; position: relative; padding: 26px; border-radius: var(--nx-radius); border: 1px solid var(--nx-line); background: var(--nx-card); overflow: hidden; scroll-margin-top: 96px; transition: border-color 0.3s; }
+.nx-pillar::before { content: ''; position: absolute; inset: 0; background: radial-gradient(480px circle at var(--mx) var(--my), rgba(110,140,255,0.14), transparent 45%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.nx-pillar:hover { border-color: var(--nx-line-2); }
+.nx-pillar:hover::before { opacity: 1; }
+.nx-pillar-h { display: flex; align-items: center; justify-content: space-between; }
+.nx-pillar-n { font-family: var(--cx-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--nx-ink-3); }
+.nx-pillar h3 { margin-top: 18px !important; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; text-wrap: balance; }
+.nx-pillar-v { background: var(--nx-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nx-pillar ul { list-style: none; margin: 18px 0 0 !important; padding: 0; display: grid; gap: 8px; }
+.nx-pillar li a { position: relative; display: grid; grid-template-columns: 20px 1fr 16px; gap: 12px; align-items: start; padding: 14px; border-radius: 14px; border: 1px solid var(--nx-line); background: rgba(255,255,255,0.02); color: var(--nx-ink-3); font-size: 14px; line-height: 1.45; transition: background 0.2s, border-color 0.2s; }
+.nx-pillar li a:hover { background: rgba(255,255,255,0.05); border-color: var(--nx-line-2); }
+.nx-pillar li a > .cx-ic { color: #9fb7ff; font-size: 18px; margin-top: 2px; }
+.nx-pillar li b { display: flex; align-items: center; gap: 8px; color: var(--nx-ink); font-size: 15.5px; font-weight: 600; margin-bottom: 2px; }
+.nx-go { color: var(--nx-ink-3); font-size: 15px; margin-top: 3px; transition: transform 0.2s, color 0.2s; }
+a:hover > .nx-go { transform: translateX(3px); color: #a9c1ff; }
+
+/* ---------- Flow with five steps ---------- */
+@media (min-width: 860px) { .nx-flow.nx-flow-5 { grid-template-columns: repeat(5, 1fr); } }
+
+/* ---------- Who it's for ---------- */
+.nx-who { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .nx-who { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .nx-who { grid-template-columns: repeat(5, 1fr); } }
+.nx-who-i { display: grid; gap: 6px; align-content: start; padding: 20px; border-radius: 18px; border: 1px solid var(--nx-line); background: var(--nx-card); color: var(--nx-ink-3); font-size: 14px; transition: border-color 0.2s, transform 0.3s var(--cx-ease); }
+.nx-who-i:hover { border-color: var(--nx-line-2); transform: translateY(-2px); }
+.nx-who-i .cx-ic { color: #9fb7ff; font-size: 22px; margin-bottom: 6px; }
+.nx-who-i b { color: var(--nx-ink); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ---------- Trust: facts above quotes ---------- */
+.nx-facts + .nx-quotes { margin-top: 14px; }
+
+/* ---------- Doors into each app ---------- */
+.nx-doors { display: grid; gap: 10px; grid-template-columns: 1fr; max-width: 980px; margin: 0 auto; }
+@media (min-width: 760px) { .nx-doors { grid-template-columns: repeat(2, 1fr); } }
+.nx-door { display: grid; grid-template-columns: 44px 1fr 16px; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--nx-line); background: var(--nx-card); transition: border-color 0.2s; }
+.nx-door:hover { border-color: var(--nx-line-2); }
+.nx-door b { display: block; color: var(--nx-ink); font-size: 16px; font-weight: 600; }
+.nx-door code { display: block; font-family: var(--cx-mono); font-size: 12px; color: #a9c1ff; margin: 2px 0; background: none; padding: 0; }
+.nx-door small { display: block; color: var(--nx-ink-3); font-size: 13.5px; }
+
+/* ---------- Hero window with six tiles ---------- */
+.nx-win-body.nx-win-6 { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .nx-win-body.nx-win-6 { grid-template-columns: repeat(3, 1fr); } }
+.nx-win-6 .nx-win-ai { grid-column: 1 / -1; }
+@media (max-width: 480px) { .nx-win-6 .nx-tile { padding: 12px; } .nx-win-6 .nx-tile-v { font-size: 18px; } }

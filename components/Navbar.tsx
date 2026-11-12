@@ -9,12 +9,14 @@ type Product = { href: string; icon: IconName; title: string; blurb: string; ext
 
 // The products, in the order a visitor is most likely to need them.
 export const PRODUCTS: Product[] = [
-  { href: LINKS.pos, icon: 'till', title: 'Chains POS', blurb: 'Point of sale for bars, restaurants and hotels' },
+  { href: LINKS.pos, icon: 'till', title: 'Chains POS', blurb: 'Point of sale for restaurants, bars, hotels and shops' },
+  { href: LINKS.whatsappStore, icon: 'cart', title: 'Online store', blurb: 'Sell online with delivery or pickup', external: true },
+  { href: LINKS.appInvoices, icon: 'file', title: 'Invoices', blurb: '50+ currencies with a Pay now link' },
+  { href: LINKS.logistics, icon: 'truck', title: 'FleetOps', blurb: 'Deliveries, drivers and vehicles', external: true },
   { href: LINKS.appPayroll, icon: 'users', title: 'Payroll', blurb: 'Everyone paid by M-Pesa in one approval' },
   { href: LINKS.appBills, icon: 'receipt', title: 'Bills & treasury', blurb: 'Approve suppliers, then pay' },
-  { href: LINKS.appInvoices, icon: 'file', title: 'Invoices', blurb: '50+ currencies with a Pay now button' },
-  { href: LINKS.logistics, icon: 'truck', title: 'FleetOps', blurb: 'Deliveries, drivers and vehicles', external: true },
-  { href: LINKS.ai, icon: 'chat', title: 'Chains AI', blurb: 'Your ERP on WhatsApp (beta)' },
+  { href: LINKS.ai, icon: 'chat', title: 'Chains AI', blurb: 'Your business on WhatsApp (beta)' },
+  { href: '/logistics/docs', icon: 'code', title: 'Developers', blurb: 'Delivery and store API docs' },
 ];
 
 type NavbarProps = { items?: NavItems };
@@ -68,7 +70,7 @@ export default function Navbar(_props: NavbarProps) {
             onMouseEnter={() => setDdOpen(true)}
             onMouseLeave={() => setDdOpen(false)}
           >
-            <button type="button" aria-expanded={ddOpen} onClick={() => setDdOpen((v) => !v)}>
+            <button type="button" aria-expanded={ddOpen} onClick={() => setDdOpen(true)}>
               Products <Icon name="down" />
             </button>
             <div className="nx-dd-p">
@@ -123,7 +125,6 @@ export default function Navbar(_props: NavbarProps) {
             ))}
           </div>
           <div className="nx-sheet-links">
-            <NextLink href="/logistics/docs">Docs</NextLink>
             <NextLink href="/pricing">Pricing</NextLink>
             <NextLink href="/contact">Contact</NextLink>
             <a href={LINKS.posSignIn}>POS sign-in</a>
