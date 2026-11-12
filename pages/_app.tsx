@@ -2,6 +2,7 @@ import 'styles/globals.css';
 import 'styles/site.css';
 import 'styles/site-3d.css';
 import 'styles/docs.css';
+import 'styles/nx.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -10,6 +11,7 @@ import 'utils/suppressWarnings';
 
 import { AppProps } from 'next/dist/shared/lib/router/router';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { PropsWithChildren } from 'react';
 
 import { Analytics } from '@vercel/analytics/next';
@@ -23,6 +25,10 @@ import { EnvVars } from 'env';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter();
+  // Docs have their own shell (top bar, sidebar, contents); the homepage ends on its own call to action.
+  const isDocs = pathname.startsWith('/logistics/docs');
+  const isHome = pathname === '/';
   return (
     <>
       <SEO />
@@ -59,10 +65,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
 
       <Providers>
-        <Navbar />
-        <Component {...pageProps} />
-        <WaveCta />
-        <Footer />
+        {isDocs ? (
+          <Component {...pageProps} />
+        ) : (
+          <>
+            <Navbar />
+            <Component {...pageProps} />
+            {!isHome && <WaveCta />}
+            <Footer />
+          </>
+        )}
       </Providers>
     </>
   );

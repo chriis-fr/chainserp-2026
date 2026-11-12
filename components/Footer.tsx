@@ -1,32 +1,34 @@
 import NextLink from 'next/link';
 import { LINKS } from 'components/site/links';
 
-const COLUMNS: { title: string; links: { label: string; href: string; internal?: boolean }[] }[] = [
+type L = { label: string; href: string; internal?: boolean };
+
+const COLUMNS: { title: string; links: L[] }[] = [
   {
     title: 'Products',
     links: [
-      { label: 'Chains ERP', href: LINKS.appProducts },
       { label: 'Chains POS', href: LINKS.pos },
-      { label: 'FleetOps logistics', href: LINKS.logistics },
+      { label: 'Payroll', href: LINKS.appPayroll },
+      { label: 'Bills & treasury', href: LINKS.appBills },
+      { label: 'Invoices', href: LINKS.appInvoices },
+      { label: 'FleetOps', href: LINKS.logistics },
       { label: 'Chains AI', href: LINKS.ai },
-      { label: 'Bitcoin payments', href: '/accept-bitcoin-payments', internal: true },
     ],
   },
   {
-    title: 'Modules',
+    title: 'Learn',
     links: [
-      { label: 'Payroll', href: LINKS.appPayroll },
-      { label: 'Supplier bills', href: LINKS.appBills },
-      { label: 'Invoices', href: LINKS.appInvoices },
-      { label: 'Treasury', href: LINKS.appTreasury },
       { label: 'All features', href: '/features', internal: true },
-      { label: 'Logistics API docs', href: '/logistics/docs', internal: true },
+      { label: 'Who it’s for', href: '/industries', internal: true },
+      { label: 'Compare', href: '/compare', internal: true },
+      { label: 'Developer docs', href: '/logistics/docs', internal: true },
+      { label: 'Bitcoin payments', href: '/accept-bitcoin-payments', internal: true },
     ],
   },
   {
     title: 'Sign in',
     links: [
-      { label: 'Chains ERP app', href: LINKS.signIn },
+      { label: 'Chains ERP', href: LINKS.signIn },
       { label: 'POS (cashiers, waiters)', href: LINKS.posSignIn },
       { label: 'FleetOps', href: LINKS.logistics },
       { label: 'Create an account', href: LINKS.signUp },
@@ -47,26 +49,24 @@ const COLUMNS: { title: string; links: { label: string; href: string; internal?:
 
 const SOCIAL = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/chainserp' },
+  { label: 'Instagram', href: 'https://www.instagram.com/chainserp' },
   { label: 'X', href: 'https://x.com/chainserp' },
-  { label: 'Facebook', href: 'https://www.facebook.com/chainserp' },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="cx cx-foot">
+    <footer className="cx nx-foot">
       <div className="cx-wrap">
-        <div className="cx-foot-grid">
-          <div className="cx-foot-brand">
-            <NextLink className="cx-brand" href="/">
-              {/* eslint-disable-next-line @next/next/no-img-element -- 30px static mark */}
-              <img src="/chainsnobgnologo.PNG" alt="" width={30} height={30} />
+        <div className="nx-foot-top">
+          <div className="nx-foot-brand">
+            <NextLink className="nx-brand" href="/">
+              {/* eslint-disable-next-line @next/next/no-img-element -- 26px static mark */}
+              <img src="/chainsnobgnologo.PNG" alt="" width={26} height={26} />
               <span>Chains ERP</span>
             </NextLink>
             <p>Point of sale, payroll, supplier bills, invoices and logistics for growing businesses. Made in Nairobi.</p>
-            <a className="cx-link" href={LINKS.email}>
-              hello@chains-erp.com
-            </a>
+            <a href={LINKS.email}>hello@chains-erp.com</a>
           </div>
           {COLUMNS.map((col) => (
             <div key={col.title}>
@@ -79,9 +79,12 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div className="cx-foot-bottom">
+        <div className="nx-foot-mark" aria-hidden="true">
+          Less admin, more business.
+        </div>
+        <div className="nx-foot-bottom">
           <span>© {year} Chains ERP</span>
-          <div className="cx-social">
+          <div>
             {SOCIAL.map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">
                 {s.label}
