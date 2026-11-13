@@ -152,7 +152,7 @@ export const industries: SitePage[] = [
     faqs: [],
     related: [
       { label: 'Invoices', href: '/features/global-invoicing' },
-      { label: 'Getting paid', href: '/features/cross-border-payments' },
+      { label: 'Trade across borders', href: '/features/cross-border-payments' },
     ],
     keywords: ['invoicing for consultants Kenya', 'agency invoicing', 'freelancer invoices'],
   },
