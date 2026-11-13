@@ -83,7 +83,7 @@ export const features: SitePage[] = [
       },
       {
         heading: 'What it does not do yet',
-        body: 'Chains does not work out PAYE, NSSF or SHIF. Add statutory deductions as lines on each payslip. Payouts go by M-Pesa or bank in Kenya.',
+        body: 'Chains does not work out PAYE, NSSF or SHIF. Add statutory deductions as lines on each payslip. Payouts go by M-Pesa or bank.',
       },
     ],
     product: 'erp',
@@ -133,16 +133,18 @@ export const features: SitePage[] = [
     name: 'Invoices',
     eyebrow: 'Chains ERP',
     title: 'Invoices in 50+ currencies, with their own pay link',
-    description: 'Build an invoice with a live preview, send it by email or WhatsApp with a private pay link, in shillings, dollars, euros, naira or 50+ currencies.',
+    description: 'Build an invoice with a live preview and send it with a private pay link, in any of 50+ currencies or in stablecoins (USDC and USDT on Base).',
     lead:
       'Build the invoice on one screen with a live preview beside it, and send it by email or WhatsApp with a private pay link.',
     sections: [
       {
         heading: 'How clients pay',
         points: [
-          'A Kenyan client taps Pay now, approves the M-Pesa prompt, and the invoice marks itself paid; the money lands in your Chains treasury, less a fee',
-          'Clients elsewhere pay by bank transfer to the details on the invoice; you mark it paid when the money arrives',
-          'You can also invoice in USDC or USDT on Base; those are marked paid by hand',
+          'Bill each client in their own currency: more than 50 to choose from',
+          'Mobile money clients tap Pay now and approve the prompt; the invoice marks itself paid and the money lands in your Chains treasury',
+          'Bank clients pay to the details on the invoice, in their currency',
+          'Stablecoin clients pay in USDC or USDT on Base, straight to your address',
+          'Your totals are shown in your home currency at live rates, so you always know what you are owed',
         ],
       },
       {
@@ -152,36 +154,41 @@ export const features: SitePage[] = [
     ],
     product: 'erp',
     faqs: [
-      { question: 'Which currencies can I invoice in?', answer: 'More than 50, including KES, USD, EUR and NGN, plus USDC or USDT on Base.' },
+      { question: 'Which currencies can I invoice in?', answer: 'More than 50, from US dollars, euros and pounds to shillings, naira, cedi and rand, plus USDC or USDT on Base and Bitcoin by request.' },
       { question: 'What does it cost?', answer: 'Invoices start at $14 a month (about KES 1,800) for 100 invoices and one user; see the pricing page.' },
     ],
     related: [
-      { label: 'Getting paid by clients', href: '/features/cross-border-payments' },
+      { label: 'Trade across borders', href: '/features/cross-border-payments' },
       { label: 'Slow invoice collections', href: '/problems/slow-invoice-collections' },
     ],
     keywords: ['invoice software Kenya', 'multi-currency invoicing', 'M-Pesa invoice payment link'],
   },
   {
     slug: 'cross-border-payments',
-    name: 'Getting paid',
+    name: 'Trade across borders',
     eyebrow: 'Chains ERP',
-    title: 'Getting paid by clients, at home and abroad',
-    description: 'How invoices get paid in Chains today: M-Pesa Pay now in Kenya, bank transfer for clients abroad, and USDC or USDT on Base marked paid by hand.',
+    title: 'Trade across borders, in fiat or stablecoins',
+    description: 'Invoice partners and clients in their currency, get paid by mobile money, bank or stablecoins, and see every balance in your own currency at live rates.',
     lead:
-      'Chains moves money by M-Pesa in Kenya today. Clients anywhere can still pay your invoices, by the method that suits them.',
+      'Chains is built for businesses that buy and sell across borders. Your partners pay in the way that suits them, and you see it all in your own currency.',
     sections: [
       {
-        heading: 'The options',
+        heading: 'How partners pay you',
         points: [
-          'In Kenya: Pay now by M-Pesa; the invoice marks itself paid',
-          'Abroad: bank transfer to the details on the invoice, in their currency; you mark it paid',
-          'Stablecoins: USDC or USDT on Base, received to your address and marked paid by hand',
-          'Bitcoin through BTCPay Server is switched on per workspace by request',
+          'Mobile money: Pay now on the invoice; it marks itself paid',
+          'Bank transfer: in their currency, to the details on the invoice',
+          'Stablecoins: USDC or USDT on Base, settled in minutes with no bank in between',
+          'Bitcoin through BTCPay Server, switched on per workspace by request',
         ],
       },
       {
-        heading: 'What we do not do',
-        body: 'Chains does not convert currencies or send money out of Kenya. Payouts (payroll, suppliers) go by M-Pesa or bank in Kenya.',
+        heading: 'One view of every currency',
+        points: [
+          'Run your business in one of 16 home currencies',
+          'Invoice in more than 50',
+          'Every total, from receivables to cash flow, converted to your home currency at live rates',
+          'Hold stablecoins in your treasury alongside your local balance',
+        ],
       },
     ],
     product: 'erp',
@@ -190,16 +197,16 @@ export const features: SitePage[] = [
       { label: 'Invoices', href: '/features/global-invoicing' },
       { label: 'Bitcoin on invoices', href: '/accept-bitcoin-payments' },
     ],
-    keywords: ['receive international payments Kenya', 'invoice clients abroad', 'USDC invoice'],
+    keywords: ['receive international payments', 'cross-border trade payments', 'multi-currency invoicing', 'stablecoin payments for business', 'USDC invoice', 'invoice clients abroad'],
   },
   {
     slug: 'treasury',
     name: 'Treasury',
     eyebrow: 'Chains ERP',
     title: 'A treasury for each business, one pool above them',
-    description: 'Hold the shilling balance you pay from, top it up by M-Pesa or bank, and fund several businesses from one parent treasury.',
+    description: 'Hold the balance you pay from, in your currency and in stablecoins, top it up by mobile money or bank, and fund several businesses from one parent treasury.',
     lead:
-      'Your treasury is the shilling balance you pay payroll and suppliers from. Top it up by M-Pesa prompt or bank transfer.',
+      'Your treasury is the balance you pay payroll and suppliers from: your local currency, plus stablecoin wallets on Base. Top it up by mobile money prompt or bank transfer.',
     sections: [
       {
         heading: 'Several businesses, one login',
@@ -358,26 +365,29 @@ export const features: SitePage[] = [
   },
   {
     slug: 'erp-for-africa',
-    name: 'Kenya first',
+    name: 'Across borders',
     eyebrow: 'Where Chains works',
-    title: 'Built in Nairobi, money moves in Kenya first',
-    description: 'Chains moves money by M-Pesa in Kenya today; invoices go out in 50+ currencies and FleetOps runs deliveries anywhere.',
+    title: 'Built for business across borders',
+    description: 'Open to businesses anywhere: 16 home currencies, invoices in 50+, stablecoin payments, mobile money and bank, and FleetOps deliveries.',
     lead:
-      'Chains is built in Nairobi. Payments in and out run on M-Pesa in Kenya today; the rest of the product works for businesses anywhere.',
+      'Chains is open to businesses in any country. Run your books in your own currency, trade with partners in theirs, and settle in stablecoins when a bank is too slow.',
     sections: [
       {
-        heading: 'Today',
+        heading: 'What works for you, wherever you are',
         points: [
-          'Kenya: M-Pesa Pay now on invoices, M-Pesa payroll and supplier payouts, POS on your own paybill or till',
-          'Anywhere: invoices in 50+ currencies paid by bank transfer, and FleetOps for deliveries',
+          '16 home currencies for your books, reports and payroll',
+          'Invoices in more than 50 currencies, with a Pay now link',
+          'Stablecoins: get paid and hold balances in USDC or USDT on Base',
+          'Mobile money and bank: Pay now prompts, payroll and supplier payouts, and a POS on your own paybill or till',
+          'FleetOps for deliveries and the delivery API for your own systems',
         ],
       },
     ],
     product: 'erp',
     faqs: [
       {
-        question: 'Which countries’ payment rails come next?',
-        answer: 'We have not announced the next country. Tell us where you operate on WhatsApp.',
+        question: 'Can I use Chains where I am?',
+        answer: 'Yes. Sign up from any country, pick your home currency, and invoice in 50+ currencies or in stablecoins. Tell us on WhatsApp how you want to pay and get paid, and we will set it up with you.',
       },
     ],
     related: [

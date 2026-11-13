@@ -106,7 +106,7 @@ export default function AcceptBitcoinPaymentsPage() {
               <ul className="cx-tpl-rel">
                 <li>
                   <NextLink href="/features/cross-border-payments">
-                    Getting paid by clients <Icon name="arrow" />
+                    Trade across borders <Icon name="arrow" />
                   </NextLink>
                 </li>
                 <li>

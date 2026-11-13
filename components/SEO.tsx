@@ -14,7 +14,7 @@ export interface SEOProps {
 
 const defaultTitle = 'Chains ERP — Global Finance, POS, Payroll & Logistics Platform';
 const defaultDescription =
-  'Chains ERP runs a business from the point of sale to payroll: POS operations connected to your own M-Pesa paybill or till, payroll in one approval, supplier bills and treasury, invoices in 50+ currencies, and FleetOps logistics. Made in Nairobi; money moves by M-Pesa in Kenya today.';
+  'Chains ERP runs a business from the point of sale to payroll: POS operations connected to your own M-Pesa paybill or till, payroll in one approval, supplier bills and treasury, 16 home currencies and invoices in 50+, stablecoin payments, and FleetOps logistics. Open to businesses anywhere.';
 
 const defaultKeywords = [
   // Brand

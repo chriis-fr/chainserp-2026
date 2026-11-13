@@ -7,8 +7,9 @@ import { LINKS } from 'components/site/links';
 
 // chains-erp.com is the front door to the whole Chains system. It must not repeat app.chains-erp.com (the finance
 // app for hospitality): it names every part briefly and sends people to the right app. Claims must match what the
-// products do today: money moves by M-Pesa and Kenyan banks, invoices in 50+ currencies or USDC on Base, the POS
-// and the online store are switched on by the Chains team, Chains AI is in beta. Figures in the window are illustrative.
+// products do today: 16 home currencies, invoices in 50+ currencies, stablecoins (USDC/USDT on Base) to get paid and
+// hold, mobile money and bank in and out, the POS and the online store are switched on by the Chains team, Chains AI
+// is in beta. Currency copy never names countries. Figures in the window are illustrative.
 
 const WA_NUMBER = 'https://wa.me/254705343984';
 const ROLL = ['shop', 'restaurant', 'online store', 'deliveries', 'hotel', 'business'];
@@ -17,7 +18,7 @@ const PROMPTS = [
   'Put my shop online with delivery…',
   'Track my riders on a map…',
   'Pay 18 staff on Friday in one approval…',
-  'Invoice a client in US dollars…',
+  'Invoice a partner abroad in USDC…',
 ];
 
 const CHIPS: { icon: IconName; label: string; href: string }[] = [
@@ -25,6 +26,18 @@ const CHIPS: { icon: IconName; label: string; href: string }[] = [
   { icon: 'truck', label: 'Deliver', href: '#deliver' },
   { icon: 'wallet', label: 'Pay', href: '#pay' },
   { icon: 'chart', label: 'Know', href: '#know' },
+  { icon: 'globe', label: 'Any currency', href: '#money' },
+];
+
+// The 16 home currencies an account can run in, then the stablecoins and Bitcoin it can get paid in.
+const HOME_CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'INR', 'KES', 'NGN', 'GHS', 'ZAR', 'UGX', 'TZS', 'RWF', 'ETB', 'XOF', 'XAF'];
+const DIGITAL = ['USDC', 'USDT', 'BTC'];
+
+const MONEY: { icon: IconName; b: string; title: string; line: string }[] = [
+  { icon: 'globe', b: '16', title: 'home currencies', line: 'Run your books, payroll and reports in the currency you work in.' },
+  { icon: 'file', b: '50+', title: 'invoice currencies', line: 'Bill every client in their own currency, with a Pay now link.' },
+  { icon: 'wallet', b: 'USDC · USDT', title: 'stablecoins', line: 'Get paid on Base in minutes, and hold stablecoins in your treasury.' },
+  { icon: 'chart', b: 'Live', title: 'conversion', line: 'Every total, owed or owing, shown in your home currency at live rates.' },
 ];
 
 type Item = { icon: IconName; name: string; line: string; href: string; tag?: string; external?: boolean };
@@ -40,7 +53,7 @@ const PILLARS: Pillar[] = [
     items: [
       { icon: 'till', name: 'Point of sale', line: 'Tables, menus, kitchen and bar screens, stock and customer tabs. Paid to your own M-Pesa till.', href: LINKS.pos, external: true },
       { icon: 'cart', name: 'Online store', line: 'Your shop online with delivery or pickup checkout, a live delivery price and order tracking.', href: LINKS.whatsappStore, external: true },
-      { icon: 'file', name: 'Invoices and pay links', line: 'Bill clients in 50+ currencies, USDC or Bitcoin. A Pay now link marks the invoice paid.', href: LINKS.appInvoices },
+      { icon: 'file', name: 'Invoices and pay links', line: 'Bill clients in 50+ currencies or in stablecoins. A Pay now link marks the invoice paid.', href: LINKS.appInvoices },
     ],
   },
   {
@@ -62,7 +75,7 @@ const PILLARS: Pillar[] = [
     items: [
       { icon: 'users', name: 'Payroll', line: 'Weekly or monthly, tips included. Everyone paid by M-Pesa in one approval.', href: LINKS.appPayroll },
       { icon: 'receipt', name: 'Supplier bills', line: 'Bills wait for a yes, then go to M-Pesa, a paybill, a till or a bank.', href: LINKS.appBills },
-      { icon: 'bank', name: 'Treasury', line: 'A wallet for each business or branch, one pool above them.', href: LINKS.appTreasury },
+      { icon: 'bank', name: 'Treasury', line: 'A wallet for each business or branch, one pool above them, and stablecoin wallets too.', href: LINKS.appTreasury },
     ],
   },
   {
@@ -71,7 +84,7 @@ const PILLARS: Pillar[] = [
     verb: 'Know',
     title: 'Where you stand, any time you ask.',
     items: [
-      { icon: 'chart', name: 'Sales and cash flow', line: 'Takings by M-Pesa, bank and cash, what is running low, and what is owed both ways.', href: LINKS.app },
+      { icon: 'chart', name: 'Sales and cash flow', line: 'Takings, stock running low, and what is owed both ways, in your home currency.', href: LINKS.app },
       { icon: 'chat', name: 'Chains AI', tag: 'Beta', line: 'Ask on WhatsApp. It prepares the work; money only moves with your passcode.', href: LINKS.ai },
       { icon: 'lock', name: 'Every action on record', line: 'Who sold, who approved, who was paid. Nothing disappears.', href: LINKS.security },
     ],
@@ -102,8 +115,8 @@ const DOORS: { icon: IconName; name: string; host: string; line: string; href: s
 ];
 
 const TRUST = [
-  { b: 'Your own number', s: 'M-Pesa paybill or till, and Kenyan banks' },
-  { b: '50+ currencies', s: 'plus USDC on Base and Bitcoin' },
+  { b: 'Mobile money and banks', s: 'paybill, till and bank accounts' },
+  { b: '16 currencies', s: 'invoices in 50+, plus stablecoins' },
   { b: 'Your passcode', s: 'on every payment that leaves' },
   { b: '15 days free', s: 'no card to start' },
 ];
@@ -121,7 +134,7 @@ export default function Homepage() {
       <SEO
         url="/"
         title="Chains ERP — sell, deliver, pay and get paid on one system"
-        description="Chains is one system for the whole business: point of sale, an online store with delivery, FleetOps logistics, invoices in 50+ currencies, payroll and supplier bills by M-Pesa, treasury and the Chains AI assistant. Start free for 15 days."
+        description="Chains is one system for the whole business: point of sale, an online store with delivery, FleetOps logistics, 16 home currencies and invoices in 50+, stablecoin payments, payroll and supplier bills, treasury and the Chains AI assistant. Start free for 15 days."
       />
       <div className="cx nx">
         <Hero />
@@ -189,6 +202,69 @@ export default function Homepage() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        {/* Money across borders */}
+        <section className="nx-sec nx-money" id="money">
+          <div className="cx-wrap">
+            <div className="nx-head nx-rv">
+              <span className="nx-eyebrow">Money without borders</span>
+              <h2>
+                Trade in <span className="nx-grad-text">any currency</span>.
+              </h2>
+              <p>
+                Run your books in your own currency, invoice partners in theirs, and settle in stablecoins when a bank is too slow.
+                Wherever your customers and suppliers are.
+              </p>
+            </div>
+          </div>
+          <div className="nx-marquee" aria-label={`Home currencies: ${HOME_CURRENCIES.join(', ')}. Also ${DIGITAL.join(', ')}.`}>
+            {[0, 1].map((copy) => (
+              <div className="nx-marquee-track" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                {[...HOME_CURRENCIES, ...DIGITAL].map((c) => (
+                  <span key={c} className={DIGITAL.includes(c) ? 'coin' : ''}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="cx-wrap">
+            <div className="nx-money-grid nx-rv">
+              {MONEY.map((m) => (
+                <div className="nx-money-card" key={m.title}>
+                  <span className="nx-card-i">
+                    <Icon name={m.icon} />
+                  </span>
+                  <b>{m.b}</b>
+                  <h3>{m.title}</h3>
+                  <p>{m.line}</p>
+                </div>
+              ))}
+            </div>
+            <div className="nx-trade nx-rv">
+              <div className="nx-trade-step">
+                <small>You invoice</small>
+                <b>USDC 2,600</b>
+                <span>Partner abroad</span>
+              </div>
+              <Icon name="arrow" className="nx-trade-arrow" />
+              <div className="nx-trade-step">
+                <small>They pay</small>
+                <b>On Base</b>
+                <span>In minutes, no bank in between</span>
+              </div>
+              <Icon name="arrow" className="nx-trade-arrow" />
+              <div className="nx-trade-step hl">
+                <small>You see</small>
+                <b>In your currency</b>
+                <span>At the live rate, on your books</span>
+              </div>
+            </div>
+            <p className="nx-fine nx-rv" style={{ textAlign: 'center', marginTop: 14 }}>
+              <NextLink href="/features/cross-border-payments">How cross-border trade works on Chains</NextLink>
+            </p>
           </div>
         </section>
 
@@ -339,7 +415,7 @@ function Hero() {
           <br />
           <span className="muted">on one system.</span>
         </h1>
-        <p className="nx-lead">Sell in store and online, deliver, pay your people and suppliers, and get paid in any currency. Every record in one place.</p>
+        <p className="nx-lead">Sell in store and online, deliver, pay your people and suppliers, and get paid in any currency or in stablecoins. Every record in one place.</p>
 
         <form
           className="nx-ask"
@@ -409,7 +485,7 @@ function Hero() {
               <Tile icon="till" label="In store" st={['ok', 'Paid']} v="KES 48,200" s="62 sales · M-Pesa, bank, cash" />
               <Tile icon="cart" label="Online" st={['info', 'New']} v="23 orders" s="18 delivery · 5 pickup" />
               <Tile icon="truck" label="Deliveries" st={['ok', 'On route']} v="6 riders" s="Customers tracking live" />
-              <Tile icon="file" label="Invoices" st={['ok', 'Paid']} v="USD 1,200" s="Client abroad · pay link" />
+              <Tile icon="file" label="Invoices" st={['ok', 'Paid']} v="USDC 2,600" s="Partner abroad · stablecoin" />
               <Tile icon="users" label="Payroll" st={['wait', 'Approve']} v="18 staff" s="Friday run, tips included" />
               <Tile icon="receipt" label="Bills" st={['info', '3 waiting']} v="Suppliers" s="Approve, then pay" />
               <div className="nx-win-ai">
