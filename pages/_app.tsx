@@ -4,10 +4,6 @@ import 'styles/site-3d.css';
 import 'styles/docs.css';
 import 'styles/nx.css';
 import 'styles/nx-light.css';
-import 'swiper/css';
-import 'swiper/css/bundle';
-import 'swiper/css/navigation';
-import 'swiper/css/autoplay';
 import 'utils/suppressWarnings';
 
 import { AppProps } from 'next/dist/shared/lib/router/router';

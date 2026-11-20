@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { PropsWithChildren, useEffect, useRef } from 'react'
+import { PropsWithChildren, RefObject, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { EnvVars } from 'env'
 import { NavItems, SingleNavItem } from 'types'
@@ -186,8 +186,8 @@ function DrawerNavItem({ item, onNavigate }: { item: SingleNavItem; onNavigate: 
 }
 
 function DrawerCloseButton() {
-  const ref = useRef(null)
-  const a11yProps = OriginalDrawer.useA11yCloseButton(ref)
+  const ref = useRef<HTMLButtonElement>(null)
+  const a11yProps = OriginalDrawer.useA11yCloseButton(ref as unknown as RefObject<HTMLElement>)
 
   return <CloseIcon className="close-icon" _ref={ref} {...a11yProps} />
 }

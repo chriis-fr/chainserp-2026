@@ -54,7 +54,7 @@ export default function Navbar(_props: NavbarProps) {
 
   // The Products menu waits a moment before closing, so the pointer can travel from the button to the panel
   // (or slip off the edge briefly) without the menu vanishing.
-  const ddTimer = useRef<ReturnType<typeof setTimeout>>();
+  const ddTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const openDd = () => {
     clearTimeout(ddTimer.current);
     setDdOpen(true);
