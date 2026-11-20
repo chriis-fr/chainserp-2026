@@ -2,9 +2,26 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// The commit this build came from, for /api/health: the server's deployer checks it.
+const BUILD_COMMIT = (() => {
+  try {
+    return require('child_process').execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+  } catch {
+    return 'unknown';
+  }
+})();
+
+// Set by the Chains platform deployer on the server; Vercel and local dev never set it.
+const SELF_HOSTED = process.env.BUILD_STANDALONE === 'true';
+
 /** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
+
+  // On the server the site runs as a standalone Node app in a Docker container.
+  ...(SELF_HOSTED ? { output: 'standalone' } : {}),
+
+  env: { BUILD_COMMIT },
 
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 
@@ -17,14 +34,16 @@ module.exports = withBundleAnalyzer({
     ],
     deviceSizes: [320, 640, 1080, 1200],
     imageSizes: [64, 128],
+    // On the server, serve images as they are: resizing on request costs CPU the API and POS need.
+    unoptimized: SELF_HOSTED,
   },
 
   compiler: {
     styledComponents: true,
   },
 
-  // REQUIRED to silence the error and confirm intent
-  turbopack: {},
+  // Pin Turbopack's root to this project: the Desktop holds several Next projects side by side.
+  turbopack: { root: __dirname },
 
   // The SDK page became the TypeScript quickstart; keep old links working.
   async redirects() {
