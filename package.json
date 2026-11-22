@@ -42,7 +42,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.21.3",
     "@eslint/eslintrc": "^3.1.0",
-    "@fec/remark-a11y-emoji": "^3.1.0",
+    "@fec/remark-a11y-emoji": "^4.0.2",
     "@next/bundle-analyzer": "^13.3.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
