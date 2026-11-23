@@ -121,10 +121,20 @@ export const industries: SitePage[] = [
           'Or connect your existing shop to FleetOps through the API',
         ],
       },
+      {
+        heading: 'Or a shop that sells from your POS',
+        body: 'Chains Storefront is a branded shop that reads its products, prices and stock from Chains POS, takes M-Pesa, and puts web orders on the POS order board.',
+      },
+      {
+        heading: 'Stores running on Chains',
+        points: ['B&G Wines: online wine merchant in Kenya, delivered to the door (bg-wines.chains-erp.com)'],
+      },
     ],
     product: 'fleet',
     faqs: [],
     related: [
+      { label: 'Chains Storefront', href: '/features/online-storefronts' },
+      { label: 'Live store: B&G Wines', href: 'https://bg-wines.chains-erp.com' },
       { label: 'Storefront docs', href: '/logistics/docs/storefront' },
       { label: 'FleetOps', href: '/features/fleetops-logistics' },
     ],

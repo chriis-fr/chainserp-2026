@@ -257,6 +257,73 @@ export const features: SitePage[] = [
     keywords: ['fleet management Kenya', 'delivery management software', 'logistics API', 'Fleetbase'],
   },
   {
+    // Checked against the storefront code (bg-wines-storefront: lib/chains, storefront.config, next.config),
+    // chains-API pos-app/public.ts and menu.ts, the POS Orders page, and the duka host (custom domains).
+    slug: 'online-storefronts',
+    name: 'Chains Storefront',
+    eyebrow: 'Online stores',
+    title: 'Your own online shop, selling from your Chains POS',
+    description:
+      'A branded online shop that sells from Chains POS: same products, prices and stock, M-Pesa checkout, and web orders on the POS order board, ready for delivery.',
+    lead:
+      'Each business gets its own shop, designed for its brand and hosted by Chains: on a chains-erp.com address to start, and on the business’s own domain when it has one. There is no second catalogue to keep up, because the shop reads the same products the till sells.',
+    sections: [
+      {
+        heading: 'One catalogue, in the till and online',
+        points: [
+          'Products, categories, prices, photos and stock are read from Chains POS',
+          'Change a price in the POS and the shop shows it within minutes',
+          'An item with no stock left shows as sold out',
+          'Hide an item from the shop without taking it off the till',
+        ],
+      },
+      {
+        heading: 'Checkout and customers',
+        points: [
+          'M-Pesa payment prompt at checkout, collected through Chains',
+          'Web orders appear on the POS order board next to the orders from the floor',
+          'Customer accounts with order history, and order tracking by link',
+          'Search, filters and a product page for every item, all indexed for search engines',
+        ],
+      },
+      {
+        heading: 'Delivery',
+        points: [
+          'Delivery orders can be dispatched to drivers on FleetOps, the Chains logistics platform',
+          'Customers follow their delivery, and drivers capture proof of delivery',
+          'Already have a shop? Connect it to FleetOps through the API instead',
+        ],
+      },
+    ],
+    product: 'pos',
+    faqs: [
+      {
+        question: 'Do I need the POS till to have a shop?',
+        answer:
+          'No. A business that only sells online can have its products loaded into the Chains POS back office by our team, and the shop sells from there. The till can be added later.',
+      },
+      {
+        question: 'Can the shop use my own domain?',
+        answer: 'Yes. It starts on a chains-erp.com address, and moves to your domain once you point the domain at us.',
+      },
+      {
+        question: 'Can I see one running?',
+        answer: 'Yes: B&G Wines, an online wine merchant in Kenya, runs its shop on Chains at bg-wines.chains-erp.com.',
+      },
+    ],
+    related: [
+      { label: 'Live store: B&G Wines', href: 'https://bg-wines.chains-erp.com' },
+      { label: 'Chains POS', href: '/features/point-of-sale' },
+      { label: 'FleetOps logistics', href: '/features/fleetops-logistics' },
+      { label: 'Storefront API docs', href: '/logistics/docs/storefront' },
+      { label: 'Online shops', href: '/industries/ecommerce' },
+    ],
+    keywords: [
+      'online store Kenya', 'ecommerce website Kenya', 'online shop with M-Pesa', 'POS with online store',
+      'Chains ERP storefront', 'online ordering Nairobi', 'delivery website Kenya',
+    ],
+  },
+  {
     slug: 'chains-ai',
     name: 'Chains AI',
     eyebrow: 'Beta',
