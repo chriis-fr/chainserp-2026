@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { sendEmail } from 'utils/email';
+import { intake, intakeConfigured } from 'utils/chains-intake';
 
 /**
- * The docs' "Request access" form posts here, and this emails the request to Chains. Nothing is
- * stored and the Chains API is not involved: Chains reviews the email, approves the business, and
- * generates and sends its key from the FleetOps admin.
+ * The docs' "Request access" form posts here. The request is saved in Chains (chains-API
+ * /logistics/access-requests), where staff approve it from Admin → Logistics; approving sets up
+ * the business in FleetOps and emails them their test key. A copy is also emailed to Chains.
  *
  * Uses the same mail settings as the contact form (SMTP_*), so there is nothing new to configure.
  */
@@ -109,6 +110,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     building,
   ].join('\n');
 
+  // Saved first: that is what staff approve from. The email is a heads-up and a fallback.
+  let saved = false;
+  if (intakeConfigured()) {
+    try {
+      const r = await intake('/access-requests', {
+        method: 'POST',
+        body: { name, business, email, phone, kind, building, website, browserOrigin },
+      });
+      saved = r.ok;
+      if (!r.ok) console.error('[api-access-request] intake answered', r.status);
+    } catch (e) {
+      console.error('[api-access-request] intake failed', e instanceof Error ? e.name : e);
+    }
+  }
+
   try {
     await sendEmail({
       to: TO,
@@ -120,6 +136,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     return res.status(200).json({ success: true });
   } catch {
+    if (saved) return res.status(200).json({ success: true });
     return res.status(502).json({ error: 'We could not send your request. Please try again, or message us on WhatsApp.' });
   }
 }
