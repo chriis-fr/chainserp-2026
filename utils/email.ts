@@ -19,17 +19,6 @@ function createTransporter() {
   const rawPass = process.env.SMTP_PASSWORD || '';
   const pass = rawPass.replace(/^["']|["']$/g, '');
 
-  // Debug logging (remove sensitive data in production)
-  console.log('SMTP Config:', {
-    host,
-    port,
-    secure,
-    user,
-    rawPassLength: rawPass.length,
-    passLength: pass.length,
-    rawPassPreview: rawPass.substring(0, 2) + '...',
-  });
-
   const config = {
     host,
     port,
@@ -38,11 +27,8 @@ function createTransporter() {
       user,
       pass,
     },
-    // Additional options for better compatibility with Zoho
-    tls: {
-      rejectUnauthorized: false,
-      ciphers: 'SSLv3',
-    },
+    // TLS certificates are verified (Node's default). Zoho's are valid, and skipping the check
+    // would let anyone on the path read the mailbox password.
     // For Zoho, sometimes need to explicitly set auth method
     authMethod: 'PLAIN',
   };

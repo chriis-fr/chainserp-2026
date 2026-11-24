@@ -59,8 +59,9 @@ export default function RequestAccess() {
       <h2>What happens next</h2>
       <ol className="cx-list">
         <li>We review your request, usually within a working day.</li>
-        <li>If it's a fit, we email you, create your test organisation and send your test key.</li>
-        <li>You build against the test key. When a test delivery passes end to end, we issue your live key.</li>
+        <li>When we approve it, your own FleetOps account is created and your test key arrives by email, with a link to set your password.</li>
+        <li>If we need anything else (pickup addresses, delivery zones, your webhook), the email has a short form for it.</li>
+        <li>You build against the test key. When a test delivery passes end to end, we switch you to live and email your live key.</li>
       </ol>
 
       <h2>Your request</h2>
