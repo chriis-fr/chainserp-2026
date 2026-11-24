@@ -7,6 +7,9 @@ import { LINKS } from 'components/site/links';
 
 export const DOCS_NAV: { href: string; title: string; icon: IconName }[] = [
   { href: '/logistics/docs', title: 'Overview', icon: 'layers' },
+  // For the person watching the deliveries, not the one writing the code. Second, because
+  // it is what the test-key email links to and the first thing a new customer opens.
+  { href: '/logistics/docs/console', title: 'Your FleetOps console', icon: 'truck' },
   { href: '/logistics/docs/integrate', title: 'Connect your system', icon: 'globe' },
   { href: '/logistics/docs/storefront', title: 'Storefront', icon: 'till' },
   { href: '/logistics/docs/api', title: 'API reference', icon: 'file' },
