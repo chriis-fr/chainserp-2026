@@ -45,6 +45,12 @@ module.exports = withBundleAnalyzer({
   // Pin Turbopack's root to this project: the Desktop holds several Next projects side by side.
   turbopack: { root: __dirname },
 
+  // Documents shared by unlisted link (e.g. the investor deck): readable by anyone with the link,
+  // never listed by search engines.
+  async headers() {
+    return [{ source: '/d/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' }] }];
+  },
+
   // The SDK page became the TypeScript quickstart; keep old links working.
   async redirects() {
     return [
